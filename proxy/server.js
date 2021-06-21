@@ -10,16 +10,17 @@ const corsOptions = {
     origin: "http://localhost:3000"
 };
 
+// Comic Release API Endpoint
 const requestEndpoint = "https://api.shortboxed.com/comics/v1";
 
-// This function runs if the http://localhost:5000/getData endpoint
-// is requested with a GET request
+// This function runs if the http://localhost:5000/current endpoint
+// receives a HTTP GET request. API returns list of this week's
+// comic releases.
 app.get('/current', cors(corsOptions), async (req, res) => {
     try {
     const fetchOptions = {
         method: 'GET',
         headers: {
-            // accept: '*/*',
             Connection: 'keep-alive'
         },
         referrerPolicy: 'same-origin'
@@ -32,6 +33,9 @@ app.get('/current', cors(corsOptions), async (req, res) => {
     }
 });
 
+// This function runs if the http://localhost:5000/upcoming endpoint
+// receives a HTTP GET request. API returns list of next week's
+// comic releases.
 app.get('/upcoming', cors(corsOptions), async (req, res) => {
     try {
     const fetchOptions = {

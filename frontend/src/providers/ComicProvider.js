@@ -34,7 +34,6 @@ export const ComicProvider = (props) => {
             // }
         })
         .then((r) => r.json())
-        .then(setCurrentComics)
     };
 
     return (

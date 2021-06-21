@@ -11,11 +11,11 @@ import "../index.css"
 const Comic = ({ comic }) => {
     return (
         <>
-            <Card>
+            <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>
                 <Card.Image
                     size='4by2'
                     src={`https://www.tfaw.com/media/catalog/product/F/E/${comic.diamond_id}.jpg`} 
-                    className='comic-cover-img'
+                    // className='comic-cover-img'
                 />
                 <Card.Content>
                     <Content>

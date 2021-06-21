@@ -17,9 +17,9 @@ const CurrentComicsList = () => {
             //     <Title>Current Comics</Title>
             //     <Container fluid>
             <div>
-                {currentComics.map((comic) => {
+                {currentComics.map((comic) => (
                     <Comic key={comic.diamond_id} comic={comic} />
-                })}
+                ))}
             </div>
             //     </Container>
             // </Section>

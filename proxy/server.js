@@ -19,14 +19,13 @@ app.get('/current', cors(corsOptions), async (req, res) => {
     const fetchOptions = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            accept: 'application/json, text/plain, */*',
+            // accept: '*/*',
             Connection: 'keep-alive'
         },
-        referrerPolicy: 'no-referrer'
+        referrerPolicy: 'same-origin'
     }
     const response = await fetch(`${requestEndpoint}/new`, fetchOptions);
-    const jsonResponse = await response.json().then(console.log);
+    const jsonResponse = await response.json();
      res.json(jsonResponse);
     } catch (err) {
         console.log(`Error Message: ${err}`);

@@ -1,4 +1,4 @@
-import React, { useState, createContext  } from "react"
+import React, { useState, createContext } from "react"
 
 export const ComicContext = createContext();
 
@@ -11,11 +11,10 @@ export const ComicProvider = (props) => {
     const API_PROXY = 'http://localhost:5000'
 
     const getNewComics = () => {
-        return fetch(`${SB_API}/future`, {
-            method: "GET"
+        return fetch(`${API_PROXY}/upcoming`, {
+            // method: "GET"
         })
         .then((r) => r.json())
-        .then(setNewComics)
     }; 
     
     const getPreviousComics = () => {
@@ -35,7 +34,6 @@ export const ComicProvider = (props) => {
             // }
         })
         .then((r) => r.json())
-        .then(setCurrentComics)
     };
 
     return (

@@ -1,33 +1,37 @@
-import React, { useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { Link, useHistory } from "react-router-dom"
-import { ComicContext } from "../providers/ComicProvider";
+import React from "react";
+// import { useParams } from "react-router-dom";
+// import { Link, useHistory } from "react-router-dom"
+// import { ComicContext } from "../providers/ComicProvider";
 import { Card, 
-         CardImage, 
-         CardContent,
          Content,
-         Title,
          Tag
 } from "react-bulma-components";
+import "../index.css"
 
 const Comic = ({ comic }) => {
     return (
-        <Card>
-            <CardImage src={`https://www.tfaw.com/media/catalog/product/F/E/${comic.diamond_id}.jpg`} />
-            <CardContent>
-                <Content>
-                    <Title size={4}>{comic.title}</Title>
-                    <Title subtitle size={6}>{comic.creators}</Title>
-                    <Title subtitle size={7}>{comic.release_date}</Title>
-                </Content>
-                <Content>
-                    <Tag rounded>{comic.publisher}</Tag>
-                </Content>
-                <Content>
-                    {comic.description}
-                </Content>
-            </CardContent>
-        </Card>
+        <>
+            <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>
+                <Card.Image
+                    size='4by2'
+                    src={`https://www.tfaw.com/media/catalog/product/F/E/${comic.diamond_id}.jpg`} 
+                    // className='comic-cover-img'
+                />
+                <Card.Content>
+                    <Content>
+                        <h4 className="title is-4">{comic.title}</h4>
+                        <h6 className="title is-6">{comic.creators}</h6>
+                        <h6 className="title is-6">{comic.release_date}</h6>
+                    </Content>
+                    <Content>
+                        <Tag rounded>{comic.publisher}</Tag>
+                    </Content>
+                    <Content>
+                        {comic.description}
+                    </Content>
+                </Card.Content>
+            </Card>
+        </>
     );
 };
 

@@ -3,22 +3,22 @@ import React, { useContext, useEffect } from "react";
 import { ComicContext } from "../providers/ComicProvider";
 import { Section, Container } from "react-bulma-components";
 import Comic from "./Comic"
+import "../index.css"
 
 
-const CurrentComicsList = () => {
-    const { currentComics, setCurrentComics, getCurrentComics } = useContext(ComicContext);
+const UpcomingComicsList = () => {
+    const { newComics, setNewComics, getNewComics } = useContext(ComicContext);
 
     useEffect(() => {
-        getCurrentComics()
-        .then(setCurrentComics);
+        getNewComics()
+        .then(setNewComics);
     }, [])
 
     return (
             <Section>
-                <h2 className="title is-2">Current Comics</h2>
+            <h2 className="title is-2">Upcoming Comics</h2>
                 <Container fluid='true' className='comic-container'>
-
-                {currentComics.comics?.map((comic) => (
+                {newComics.comics?.map((comic) => (                
                     <Comic key={comic.diamond_id} comic={comic} />
                 ))}
                 </Container>
@@ -26,4 +26,4 @@ const CurrentComicsList = () => {
     ); 
 };
 
-export default CurrentComicsList;
+export default UpcomingComicsList;

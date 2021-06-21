@@ -1,31 +1,31 @@
 import React, { useState, useContext } from "react";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Navbar } from "react-bulma-components";
+// import { NavbarSection, NavbarLink } from "react-bulma-components/src/components/navbar"
 
 
 const Header = () => {
     return (
         <>
-        <nav className="navbar" role="navigation" aria-label="main navigation">
-            <div id="nav-home" className="navbar-menu">
-                <div className="navbar-start">
-                    <a className="navbar-item" tag={{RRNavLink}} to="/">
-                        Home
-                    </a>
+        <Navbar aria-label="main navigation" color='black'>            
+                <Navbar.Container position='start' tabs='true'>
+                    <Navbar.Link>
+                        <NavLink to="/">Home</NavLink>
+                    </Navbar.Link>
 
-                    <a className="navbar-item"  tag={{RRNavLink}} to="/past-comics">
-                        Past Comics
-                    </a>
+                    <Navbar.Link>
+                        <NavLink to="/past-comics">Past Comics</NavLink>                        
+                    </Navbar.Link>
 
-                    <a className="navbar-item"  tag={{RRNavLink}} to="/current-comics">
-                        Current Comics
-                    </a>
+                    <Navbar.Link>
+                        <NavLink to="/current-comics">Current Comics</NavLink>                        
+                    </Navbar.Link>
 
-                    <a className="navbar-item" tag={{RRNavLink}} to="/future-comics">
-                        Future Comics
-                    </a>
-                </div>
-            </div>
-        </nav>
+                    <Navbar.Link>
+                        <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>                        
+                    </Navbar.Link>
+                </Navbar.Container>            
+        </Navbar>
 
         </>
     );

@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import CurrentComicsList from "./CurrentComicsList";
 import UpcomingComicsList from "./UpcomingComicsList";
 import PastComicsList from "./PastComicList";
+import FoundIssuesList from "./FoundIssuesList";
 import Header from "./Header"
 
 export default function ApplicationViews() {
@@ -24,6 +25,10 @@ export default function ApplicationViews() {
                 <Route exact path="/previous-comics">
                     <Header />
                     <PastComicsList />
+                </Route>
+                <Route exact path="/search/issues">
+                    <Header />
+                    <FoundIssuesList />
                 </Route>
             </Switch>
         </main>

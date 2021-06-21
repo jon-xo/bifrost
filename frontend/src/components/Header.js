@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { Navbar, Icon, Form, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
@@ -33,7 +33,7 @@ const Header = () => {
                 </Navbar.Link>
             </Navbar.Container>
             <Navbar.Container align='end'>
-                <Navbar.Item active={true}>
+                <Navbar.Item active={true} hoverable={false}>
                     <form>
                         <Form.Field kind="addons">
                             <Form.Control>
@@ -41,7 +41,7 @@ const Header = () => {
                             </Form.Control>
                             <Form.Control>
                                 <Button color='info'>
-                                Search
+                                    Search
                                 </Button>
                             </Form.Control>
                         </Form.Field>

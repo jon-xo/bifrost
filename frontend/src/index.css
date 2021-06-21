@@ -14,16 +14,6 @@ code {
     monospace;
 }
 
-.comic-container img {
-  height: 20vh;
-  width: 12vw;
-}
-
-.comic-cover-img {
-  height: 55vh;
-  width: 40vw;
-}
-
 .logo-text-sansSerif
 {
   font-family: 'Raleway', sans-serif;

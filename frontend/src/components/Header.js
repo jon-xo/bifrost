@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar, Icon } from "react-bulma-components";
+import { Navbar, Icon, Form, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 import "../index.css"
@@ -12,12 +12,6 @@ const Header = () => {
         <Navbar aria-label="main navigation" color='dark'>            
             <Navbar.Brand>
                 <Navbar.Item>
-                {/* <img
-                    alt="Bulma: a modern CSS framework based on Flexbox"
-                    height="28"
-                    src="https://bulma.io/images/bulma-logo.png"
-                    width="112"
-                /> */}
                 <Icon className='logo-icon'>
                     <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
                 </Icon>
@@ -37,7 +31,23 @@ const Header = () => {
                 <Navbar.Link arrowless='true'>
                     <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>                        
                 </Navbar.Link>
-            </Navbar.Container>            
+            </Navbar.Container>
+            <Navbar.Container align='end'>
+                <Navbar.Item active={true}>
+                    <form>
+                        <Form.Field kind="addons">
+                            <Form.Control>
+                                <Form.Input placeholder="Find a post" />
+                            </Form.Control>
+                            <Form.Control>
+                                <Button color='info'>
+                                Search
+                                </Button>
+                            </Form.Control>
+                        </Form.Field>
+                    </form>
+                </Navbar.Item>
+            </Navbar.Container>  
         </Navbar>
         </>
     );

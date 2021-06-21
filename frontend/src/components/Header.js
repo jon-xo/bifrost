@@ -1,32 +1,44 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Navbar } from "react-bulma-components";
-// import { NavbarSection, NavbarLink } from "react-bulma-components/src/components/navbar"
+import { Navbar, Icon } from "react-bulma-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import "../index.css"
 
 
 const Header = () => {
     return (
         <>
-        <Navbar aria-label="main navigation" color='black'>            
-                <Navbar.Container position='start' tabs='true'>
-                    <Navbar.Link>
-                        <NavLink to="/">Home</NavLink>
-                    </Navbar.Link>
-
-                    <Navbar.Link>
-                        <NavLink to="/previous-comics">Previous Comics</NavLink>                        
-                    </Navbar.Link>
-
-                    <Navbar.Link>
-                        <NavLink to="/current-comics">Current Comics</NavLink>                        
-                    </Navbar.Link>
-
-                    <Navbar.Link>
-                        <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>                        
-                    </Navbar.Link>
-                </Navbar.Container>            
+        <Navbar aria-label="main navigation" color='dark'>            
+            <Navbar.Brand>
+                <Navbar.Item>
+                {/* <img
+                    alt="Bulma: a modern CSS framework based on Flexbox"
+                    height="28"
+                    src="https://bulma.io/images/bulma-logo.png"
+                    width="112"
+                /> */}
+                <Icon className='logo-icon'>
+                    <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
+                </Icon>
+                <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
+                </Navbar.Item>
+            </Navbar.Brand>
+            <Navbar.Container position='start' tabs='true'>
+                <Navbar.Link arrowless='true'>
+                    <NavLink to="/">Home</NavLink>
+                </Navbar.Link>
+                <Navbar.Link arrowless='true'>
+                    <NavLink to="/previous-comics">Previous Comics</NavLink>                        
+                </Navbar.Link>
+                <Navbar.Link arrowless='true'>
+                    <NavLink to="/current-comics">Current Comics</NavLink>                        
+                </Navbar.Link>
+                <Navbar.Link arrowless='true'>
+                    <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>                        
+                </Navbar.Link>
+            </Navbar.Container>            
         </Navbar>
-
         </>
     );
 };

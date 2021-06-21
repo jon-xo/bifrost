@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { Navbar } from "react-bulma-components";
 // import { NavbarSection, NavbarLink } from "react-bulma-components/src/components/navbar"
@@ -14,7 +14,7 @@ const Header = () => {
                     </Navbar.Link>
 
                     <Navbar.Link>
-                        <NavLink to="/past-comics">Past Comics</NavLink>                        
+                        <NavLink to="/previous-comics">Previous Comics</NavLink>                        
                     </Navbar.Link>
 
                     <Navbar.Link>

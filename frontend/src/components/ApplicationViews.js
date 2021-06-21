@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import CurrentComicsList from "./CurrentComicsList";
 import UpcomingComicsList from "./UpcomingComicsList";
+import PastComicsList from "./PastComicList";
 import Header from "./Header"
 
 export default function ApplicationViews() {
@@ -20,8 +21,9 @@ export default function ApplicationViews() {
                     <Header />
                     <UpcomingComicsList />                 
                 </Route>
-                <Route exact path="/past-comics">
+                <Route exact path="/previous-comics">
                     <Header />
+                    <PastComicsList />
                 </Route>
             </Switch>
         </main>

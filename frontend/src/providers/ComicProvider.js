@@ -12,13 +12,14 @@ export const ComicProvider = (props) => {
 
     const getNewComics = () => {
         return fetch(`${API_PROXY}/upcoming`, {
-            // method: "GET"
+            method: "GET"
         })
         .then((r) => r.json())
+        .then(setNewComics);
     }; 
     
     const getPreviousComics = () => {
-        return fetch(`${SB_API}/previous`, {
+        return fetch(`${API_PROXY}/previous`, {
             method: "GET"
         })
         .then((r) => r.json())
@@ -27,13 +28,10 @@ export const ComicProvider = (props) => {
 
     const getCurrentComics = () => {
         return fetch(`${API_PROXY}/current`, {
-            // method: "GET",
-            // headers: {
-            //     'Content-Type': 'application/json',
-            //     'Accept': '*/*'
-            // }
+            method: "GET"
         })
         .then((r) => r.json())
+        .then(setCurrentComics);
     };
 
     return (

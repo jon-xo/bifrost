@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { SearchComicContext } from "../providers/SearchComicProvider";
 import { Navbar, Icon, Form, Button } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
@@ -7,6 +8,21 @@ import "../index.css"
 
 
 const Header = () => {
+
+    const history = useHistory();
+    
+    const [ queryString, setQueryString ] = useState("");
+    const { searchIssues } = useContext(SearchComicContext)
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        const encodedQuery = encodeURIComponent(queryString)
+        searchIssues(encodedQuery)
+        .then(() => {
+            history.push("/search/issues")
+        })
+    };
+
     return (
         <>
         <Navbar aria-label="main navigation" color='dark'>            
@@ -37,10 +53,10 @@ const Header = () => {
                     <form>
                         <Form.Field kind="addons">
                             <Form.Control>
-                                <Form.Input placeholder="Find a post" />
+                                <Form.Input placeholder="Find a post" onChange={(e) => {setQueryString(e.target.value)}}/>
                             </Form.Control>
                             <Form.Control>
-                                <Button color='info'>
+                                <Button color='info' onClick={(e) => {handleSearch(e)}}>
                                     Search
                                 </Button>
                             </Form.Control>

@@ -7,9 +7,9 @@ import SearchComic from "./SearchComic";
 const FoundIssuesList = () => {
     const { foundComics, searchIssues } = useContext(SearchComicContext)
 
-    useEffect(() => {
-        searchIssues('Ultimate Spider-Man')
-    }, [])
+    // useEffect(() => {
+    //     searchIssues('Ultimate Spider-Man')
+    // }, [])
 
     return (
         <Section>

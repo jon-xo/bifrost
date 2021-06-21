@@ -9,11 +9,13 @@ export const SearchComicProvider = (props) => {
     const API_PROXY = 'http://localhost:5000/search'
 
     const searchIssues = (query) => {
-        return fetch(`${API_PROXY}/issues/${query}`, {
-            method: "GET"
-        })
-        .then((r) => r.json())
-        .then(setFoundComics)
+        if(query){
+            return fetch(`${API_PROXY}/issues/${query}`, {
+                method: "GET"
+            })
+            .then((r) => r.json())
+            .then(setFoundComics)
+        }
     };
 
     return (

@@ -6,8 +6,8 @@ export const ComicProvider = (props) => {
     const [ previousComics, setPreviousComics ] = useState([]);
     const [ currentComics, setCurrentComics ] = useState([]);
     const [ newComics, setNewComics ] = useState([]);
-    const CV_API_KEY = process.env.REACT_APP_COMIC_API_KEY;
-    const SB_API = 'https://api.shortboxed.com/comics/v1'
+    // const CV_API_KEY = process.env.REACT_APP_COMIC_API_KEY;
+    // const SB_API = 'https://api.shortboxed.com/comics/v1'
     const API_PROXY = 'http://localhost:5000'
 
     const getNewComics = () => {

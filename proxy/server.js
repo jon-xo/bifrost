@@ -55,6 +55,28 @@ app.get('/upcoming', cors(corsOptions), async (req, res) => {
     }
 });
 
+// This function runs if the http://localhost:5000/previous endpoint
+// receives a HTTP GET request. API returns list of last week's
+// comic releases.
+app.get('/previous', cors(corsOptions), async (req, res) => {
+    try {
+    const fetchOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            accept: 'application/json, text/plain, */*',
+            Connection: 'keep-alive'
+        },
+        referrerPolicy: 'no-referrer'
+    }
+    const response = await fetch(`${requestEndpoint}/previous`, fetchOptions);
+    const jsonResponse = await response.json();
+     res.json(jsonResponse);
+    } catch (err) {
+        console.log(`Error Message: ${err}`);
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Proxy app listening at http://localhost:${PORT}`);
 });

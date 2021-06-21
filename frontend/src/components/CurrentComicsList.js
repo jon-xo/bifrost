@@ -6,11 +6,10 @@ import Comic from "./Comic"
 
 
 const CurrentComicsList = () => {
-    const { currentComics, setCurrentComics, getCurrentComics } = useContext(ComicContext);
+    const { currentComics, getCurrentComics } = useContext(ComicContext);
 
     useEffect(() => {
-        getCurrentComics()
-        .then(setCurrentComics);
+        getCurrentComics();
     }, [])
 
     return (

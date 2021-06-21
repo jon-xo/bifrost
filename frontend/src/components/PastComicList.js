@@ -6,18 +6,18 @@ import Comic from "./Comic"
 import "../index.css"
 
 
-const UpcomingComicsList = () => {
-    const { newComics, getNewComics } = useContext(ComicContext);
+const PastComicsList = () => {
+    const { previousComics, getPreviousComics } = useContext(ComicContext);
 
     useEffect(() => {
-        getNewComics();
+        getPreviousComics();
     }, [])
 
     return (
             <Section>
-            <h2 className="title is-2">Upcoming Comics</h2>
+            <h2 className="title is-2">Previous Comics</h2>
                 <Container fluid='true' className='comic-container'>
-                {newComics.comics?.map((comic) => (                
+                {previousComics.comics?.map((comic) => (                
                     <Comic key={comic.diamond_id} comic={comic} />
                 ))}
                 </Container>
@@ -25,4 +25,4 @@ const UpcomingComicsList = () => {
     ); 
 };
 
-export default UpcomingComicsList;
+export default PastComicsList;

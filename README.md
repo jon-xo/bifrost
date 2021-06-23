@@ -1,4 +1,4 @@
-# bifröst — Track, share, and discuss the comics you 💙
+# bifröst 🌉 Track, share, & discuss comics you 💙
 
 
 ... **[WIP]** ...

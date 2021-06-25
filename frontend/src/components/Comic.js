@@ -54,7 +54,6 @@ const Comic = ({ comic }) => {
                     </Content>
                     <Content>
                         <Tag rounded>{comic.publisher}</Tag>
-                        <p>{comic.diamond_id}</p>
                     </Content>
                     <Content>
                         {comic.description}

@@ -8,7 +8,7 @@ export const ComicProvider = (props) => {
     const [ newComics, setNewComics ] = useState([]);
     // const CV_API_KEY = process.env.REACT_APP_COMIC_API_KEY;
     // const SB_API = 'https://api.shortboxed.com/comics/v1'
-    const API_PROXY = 'http://localhost:5000'
+    const API_PROXY = 'https://bifrost-proxy.herokuapp.com/api'
 
     const getNewComics = () => {
         return fetch(`${API_PROXY}/upcoming`, {

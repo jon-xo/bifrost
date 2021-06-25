@@ -6,7 +6,7 @@ export const SearchComicProvider = (props) => {
     const [ foundComics, setFoundComics ] = useState([]);
     // const CV_API_KEY = process.env.REACT_APP_COMIC_API_KEY;
     // const API_ISSUES = 'http://www.comicvine.com/api/issues'
-    const API_PROXY = 'http://localhost:5000/search'
+    const API_PROXY = 'https://bifrost-proxy.herokuapp.com/api/search'
 
     const searchIssues = (query) => {
         if(query){

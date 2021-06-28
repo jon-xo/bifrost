@@ -1,5 +1,6 @@
 {
   "name": "bifrost",
+  "proxy": "https://localhost:5001",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,7 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "bulma": "^0.9.3",
     "bulma-start": "^0.0.4",
-    "firebase": "^8.6.8",
+    "firebase": "^7.15.5",
     "react": "^17.0.2",
     "react-bulma-components": "^4.0.7",
     "react-dom": "^17.0.2",

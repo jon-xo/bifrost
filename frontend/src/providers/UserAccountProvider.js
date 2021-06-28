@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
-import * as firebase from "firebase/app";
 import { Progress } from "react-bulma-components";
+import * as firebase from "firebase/app";
 import "firebase/auth";
 
 export const UserAccountContext = createContext();
@@ -9,18 +9,19 @@ export const UserAccountProvider = (props) => {
     const apiUrl = "/api/useraccount";
 
     const userAccount = sessionStorage.getItem("userAccount");
-    const [ isLoggedIn, setIsLoggedIn ] = useState(userProfile != null);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(userAccount != null);
 
-    const [ isFirebaseReady, setIsFirebaseReady ] = useState(false);
+    const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     useEffect(() => {
-        firebase.auth().onAuthStateChanged((u) => {
-            setIsFirebaseReady(true);
-        })
+      firebase.auth().onAuthStateChanged((u) => {
+        setIsFirebaseReady(true);
+      });
     }, []);
+  
 
     const login = (email, pw) => {
         return firebase.auth().signInWithEmailAndPassword(email, pw)
-        .then((signInResponse) => {getUserProfile(signInResponse.user.uid)})
+        .then((signInResponse) => {getUserAccount(signInResponse.user.uid)})
         .then((userAccount) => {
             sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
             setIsLoggedIn(true);
@@ -35,8 +36,8 @@ export const UserAccountProvider = (props) => {
         })
     };
 
-    const register = (userAccoun, password) => {
-        return firebase.auth().createUserWIthEmailAndPassword(userAccoun.email, password)
+    const register = (userAccount, password) => {
+        return firebase.auth().createUserWIthEmailAndPassword(userAccount.email, password)
         .then((createResponse) => saveUser({...userAccount, firebaseUserId: createResponse.user.uid}))
         .then((savedUserAccount) => {
             sessionStorage.setItem("userAccount", JSON.stringify(savedUserAccount))
@@ -69,7 +70,7 @@ export const UserAccountProvider = (props) => {
     };
 
     return (
-        <UserAccountContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
+        <UserAccountContext.Provider value={{ login, logout, isLoggedIn, register, getToken }}>
             {isFirebaseReady ?
             props.children
             : <Progress
@@ -80,5 +81,5 @@ export const UserAccountProvider = (props) => {
               />
             }
         </UserAccountContext.Provider>
-    )
+    );
 };

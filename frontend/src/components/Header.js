@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { UserAccountContext } from "../providers/UserAccountProvider";
 import { SearchComicContext } from "../providers/SearchComicProvider";
-import { Navbar, Icon, Form, Button } from "react-bulma-components";
+import { Navbar, Icon, Form, Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import LoginDropdown from "./Auth/LoginDropdown";
+import RegisterDropdown from "./Auth/RegisterDropdown";
 import "../index.css"
 
 
@@ -25,7 +28,7 @@ const Header = () => {
 
     return (
         <>
-        <Navbar aria-label="main navigation" color='dark'>            
+        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top'>            
             <Navbar.Brand>
                 <Navbar.Item>
                 <Icon className='logo-icon'>
@@ -48,8 +51,8 @@ const Header = () => {
                     <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>                        
                 </Navbar.Link>
             </Navbar.Container>
-            <Navbar.Container align='end'>
-                <Navbar.Item active={true} hoverable={false}>
+            <Navbar.Container align='end' transparent='true'>
+                <Navbar.Item active={'true'} hoverable={'true'}>
                     <form>
                         <Form.Field kind="addons">
                             <Form.Control>
@@ -63,7 +66,15 @@ const Header = () => {
                         </Form.Field>
                     </form>
                 </Navbar.Item>
-            </Navbar.Container>  
+                </Navbar.Container>  
+                <Navbar.Container align='end'>
+                    <Navbar.Item active={'true'}>
+                        <Container>
+                            <LoginDropdown />
+                            <RegisterDropdown />
+                        </Container>
+                    </Navbar.Item>
+                </Navbar.Container>
         </Navbar>
         </>
     );

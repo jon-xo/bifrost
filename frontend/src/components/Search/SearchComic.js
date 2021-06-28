@@ -6,7 +6,7 @@ import { Card,
          Content,
          Tag
 } from "react-bulma-components";
-import "../index.css"
+import "../../index.css"
 
 const SearchComic = ({ comic }) => {
     return (

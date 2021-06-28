@@ -1,4 +1,4 @@
-USE [master]
+﻿USE [master]
 
 IF db_id('bifrost') IS NULL
     CREATE DATABASE [bifrost]
@@ -7,19 +7,20 @@ GO
 USE [bifrost]
 GO
 
-DROP TABLE IF EXISTS [User];
-DROP TABLE IF EXISTS [SavedContent];
-DROP TABLE IF EXISTS [Comments];
 DROP TABLE IF EXISTS [Follows];
+DROP TABLE IF EXISTS [Comments];
+DROP TABLE IF EXISTS [SavedContent];
+DROP TABLE IF EXISTS [UserAccount];
 GO
 
-CREATE TABLE [User] (
+CREATE TABLE [UserAccount] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [Name] nvarchar(255),
   [Email] nvarchar(255),
   [Firebase_Id] nvarchar(28),
   [UserSummary] nvarchar(280),
   [CreateDateTime] datetime NOT NULL,
+  [ImageLocation] nvarchar,
   [Private] bit
 )
 
@@ -40,7 +41,7 @@ CREATE TABLE [SavedContent] (
   [SeriesId] nvarchar(255),
   [Rating] int,
 
-  CONSTRAINT [FK_SavedContent_UId_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
+  CONSTRAINT [FK_SavedContent_UId_User] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id])
 )
 
 
@@ -53,7 +54,7 @@ CREATE TABLE [Comments] (
   [draft] bit,
 
   CONSTRAINT [FK_Comment_SavedContent] FOREIGN KEY ([SavedContentId]) REFERENCES [SavedContent] ([Id]),
-  CONSTRAINT [FK_Comment_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
+  CONSTRAINT [FK_Comment_User] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id])
 )
 
 
@@ -62,8 +63,8 @@ CREATE TABLE [Follows] (
   [UserId] int,
   [FollowId] int,
 
-  CONSTRAINT [FK_Follow_FollowHost] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id]),
-  CONSTRAINT [FK_Follow_Client] FOREIGN KEY ([FollowId]) REFERENCES [User] ([Id])
+  CONSTRAINT [FK_Follow_FollowHost] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id]),
+  CONSTRAINT [FK_Follow_Client] FOREIGN KEY ([FollowId]) REFERENCES [UserAccount] ([Id])
 )
 GO
 

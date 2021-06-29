@@ -40,6 +40,15 @@ const Header = () => {
         })
     };
 
+    // -- GitHub Issue Ticket # 2 ---
+    // [Navbar [Ticket #2]](https://github.com/jon-xo/bifrost/issues/3)
+    // 
+    // - Added burgerToggle to toggle nav visibilty when burger button
+    //   is displayed
+    // - Added dynamic Reading List and Follows nav items when user is logged in
+    // - Updated CSS classes for spacing and icons
+
+
     const burgerToggle = () => {
         // debugger
         setShowBurger(!showBurger);

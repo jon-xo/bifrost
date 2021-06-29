@@ -9,10 +9,10 @@ import { Card,
 } from "react-bulma-components";
 import "../index.css"
 
-const titleEdit = (string) => {
-    const editedString = string.replace(/ /g,"_");
-    return editedString;
-};
+// const titleEdit = (string) => {
+//     const editedString = string.replace(/ /g,"_");
+//     return editedString;
+// };
 
 // const imageUnavail = (event) => {
 //     const currentImg = event.target

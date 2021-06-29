@@ -11,7 +11,7 @@ const PastComicsList = () => {
 
     useEffect(() => {
         getPreviousComics();
-    }, [])
+    }, [getPreviousComics])
 
     return (
             <Section>

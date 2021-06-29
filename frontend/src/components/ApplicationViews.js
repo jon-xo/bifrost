@@ -1,9 +1,10 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+// import { UserAccountContext } from "../providers/UserAccountProvider";
 import CurrentComicsList from "./CurrentComicsList";
 import UpcomingComicsList from "./UpcomingComicsList";
 import PastComicsList from "./PastComicList";
-import FoundIssuesList from "./FoundIssuesList";
+import FoundIssuesList from "./Search/FoundIssuesList";
 import Header from "./Header"
 
 export default function ApplicationViews() {

@@ -15,7 +15,8 @@ GO
 
 CREATE TABLE [UserAccount] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
-  [Name] nvarchar(255),
+  [Name] nvarchar(64),
+  [DisplayName] nvarchar(32),
   [Email] nvarchar(255),
   [Firebase_Id] nvarchar(28),
   [UserSummary] nvarchar(280),

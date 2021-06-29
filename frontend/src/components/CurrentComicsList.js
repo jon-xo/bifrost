@@ -10,7 +10,7 @@ const CurrentComicsList = () => {
 
     useEffect(() => {
         getCurrentComics();
-    }, [currentComics])
+    }, [currentComics, getCurrentComics])
 
     return (
             <Section>

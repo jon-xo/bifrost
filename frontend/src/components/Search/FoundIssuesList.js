@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 // import { useHistory } from "react-router-dom"
-import { SearchComicContext } from "../providers/SearchComicProvider";
+import { SearchComicContext } from "../../providers/SearchComicProvider";
 import { Section, Container } from "react-bulma-components";
 import SearchComic from "./SearchComic";
 
 const FoundIssuesList = () => {
-    const { foundComics, searchIssues } = useContext(SearchComicContext)
+    const { foundComics } = useContext(SearchComicContext)
 
     // useEffect(() => {
     //     searchIssues('Ultimate Spider-Man')

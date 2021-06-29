@@ -5,6 +5,6 @@ namespace bifrost.Repository
     public interface IUserAccountRepository
     {
         void Add(UserAccount userAccount);
-        UserAccount GetByFireBaseUserId(string firebaseUserId);
+        UserAccount GetByFirebaseUserId(string firebaseUserId);
     }
 }

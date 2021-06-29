@@ -10,7 +10,7 @@ namespace bifrost.Repository
     {
         public UserAccountRepository(IConfiguration configuration) : base(configuration) { }
 
-        public UserAccount GetByFireBaseUserId(string firebaseUserId)
+        public UserAccount GetByFirebaseUserId(string firebaseUserId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -19,7 +19,7 @@ namespace bifrost.Repository
                 {
                     cmd.CommandText = @"SELECT 
                                                Id,
-                                               FirebaseUserId, 
+                                               Firebase_Id, 
                                                Name,
                                                DisplayName,
                                                Email,
@@ -28,9 +28,9 @@ namespace bifrost.Repository
                                                UserSummary,
                                                Private
                                         FROM UserAccount
-                                        WHERE FirebaseUserId = @FirebaseuserId";
+                                        WHERE Firebase_Id = @Firebase_Id";
 
-                    DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
+                    DbUtils.AddParameter(cmd, "@Firebase_Id", firebaseUserId);
 
                     UserAccount userAccount = null;
 
@@ -40,7 +40,7 @@ namespace bifrost.Repository
                         userAccount = new UserAccount()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                            FirebaseUserId = DbUtils.GetString(reader, "Firebase_Id"),
                             Name = DbUtils.GetString(reader, "Name"),
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
                             Email = DbUtils.GetString(reader, "Email"),
@@ -65,7 +65,6 @@ namespace bifrost.Repository
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO UserAccount (
-                                                Id, 
                                                 [Name], 
                                                 DisplayName, 
                                                 Email,
@@ -76,10 +75,10 @@ namespace bifrost.Repository
                                                 [Private])
                                          OUTPUT INSERTED.ID
                                          VALUES ( 
-                                                @Firebase_Id, 
                                                 @Name, 
                                                 @DisplayName, 
                                                 @Email,
+                                                @Firebase_Id, 
                                                 @UserSummary, 
                                                 @CreateDateTime, 
                                                 @ImageLocation, 

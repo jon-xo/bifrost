@@ -4,7 +4,8 @@ import { UserAccountContext } from "../providers/UserAccountProvider";
 import { SearchComicContext } from "../providers/SearchComicProvider";
 import { Navbar, Icon, Form, Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faCog, faArrowCircleRight, faSearch } from '@fortawesome/free-solid-svg-icons'
+// import { faArrowAltCircleRight,  } from "@fortawesome/free-regular-svg-icons";
 import LoginDropdown from "./Auth/LoginDropdown";
 import RegisterDropdown from "./Auth/RegisterDropdown";
 import "../index.css"
@@ -27,7 +28,8 @@ const Header = () => {
     const { isLoggedIn, logout } = useContext(UserAccountContext);
     
     const [ queryString, setQueryString ] = useState("");
-    const { searchIssues } = useContext(SearchComicContext)
+    const { searchIssues } = useContext(SearchComicContext);
+    const [ showBurger, setShowBurger ] = useState(false);
 
     const handleSearch = (event) => {
         event.preventDefault();
@@ -38,9 +40,14 @@ const Header = () => {
         })
     };
 
+    const burgerToggle = () => {
+        // debugger
+        setShowBurger(!showBurger);
+    }; 
+
     return (
         <>
-        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top' active='false'>            
+        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top' active={showBurger}>            
             <Navbar.Brand>
                 <Navbar.Item>
                 <Icon className='logo-icon'>
@@ -48,7 +55,8 @@ const Header = () => {
                 </Icon>
                 <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
                 </Navbar.Item>
-            </Navbar.Brand>
+                <Navbar.Burger onClick={burgerToggle}/>            
+            </Navbar.Brand>            
             <Navbar.Menu>
                 <Navbar.Container position='start' tabs='true'>
                     <Navbar.Link arrowless='true'>
@@ -74,7 +82,7 @@ const Header = () => {
                             </Navbar.Link>
                         </Navbar.Dropdown>
                     </Navbar.Item>
-                    {/* {isLoggedIn ?
+                    {isLoggedIn ?
                          <Navbar.Link arrowless='true'>
                              <NavLink to="/">Reading List</NavLink>
                          </Navbar.Link>
@@ -87,32 +95,45 @@ const Header = () => {
                          </Navbar.Link>
                         :
                         <></>
-                    } */}
+                    }
                 </Navbar.Container>
-            </Navbar.Menu>
-            <Navbar.Container align='end' transparent='true'>
-                <Navbar.Item active={'true'} hoverable={'true'}>
-                    <form>
-                        <Form.Field kind="addons">
-                            <Form.Control>
-                                <Form.Input placeholder="Find a post" onChange={(e) => {setQueryString(e.target.value)}}/>
-                            </Form.Control>
-                            <Form.Control>
-                                <Button color='info' onClick={(e) => {handleSearch(e)}}>
-                                    Search
-                                </Button>
-                            </Form.Control>
-                        </Form.Field>
-                    </form>
-                </Navbar.Item>
-                </Navbar.Container>  
-                <Navbar.Container align='end'>
+
+                <Navbar.Container align='right' transparent='true' className='nav-controls'>
                     <Navbar.Item active={'true'}>
-                        <Container>
+                        <form>
+                            <Form.Field kind="addons">
+                                <Form.Control>
+                                    <Form.Input placeholder="Find a post" onChange={(e) => {setQueryString(e.target.value)}}/>
+                                </Form.Control>
+                                <Form.Control>
+                                    <Button color='info' onClick={(e) => {handleSearch(e)}}>
+                                        <Icon className='logo-icon'>
+                                            <FontAwesomeIcon icon={faSearch} />
+                                        </Icon>
+                                        Search
+                                    </Button>
+                                </Form.Control>
+                            </Form.Field>
+                        </form>
+                    </Navbar.Item>
+                </Navbar.Container>  
+                <Navbar.Container align='right' className='nav-controls'>
+                    <Navbar.Item active={'true'}>
+                        <Container className='container-base'>
                             {isLoggedIn ?
                             <>
-                                <Button color='warning' colorVariant='light'>Settings</Button>
-                                <Button color='danger' colorVariant='light' onClick={logout}>Log Out</Button>
+                                <Button color='info' colorVariant='light'>
+                                    <Icon className='logo-icon'>
+                                        <FontAwesomeIcon icon={faCog} />
+                                    </Icon>
+                                    Settings
+                                </Button>
+                                <Button color='danger' colorVariant='light' onClick={logout}>
+                                    <Icon className='logo-icon'>
+                                        <FontAwesomeIcon icon={faArrowCircleRight} />
+                                    </Icon>
+                                    Log Out
+                                </Button>
                             </>
                             :
                             <>
@@ -123,6 +144,7 @@ const Header = () => {
                         </Container>
                     </Navbar.Item>
                 </Navbar.Container>
+                </Navbar.Menu>
         </Navbar>
         </>
     );

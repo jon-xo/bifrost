@@ -38,7 +38,7 @@ const RegisterDropdown = () => {
             setWarningProps({ 
                 textSize: 5,
                 color: 'warning', 
-                hidden: 'false',  
+                hidden: false,  
                 message: `${name}: ${"\n"} ${"\n"}your passwords do not match, try again.`
             });
         } else {

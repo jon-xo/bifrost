@@ -37,7 +37,7 @@ const LoginDropdown = () => {
             setWarningProps({ 
                 textSize: 5,
                 color: 'warning', 
-                hidden: 'false',  
+                hidden: false,  
                 message: 'Invalid email or password'
             });
         });

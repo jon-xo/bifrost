@@ -30,3 +30,13 @@ code {
 .logo-icon {
   margin-right: .5rem !important;
 }
+
+.container-base button {
+  padding: 1rem;
+  margin: 0 .3rem;
+}
+
+.nav-controls div, form, button {
+  display: flex;
+  justify-content: center;
+}

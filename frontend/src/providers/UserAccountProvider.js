@@ -45,7 +45,7 @@ export const UserAccountProvider = (props) => {
         return firebase.auth().signInWithEmailAndPassword(email, pw)
         .then((signInResponse) => getUserAccount(signInResponse.user.uid))
         .then((userAccount) => {
-            setWarningProps({hidden: 'true'});
+            setWarningProps({hidden: true});
             setIsLoggedIn(true);
             sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
         });
@@ -56,7 +56,7 @@ export const UserAccountProvider = (props) => {
         .then(() => {
             sessionStorage.clear();
             setIsLoggedIn(false);
-            setWarningProps({hidden: 'true'});
+            setWarningProps({hidden: true});
         })
     };
 
@@ -71,7 +71,7 @@ export const UserAccountProvider = (props) => {
         .then((savedUserAccount) => {
             sessionStorage.setItem("userAccount", JSON.stringify(savedUserAccount))
             setIsLoggedIn(true);
-            setWarningProps({hidden: 'true'});
+            setWarningProps({hidden: true});
         })
     };
 

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
-import { Button, Dropdown, Icon, Form, Notification } from "react-bulma-components";
+import { useHistory } from "react-router-dom";
+import { Button, Dropdown, Icon, Form } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 import { UserAccountContext } from "../../providers/UserAccountProvider";
@@ -8,6 +8,21 @@ import WarnUser from "../WarnUser";
 import "../../index.css"
 
 const LoginDropdown = () => {
+    // -- GitHub Issue Ticket # 1 ---
+    // [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+    // 
+    // - LoginDropdown imports register method and warningProps/setWarningProps
+    // from UserAccountProvider
+    // - Unique state is declared for email, password -- state is updated with 
+    // onChange event listner for each related form field
+    // - handleLogin is envoked onClick and prevents default function,
+    // catch method adds a new object to warningProps state depending on error condition,
+    // once warningProps state is modified with key/value hidden/false,
+    // the WarnUser method is envoked. 
+    // On succesful user form submission, login method is called and user is logged in. 
+    // 
+
+    
     const history = useHistory();
     const { login, warningProps, setWarningProps } = useContext(UserAccountContext);
 
@@ -37,7 +52,7 @@ const LoginDropdown = () => {
             label="Login"
         >
             <Dropdown.Item
-                 renderAs="field"
+                 renderAs="Field"
                  value="form"
             >
                 <WarnUser {...warningProps} />

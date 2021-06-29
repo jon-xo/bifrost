@@ -11,6 +11,16 @@ import "../index.css"
 
 
 const Header = () => {
+    // -- GitHub Issue Ticket # 1 ---
+    // [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+    // 
+    // - Added isLoggedIn state and logout method from UserAccountProvider to check
+    // Firebase Status
+    // - Created dedicated methods for Login and Registration Dropdowns
+    // - Added ternary to display logout/settings button comboniation,
+    // when succesful login/registration has occured.
+    // 
+
 
     const history = useHistory();
 

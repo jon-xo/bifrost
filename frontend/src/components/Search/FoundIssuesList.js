@@ -5,7 +5,7 @@ import { Section, Container } from "react-bulma-components";
 import SearchComic from "./SearchComic";
 
 const FoundIssuesList = () => {
-    const { foundComics, searchIssues } = useContext(SearchComicContext)
+    const { foundComics } = useContext(SearchComicContext)
 
     // useEffect(() => {
     //     searchIssues('Ultimate Spider-Man')

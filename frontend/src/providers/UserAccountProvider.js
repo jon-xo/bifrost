@@ -6,6 +6,27 @@ import "firebase/auth";
 export const UserAccountContext = createContext();
 
 export const UserAccountProvider = (props) => {
+    // --- GitHub Issue Ticket # 1 ---
+    // [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+    // 
+    // - apiUrl variable is declared for API url
+    // - UserAccount Provider methods
+    //    - login accepts email and password paramaters and envokes
+    //    the signInWithEmailAndPassword firebase method which returns
+    //    the related user's UUID in the async call and passed as a parameter
+    //    to the getUserAccount method. The returned user account is stored
+    //    in sessionStorage. Once sessionStorage is updated, IsLoggedIn is toggled
+    //    and WarningProps receives hidden/true key/value pair
+    //    - logout access the firebase signOut method and clears the user from 
+    //    sessionStorage. Once sessionStorage is updated, IsLoggedIn is toggled
+    //    and WarningProps receives hidden/true key/value pair
+    //    - getUserAccount retrives firebase token and performs GET fetch method
+    //    if user is found, database returns user object in JSON
+    //    - saveUser retrives firebase token and adds the passed user object
+    //    and sends object to database
+    // 
+
+    
     const apiUrl = "https://localhost:5001/api/useraccount";
 
     const userAccount = sessionStorage.getItem("userAccount");

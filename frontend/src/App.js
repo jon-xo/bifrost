@@ -4,7 +4,7 @@ import ApplicationViews from "./components/ApplicationViews";
 import { ComicProvider } from './providers/ComicProvider';
 import { SearchComicProvider } from './providers/SearchComicProvider';
 import { UserAccountProvider } from "./providers/UserAccountProvider";
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import 'bulma/css/bulma.min.css';
 import './App.css';
 

@@ -10,6 +10,16 @@ namespace bifrost.Repository
     {
         public UserAccountRepository(IConfiguration configuration) : base(configuration) { }
 
+        /// <summary>
+        ///  --- GitHub Issue Ticket # 1 ---
+        ///  [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+        ///  
+        ///  GetByFirebaseUserId performs SQL query with the passed firebaseUserId
+        ///  and if found, builds an object using the UserAccount class
+        /// </summary>
+        /// <param name="firebaseUserId">Firebase UUID.</param>
+        /// <returns>userAccount object.</returns>
+
         public UserAccount GetByFirebaseUserId(string firebaseUserId)
         {
             using (SqlConnection conn = Connection)
@@ -56,6 +66,16 @@ namespace bifrost.Repository
                 }
             }
         }
+
+        /// <summary>
+        ///  --- GitHub Issue Ticket # 1 ---
+        ///  [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+        ///  
+        ///  Add performs SQL query with the received userAccount objec
+        ///  and assigns the values to the related UserAccount table columns
+        /// </summary>
+        /// <param name="userAccount">Current userAccount from frontend provider</param>
+        /// <returns>User ID</returns>
 
         public void Add(UserAccount userAccount)
         {

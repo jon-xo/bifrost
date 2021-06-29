@@ -18,6 +18,15 @@ namespace bifrost.Controllers
             _userAccountRepository = userAccountRepository;
         }
 
+        /// <summary>
+        ///  --- GitHub Issue Ticket # 1 ---
+        ///  [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+        ///  
+        ///  GetUserProfile is called on GET method with firebaseUserId as route parameter,
+        ///  method then envokes GetByFirebaseUserId from the private userAccountRepository
+        ///  and returns Ok status with matching object or null
+        /// </summary>
+
         // GET: api/<ValuesController>
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetUserProfile(string firebaseUserId)
@@ -25,7 +34,15 @@ namespace bifrost.Controllers
             return Ok(_userAccountRepository.GetByFirebaseUserId(firebaseUserId));
         }
 
-
+        /// <summary>
+        ///  --- GitHub Issue Ticket # 1 ---
+        ///  [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
+        ///  
+        ///  Post is called on POST method and accepts a userAccount object,
+        ///  method then envokes Add from the private userAccountRepository
+        ///  and returns succesfully created userAccount with firebase UUID and
+        ///  database ID
+        /// </summary>
 
         // POST api/<ValuesController>
         [HttpPost]

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 // import { UserAccountContext } from "../providers/UserAccountProvider";
 import CurrentComicsList from "./CurrentComicsList";

@@ -11,7 +11,7 @@ const UpcomingComicsList = () => {
 
     useEffect(() => {
         getNewComics();
-    }, [])
+    }, [getNewComics])
 
     return (
             <Section>

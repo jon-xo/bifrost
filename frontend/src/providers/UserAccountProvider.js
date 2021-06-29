@@ -6,10 +6,11 @@ import "firebase/auth";
 export const UserAccountContext = createContext();
 
 export const UserAccountProvider = (props) => {
-    const apiUrl = "/api/useraccount";
+    const apiUrl = "https://localhost:5001/api/useraccount";
 
     const userAccount = sessionStorage.getItem("userAccount");
     const [ isLoggedIn, setIsLoggedIn ] = useState(userAccount != null);
+    const [ warningProps, setWarningProps ] = useState({});
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     useEffect(() => {
@@ -21,11 +22,12 @@ export const UserAccountProvider = (props) => {
 
     const login = (email, pw) => {
         return firebase.auth().signInWithEmailAndPassword(email, pw)
-        .then((signInResponse) => {getUserAccount(signInResponse.user.uid)})
+        .then((signInResponse) => getUserAccount(signInResponse.user.uid))
         .then((userAccount) => {
-            sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
+            setWarningProps({hidden: 'true'});
             setIsLoggedIn(true);
-        })
+            sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
+        });
     };
 
     const logout = () => {
@@ -33,15 +35,22 @@ export const UserAccountProvider = (props) => {
         .then(() => {
             sessionStorage.clear();
             setIsLoggedIn(false);
+            setWarningProps({hidden: 'true'});
         })
     };
 
     const register = (userAccount, password) => {
-        return firebase.auth().createUserWIthEmailAndPassword(userAccount.email, password)
+        return firebase.auth().createUserWithEmailAndPassword(userAccount.email, password)
+        // .then((r) => {
+        //     r.user.updateProfile({
+        //         DisplayName: userAccount.displayName
+        //     })
+        // })
         .then((createResponse) => saveUser({...userAccount, firebaseUserId: createResponse.user.uid}))
         .then((savedUserAccount) => {
             sessionStorage.setItem("userAccount", JSON.stringify(savedUserAccount))
             setIsLoggedIn(true);
+            setWarningProps({hidden: 'true'});
         })
     };
 
@@ -49,12 +58,13 @@ export const UserAccountProvider = (props) => {
 
     const getUserAccount = (firebaseUserId) => {
         return getToken().then((token) => 
+        
         fetch(`${apiUrl}/${firebaseUserId}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        }).then(resp => resp.json()));
+        }).then(r => r.json()));
     };
 
     const saveUser = (userAccount) => {
@@ -70,7 +80,16 @@ export const UserAccountProvider = (props) => {
     };
 
     return (
-        <UserAccountContext.Provider value={{ login, logout, isLoggedIn, register, getToken }}>
+        <UserAccountContext.Provider 
+            value={{ 
+                login, 
+                logout, 
+                isLoggedIn, 
+                register, 
+                getToken, 
+                warningProps, 
+                setWarningProps 
+            }}>
             {isFirebaseReady ?
             props.children
             : <Progress

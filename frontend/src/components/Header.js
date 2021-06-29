@@ -13,6 +13,8 @@ import "../index.css"
 const Header = () => {
 
     const history = useHistory();
+
+    const { isLoggedIn, logout } = useContext(UserAccountContext);
     
     const [ queryString, setQueryString ] = useState("");
     const { searchIssues } = useContext(SearchComicContext)
@@ -28,7 +30,7 @@ const Header = () => {
 
     return (
         <>
-        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top'>            
+        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top' active='false'>            
             <Navbar.Brand>
                 <Navbar.Item>
                 <Icon className='logo-icon'>
@@ -37,20 +39,47 @@ const Header = () => {
                 <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
                 </Navbar.Item>
             </Navbar.Brand>
-            <Navbar.Container position='start' tabs='true'>
-                <Navbar.Link arrowless='true'>
-                    <NavLink to="/">Home</NavLink>
-                </Navbar.Link>
-                <Navbar.Link arrowless='true'>
-                    <NavLink to="/previous-comics">Previous Comics</NavLink>                        
-                </Navbar.Link>
-                <Navbar.Link arrowless='true'>
-                    <NavLink to="/current-comics">Current Comics</NavLink>                        
-                </Navbar.Link>
-                <Navbar.Link arrowless='true'>
-                    <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>                        
-                </Navbar.Link>
-            </Navbar.Container>
+            <Navbar.Menu>
+                <Navbar.Container position='start' tabs='true'>
+                    <Navbar.Link arrowless='true'>
+                        <NavLink to="/">Home</NavLink>
+                    </Navbar.Link>
+                    <Navbar.Item
+                        // active="false"
+                        hoverable="false"
+                        href="#"
+                    >
+                        <Navbar.Link arrowless='true'>
+                            Releases
+                        </Navbar.Link>
+                        <Navbar.Dropdown>
+                            <Navbar.Link arrowless='true'>
+                                <NavLink to="/previous-comics">Previous Comics</NavLink>
+                            </Navbar.Link>
+                            <Navbar.Link arrowless='true'>
+                                <NavLink to="/current-comics">Current Comics</NavLink>
+                            </Navbar.Link>
+                            <Navbar.Link arrowless='true'>
+                                <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>
+                            </Navbar.Link>
+                        </Navbar.Dropdown>
+                    </Navbar.Item>
+                    {/* {isLoggedIn ?
+                         <Navbar.Link arrowless='true'>
+                             <NavLink to="/">Reading List</NavLink>
+                         </Navbar.Link>
+                        :
+                        <></>
+                    }
+                    {isLoggedIn ?
+                         <Navbar.Link arrowless='true'>
+                             <NavLink to="/">Follows</NavLink>
+                         </Navbar.Link>
+                        :
+                        <></>
+                    } */}
+                </Navbar.Container>
+            </Navbar.Menu>
             <Navbar.Container align='end' transparent='true'>
                 <Navbar.Item active={'true'} hoverable={'true'}>
                     <form>
@@ -70,8 +99,17 @@ const Header = () => {
                 <Navbar.Container align='end'>
                     <Navbar.Item active={'true'}>
                         <Container>
-                            <LoginDropdown />
-                            <RegisterDropdown />
+                            {isLoggedIn ?
+                            <>
+                                <Button color='warning' colorVariant='light'>Settings</Button>
+                                <Button color='danger' colorVariant='light' onClick={logout}>Log Out</Button>
+                            </>
+                            :
+                            <>
+                                <LoginDropdown />
+                                <RegisterDropdown />
+                            </>
+                            }
                         </Container>
                     </Navbar.Item>
                 </Navbar.Container>

@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Button, Dropdown, Icon, Form } from "react-bulma-components";
+import { Button, Dropdown, Icon, Form, Notification } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 import { UserAccountContext } from "../../providers/UserAccountProvider";
+import WarnUser from "../WarnUser";
 import "../../index.css"
 
 const LoginDropdown = () => {
     const history = useHistory();
-    const { login } = useContext(UserAccountContext);
+    const { login, warningProps, setWarningProps } = useContext(UserAccountContext);
 
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
@@ -17,18 +18,16 @@ const LoginDropdown = () => {
         e.preventDefault();
         login(email, password)
         .then(() => history.push("/"))
-        .catch(() => alert("Invalid email or password"));
+        .catch(() => {
+            setWarningProps({ 
+                textSize: 5,
+                color: 'warning', 
+                hidden: 'false',  
+                message: 'Invalid email or password'
+            });
+        });
     }
 
-    
-    // const handleSearch = (event) => {
-    //     event.preventDefault();
-    //     const encodedQuery = encodeURIComponent(queryString)
-    //     searchIssues(encodedQuery)
-    //     .then(() => {
-    //         history.push("/search/issues")
-    //     })
-    // };
     
     return (
         <Dropdown
@@ -41,6 +40,7 @@ const LoginDropdown = () => {
                  renderAs="field"
                  value="form"
             >
+                <WarnUser {...warningProps} />
                 <Form.Field>
                     <Form.Control>
                         <Form.Label>
@@ -53,6 +53,7 @@ const LoginDropdown = () => {
                             status="hover"
                             type="text"
                             id="email"
+                            onChange={(e) => {setEmail(e.target.value)}}
                         />
                         <Form.Label>
                             Password
@@ -64,6 +65,7 @@ const LoginDropdown = () => {
                             status="hover"
                             type="password"
                             id="password"
+                            onChange={(e) => {setPassword(e.target.value)}}
                         />
                     </Form.Control>
                 </Form.Field>

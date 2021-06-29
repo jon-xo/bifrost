@@ -1,11 +1,48 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Button, Dropdown, Icon, Form } from "react-bulma-components";
+import { Button, Dropdown, Icon, Form, Notification } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
+import WarnUser from "../WarnUser";
 import "../../index.css"
 
 const RegisterDropdown = () => {
+    const history = useHistory();
+    const { register, warningProps, setWarningProps } = useContext(UserAccountContext);
+
+    const [ name, setName] = useState();
+    const [ email, setEmail ] = useState();
+    const [ password, setPassword ] = useState();
+    const [ confirmPassword, setConfirmPassword ] = useState();
+    const [ displayName, setDisplayName ] = useState();
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        if(password !== confirmPassword){
+            setWarningProps({ 
+                textSize: 5,
+                color: 'warning', 
+                hidden: 'false',  
+                message: `${name}: ${"\n"} ${"\n"}your passwords do not match, try again.`
+            });
+        } else {
+            const userAccount = { name, email, displayName}
+            register(userAccount, password)
+            .then(() => history.push("/"))
+            .catch((c) => {
+                if(c.code === "auth/email-already-in-use"){
+                    setWarningProps({ 
+                        textSize: 5,
+                        color: 'warning', 
+                        hidden: 'false',  
+                        message: `The email ${email} is already in use.`
+                    })
+                }
+            });
+        }
+    }
+    
     return (
         <Dropdown
             closeOnSelect={false}
@@ -19,6 +56,7 @@ const RegisterDropdown = () => {
                  renderAs="field"
                  value="form"
             >
+                <WarnUser {...warningProps} />
                 <Form.Field>
                     <Form.Control>
                         <Form.Label>
@@ -26,20 +64,33 @@ const RegisterDropdown = () => {
                         </Form.Label>
                         <Form.Input
                             color="primary"
-                            placeholder="e.g. Adam the Great"
+                            placeholder="Steve Rogers"
                             size="medium"
                             status="hover"
                             type="text"
+                            onChange={(e) => {setName(e.target.value)}}
+                        />
+                        <Form.Label>
+                            Username
+                        </Form.Label>
+                        <Form.Input
+                            color="primary"
+                            placeholder="Cap1776"
+                            size="medium"
+                            status="hover"
+                            type="text"
+                            onChange={(e) => {setDisplayName(e.target.value)}}
                         />
                         <Form.Label>
                             Email
                         </Form.Label>
                         <Form.Input
                             color="primary"
-                            placeholder="e.g. user@example.com"
+                            placeholder="user@example.com"
                             size="medium"
                             status="hover"
                             type="text"
+                            onChange={(e) => {setEmail(e.target.value)}}
                         />
                         <Form.Label>
                             Password
@@ -50,12 +101,24 @@ const RegisterDropdown = () => {
                             size="medium"
                             status="hover"
                             type="password"
+                            onChange={(e) => {setPassword(e.target.value)}}
+                        />
+                        <Form.Label>
+                            Confirm Password
+                        </Form.Label>
+                        <Form.Input
+                            color="primary"
+                            placeholder="password"
+                            size="medium"
+                            status="hover"
+                            type="password"
+                            onChange={(e) => {setConfirmPassword(e.target.value)}}
                         />
                     </Form.Control>
                 </Form.Field>
                 <Form.Field kind="group">
                     <Form.Control>
-                        <Button color="primary">Register</Button>
+                        <Button color="primary" onClick={(e) => {handleRegister(e)}}>Register</Button>
                     </Form.Control>
                     <Form.Control>
                         <Button color="link" colorVariant="light">

@@ -79,7 +79,7 @@ const Home = (params) => {
                 <Columns.Column>
                     <Notification backgroundColor='dark' className='newsstand-container' style={{height: '74.5vh'}}>
                         <Content size='medium' textAlign='center' >
-                            <h2 className='home-header-dark'>News Stand</h2>
+                            <h2 className='home-header-dark'>Newsstand</h2>
                             <Table
                                 hoverable
                                 selected

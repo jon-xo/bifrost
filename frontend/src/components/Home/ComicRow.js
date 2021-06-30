@@ -10,10 +10,17 @@ import dcComicsLogo from "../../assets/images/logos/DC-Comics_Logo.png";
 import clsx from 'clsx';
 
 const ComicRow = ({comic}) => {
+    // -- GitHub Issue Ticket # 3 ---
+    // [Home [Ticket #3]](https://github.com/jon-xo/bifrost/issues/4)
+    // 
+    // - publisherImage returns Image component from matching string     
+    //   in comicObject passed in comic prop
+    // - if comic.featured key equals true, ComicRow returns tr element 
+    //   with the is-selected class to highlight selected row
+    
     const publisherImage = (publisher) => {
         switch (publisher) {
-            case 'MARVEL COMICS':
-                // frontend/src/assets/images/logos/Marvel-Comics_Logo.png
+            case 'MARVEL COMICS':                
                 return (<Image 
                             src={marvelLogo}
                             size={64}
@@ -56,7 +63,7 @@ const ComicRow = ({comic}) => {
     
     return (
         <>
-            {comic.featured !== undefined ?
+            {comic.featured === true ?
             <tr className={clsx('is-selected', 'table-row--container')}>
                 <th>{comic.listIndex}</th>
                 <td>{comic.title}</td>

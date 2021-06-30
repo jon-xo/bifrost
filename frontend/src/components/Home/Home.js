@@ -7,6 +7,18 @@ import ComicRow from "./ComicRow";
 import "../../index.css"
 
 const Home = (params) => {
+    // -- GitHub Issue Ticket # 3 ---
+    // [Home [Ticket #3]](https://github.com/jon-xo/bifrost/issues/4)
+    // 
+    // - comicRandomizer selects an random interger within the range
+    //   of the currentComics list.
+    // - featuredIndex returns the index value of the currently 
+    //   featured comic object
+    // - featuredIndexArray is a callback method to remove the current
+    //   object from the active array and re-adds object to index[0],
+    //   once the array is modified, that array is mapped and 
+    //   the ComicRow is returned inside JSX table
+    
     const { currentComics, getCurrentComics } = useContext(ComicContext);
     const [ focusComic, setFocusComic ] = useState(undefined);
     const [ focusedComics, setFocusedComics ] = useState([]);

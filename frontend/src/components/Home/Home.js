@@ -9,6 +9,7 @@ import "../../index.css"
 const Home = (params) => {
     const { currentComics, getCurrentComics } = useContext(ComicContext);
     const [ focusComic, setFocusComic ] = useState(undefined);
+    const [ focusedComics, setFocusedComics ] = useState([]);
     
     const comicRandomizer = (array) => {
         const randomIndex = Math.floor(Math.random() * array.length);
@@ -16,6 +17,19 @@ const Home = (params) => {
         return selectedComic;
     };
 
+    const featuredIndex = (array, comicObject) => {        
+        const targetObject = array.find(a => a.diamond_id === comicObject?.diamond_id)
+        const matchedIndex = array.indexOf(targetObject);
+        return matchedIndex;
+    };
+
+    const featuredIndexArray = (array, comicIndex, comic) => {        
+        if (comicIndex > 0) {
+            array.splice(comicIndex, 1);
+            array.unshift(comic);            
+        }
+        return array;
+    };
 
         
     useEffect(() => {
@@ -27,6 +41,9 @@ const Home = (params) => {
         {
             const newComic = comicRandomizer(currentComics?.comics)
             setFocusComic(newComic);
+            const newIndex = featuredIndex(currentComics.comics, newComic);
+            const finalComicArray = featuredIndexArray(currentComics.comics, newIndex, newComic)
+            setFocusedComics(finalComicArray)           
         }
     }, [currentComics])
 
@@ -57,6 +74,7 @@ const Home = (params) => {
                                 size="default"
                                 striped
                                 className='newstand-table'
+                                textAlign='center'
                             >
                                 <thead>
                                     <tr>
@@ -77,20 +95,18 @@ const Home = (params) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentComics.comics?.length > 0 ?
-                                    currentComics.comics.map((comic, index) => {
-                                        comic.listIndex = index + 1;
-                                        comic.featured = undefined;
-                                        if(comic?.diamond_id === focusComic?.diamond_id)
-                                        {
-                                            comic.featured = true;
-                                            return <ComicRow key={comic.diamond_id} comic={comic} />
+                                        {focusedComics?.map((comic, index) => {
+                                                // debugger
+                                                comic.listIndex = index + 1;
+                                                comic.featured = undefined;
+                                                if(comic?.diamond_id === focusComic?.diamond_id)
+                                                {
+                                                    comic.featured = true;
+                                                    return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                }
+                                                return <ComicRow key={comic.diamond_id} comic={comic} />
+                                            })                                        
                                         }
-                                        return <ComicRow key={comic.diamond_id} comic={comic} />
-                                    })
-                                    :
-                                    <tr></tr>
-                                    }
                                 </tbody>
                             </Table>
                         </Content>

@@ -14,6 +14,8 @@ code {
     monospace;
 }
 
+/* --- Navigation --- */
+
 .logo-text-sansSerif
 {
   font-family: 'Raleway', sans-serif;
@@ -41,8 +43,32 @@ code {
   justify-content: center;
 }
 
+/* --- Home view --- */
+
 .home-header-dark {
   color: #f1f1f1 !important;
+}
+
+.featured-comic--container {
+  display: grid  !important;
+  justify-content: center !important;
+  justify-items: center !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 55vw !important; 
+  max-height: 50rem !important;
+  grid-auto-rows: max-content;
+  grid-auto-columns: auto;
+}
+
+.featured-comic--container div.block {
+  max-width: 60% !important;
+  max-height: 65% !important;
+}
+
+.featured-comic--container div img {
+  max-width: 55rem !important;
+  max-height: 55vh !important;
 }
 
 .newsstand-container {
@@ -57,8 +83,28 @@ code {
 .newstand-container:after{
   content: "";
   display: block;
-  /* position: absolute; */
   width: 100%;
   height: 50rem;
-  /* bottom: -15rem; */
+}
+
+.table-row--container {
+  /* display: grid; */
+  /* align-content: center; */
+  /* justify-content: center; */
+  /* min-height: 15rem !important; */
+  height: 9rem;
+  max-height: fit-content;
+}
+
+.table-row--container th, td {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.table-row--container td figure {
+  display: grid;
+  grid-row-start: 10rem;
+  grid-auto-rows: max-content;
+  justify-content: center;
+  align-content: center;
 }

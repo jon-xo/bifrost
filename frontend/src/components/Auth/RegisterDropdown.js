@@ -68,7 +68,7 @@ const RegisterDropdown = () => {
             label="Register"
         >
             <Dropdown.Item
-                 renderAs="field"
+                 renderAs="form"
                  value="form"
             >
                 <WarnUser {...warningProps} />

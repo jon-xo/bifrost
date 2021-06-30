@@ -147,7 +147,7 @@ const Header = () => {
                             </>
                             :
                             <>
-                                <Container>
+                                <Container className='container-base'>
                                     <LoginDropdown />
                                     <RegisterDropdown />
                                 </Container>

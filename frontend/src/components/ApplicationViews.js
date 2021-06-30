@@ -5,6 +5,7 @@ import CurrentComicsList from "./CurrentComicsList";
 import UpcomingComicsList from "./UpcomingComicsList";
 import PastComicsList from "./PastComicList";
 import FoundIssuesList from "./Search/FoundIssuesList";
+import Home from "./Home/Home";
 import Header from "./Header"
 
 export default function ApplicationViews() {
@@ -14,6 +15,7 @@ export default function ApplicationViews() {
             <Switch>
                 <Route exact path="/">
                     <Header />
+                    <Home />
                 </Route>
                 <Route exact path="/current-comics">
                     <Header />

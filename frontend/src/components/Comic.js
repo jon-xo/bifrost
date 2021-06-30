@@ -7,28 +7,8 @@ import { Card,
          Tag,
          Image
 } from "react-bulma-components";
+import stringArray from "./StrMethods";
 import "../index.css"
-
-// const titleEdit = (string) => {
-//     const editedString = string.replace(/ /g,"_");
-//     return editedString;
-// };
-
-// const imageUnavail = (event) => {
-//     const currentImg = event.target
-//     currentImg.src = `https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png`;
-//     currentImg.onError=null
-// };
-
-const stringArray = (comicId, letterCount) => {
-    const titleArray = comicId.split("");
-    if (letterCount === 1){
-        return titleArray[0]
-    } else if (letterCount === 2) {
-        return titleArray[1]
-    }
-    return titleArray
-}
 
 const Comic = ({ comic }) => {
     return (

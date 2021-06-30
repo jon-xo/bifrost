@@ -126,31 +126,33 @@ const Header = () => {
                         </form>
                     </Navbar.Item>
                 </Navbar.Container>  
-                <Navbar.Container align='right' className='nav-controls'>
+                <Navbar.Container align='right'>
                     <Navbar.Item active={'true'}>
-                        <Container className='container-base'>
                             {isLoggedIn ?
                             <>
-                                <Button color='info' colorVariant='light'>
-                                    <Icon className='logo-icon'>
-                                        <FontAwesomeIcon icon={faCog} />
-                                    </Icon>
-                                    Settings
-                                </Button>
-                                <Button color='danger' colorVariant='light' onClick={logout}>
-                                    <Icon className='logo-icon'>
-                                        <FontAwesomeIcon icon={faArrowCircleRight} />
-                                    </Icon>
-                                    Log Out
-                                </Button>
+                                <Container className='container-base'>
+                                    <Button color='info' colorVariant='light'>
+                                        <Icon className='logo-icon'>
+                                            <FontAwesomeIcon icon={faCog} />
+                                        </Icon>
+                                        Settings
+                                    </Button>
+                                    <Button color='danger' colorVariant='light' onClick={logout}>
+                                        <Icon className='logo-icon'>
+                                            <FontAwesomeIcon icon={faArrowCircleRight} />
+                                        </Icon>
+                                        Log Out
+                                    </Button>
+                                </Container>
                             </>
                             :
                             <>
-                                <LoginDropdown />
-                                <RegisterDropdown />
+                                <Container className='container-base'>
+                                    <LoginDropdown />
+                                    <RegisterDropdown />
+                                </Container>
                             </>
                             }
-                        </Container>
                     </Navbar.Item>
                 </Navbar.Container>
                 </Navbar.Menu>

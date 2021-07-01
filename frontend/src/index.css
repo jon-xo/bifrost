@@ -14,7 +14,7 @@ code {
     monospace;
 }
 
-/* --- Navigation --- */
+/* ---- Navigation ---- */
 
 .logo-text-sansSerif
 {
@@ -44,7 +44,18 @@ code {
   justify-content: center;
 }
 
-/* --- Home view --- */
+/* ---- Search ---- */
+
+.search-button--span {
+  padding-right: .5rem !important;
+  width: 7rem;
+}
+
+.search-icon {
+  margin-right: .2rem !important;
+}
+
+/* ---- Home view ---- */
 
 .home-header-dark {
   color: #f1f1f1 !important;
@@ -110,7 +121,7 @@ code {
   align-content: center;
 }
 
-/*  ---- Releases views ---- */
+/*  ----- Releases views ----- */
 
 .tag--container {
   margin-top: .5rem !important;

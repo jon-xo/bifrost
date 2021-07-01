@@ -47,11 +47,12 @@ const LoginDropdown = () => {
         <Dropdown
             closeOnSelect={false}
             color="link"
+            // right="false"
             icon={<Icon><FontAwesomeIcon icon={faKey} /></Icon>}
             label="Login"
         >
             <Dropdown.Item
-                 renderAs="Field"
+                 renderAs="form"
                  value="form"
             >
                 <WarnUser {...warningProps} />

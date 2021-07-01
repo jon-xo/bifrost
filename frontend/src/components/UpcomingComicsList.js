@@ -20,9 +20,9 @@ const UpcomingComicsList = () => {
             <Section>
                 <h2 className="title is-2">Upcoming Comics</h2>
             {newComicDay === undefined ? 
-                <h4 className="subtitle is-4">Released on ...</h4>
+                <h4 className="subtitle is-5">Release Date: ...</h4>
                 :
-                <h4 className="subtitle is-5">Released on {WeekStart(newComicDay, "mid")}</h4>
+                <h4 className="subtitle is-5"><strong>Release Date</strong>: {WeekStart(newComicDay, "mid")}</h4>
             }
                 <Container fluid='true' className='comic-container'>
                 {newComics.comics?.map((comic) => (                

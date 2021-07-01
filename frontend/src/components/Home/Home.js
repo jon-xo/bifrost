@@ -63,9 +63,27 @@ const Home = (params) => {
 
     return (
         <>
-            <Columns>
+            <Columns breakpoint="tablet">
                 <Columns.Column size={12}></Columns.Column>
-                <Columns.Column size={6}>
+                <Columns.Column 
+                    mobile={{
+                        narrow: false,
+                        offset: 0,
+                        size: 12,
+                        textAlign: 'center',
+                        textSize: 3
+                    }}
+                    tablet={{
+                        narrow: false,
+                        offset: 0,
+                        size: 12
+                    }}
+                    desktop={{
+                        narrow: false,
+                        offset: 0,
+                        size: 6
+                    }}
+                >
                     <Notification color='text' textAlign='center' style={{height: '74.5vh'}}>
                         <Content size='medium'>
                             <h2>Featured Comic</h2>
@@ -78,7 +96,25 @@ const Home = (params) => {
                         }
                     </Notification>
                 </Columns.Column>
-                <Columns.Column>
+                <Columns.Column
+                    mobile={{
+                        narrow: false,
+                        offset: 0,
+                        size: 12,
+                        textAlign: 'center',
+                        textSize: 3
+                    }}
+                    tablet={{
+                        narrow: false,
+                        offset: 0,
+                        size: 12
+                    }}
+                    desktop={{
+                        narrow: false,
+                        offset: 0,
+                        size: 6
+                    }}
+                >
                     <Notification backgroundColor='dark' className='newsstand-container' style={{height: '74.5vh'}}>
                         <Content size='medium' textAlign='center' >
                             <h2 className='home-header-dark'>Newsstand</h2>

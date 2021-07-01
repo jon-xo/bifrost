@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 // import { UserAccountContext } from "../providers/UserAccountProvider";
-import CurrentComicsList from "./CurrentComicsList";
-import UpcomingComicsList from "./UpcomingComicsList";
-import PastComicsList from "./PastComicList";
+import CurrentComicsList from "./Releases/CurrentComicsList";
+import UpcomingComicsList from "./Releases/UpcomingComicsList";
+import PastComicsList from "./Releases/PastComicList";
 import FoundIssuesList from "./Search/FoundIssuesList";
 import Home from "./Home/Home";
 import Header from "./Header"

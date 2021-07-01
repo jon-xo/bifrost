@@ -4,6 +4,7 @@ import { ComicContext } from "../../providers/ComicProvider";
 import { Content, Columns, Table, Notification } from "react-bulma-components";
 import RandomIssue from "./RandomIssue";
 import ComicRow from "./ComicRow";
+import { DateTime } from "luxon";
 import "../../index.css"
 
 const Home = (params) => {
@@ -43,6 +44,12 @@ const Home = (params) => {
         return array;
     };
 
+    const weekStart = () => {
+        const today = DateTime.now();
+        const weekStart = today.startOf('week')
+        console.log(weekStart.toISODate());
+        return weekStart.weekdayLong + ", " + weekStart.toLocaleString();
+    }
         
     useEffect(() => {
         getCurrentComics()
@@ -80,6 +87,7 @@ const Home = (params) => {
                     <Notification backgroundColor='dark' className='newsstand-container' style={{height: '74.5vh'}}>
                         <Content size='medium' textAlign='center' >
                             <h2 className='home-header-dark'>Newsstand</h2>
+                            <h4 className='home-header-dark'>Week of {weekStart()} </h4>
                             <Table
                                 hoverable
                                 selected

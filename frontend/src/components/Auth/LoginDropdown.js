@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import WarnUser from "../WarnUser";
-import "../../index.css"
 
 const LoginDropdown = () => {
     // -- GitHub Issue Ticket # 1 ---
@@ -48,7 +47,7 @@ const LoginDropdown = () => {
         <Dropdown
             closeOnSelect={false}
             color="link"
-            icon={<Icon><FontAwesomeIcon className='.logo-icon' icon={faKey} /></Icon>}
+            icon={<Icon><FontAwesomeIcon icon={faKey} /></Icon>}
             label="Login"
         >
             <Dropdown.Item

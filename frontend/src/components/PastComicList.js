@@ -8,6 +8,20 @@ import "../index.css"
 
 
 const PastComicsList = () => {
+    // 
+    // -- GitHub Issue Ticket # 4 ---
+    // [Releases [Ticket #4]](https://github.com/jon-xo/bifrost/issues/5)
+    // 
+    //  - previousComics and getPreviousComics are accessed via ComicContext in the provider
+    // - Array returned by API is stored in newComics
+    // - ReleaseDate & WeekStart are imported from local UtilityMethods,
+    //   newComicDay stores a single date as string, if newComicDay
+    //   does not equal undefined, release date is returned by WeekStart
+    //   by passing "mid" parameter to the method
+    //   - Returned JSX maps the newComics array and returns indvidual
+    //   comic cards.
+    //   
+    
     const { previousComics, getPreviousComics } = useContext(ComicContext);
 
     useEffect(() => {

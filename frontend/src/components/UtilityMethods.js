@@ -8,6 +8,13 @@ import boomLogo from "../assets/images/logos/Boom-Studios_Logo.png";
 import darkHorseLogo from "../assets/images/logos/Dark-Horse-Comics_Logo.png";
 import dcComicsLogo from "../assets/images/logos/DC-Comics_Logo.png";
 
+// **ReleaseDate** method accepts an object returned by the ComicProvider endpoints,
+// if comics array in the object parameter is not undefined, the release_date key
+// of the comic object in index position 0 is returned. 
+// Additionally, if the provider's date includes a '.', 
+// the string is split at the character and the first array index is returned
+// 
+
 export const ReleaseDate = (objectArray) => {
     let targetObject = undefined;
     if(objectArray?.comics !== undefined){
@@ -21,6 +28,13 @@ export const ReleaseDate = (objectArray) => {
     }
     return targetObject;
 };
+
+// **ComicCardDate** method accepts a date string,
+// if the date string includes a '.', 
+// the string is split at that character and the first array index is returned,
+// regardless of the conditional, the date variable is formatted with toLocaleString
+// method and returned
+// 
 
 export const ComicCardDate = (dateString) => {
     let targetDate = undefined;
@@ -38,6 +52,13 @@ export const ComicCardDate = (dateString) => {
     }
 
 };
+
+// **WeekStart** method accepts a date string and string to represent
+// week position. If the week position string is 'mid' the string is parsed with
+// fromISO format and returned as a concatenated string composed of name of weekday
+// and date string, else the startOf method is called and the Monday of the newComicDay
+// week is returned using a concatenated string
+// 
 
 export const WeekStart = (newComicDay, weekPosition) => {
 

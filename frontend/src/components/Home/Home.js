@@ -5,7 +5,6 @@ import { Content, Columns, Table, Notification } from "react-bulma-components";
 import { ReleaseDate, WeekStart } from "../UtilityMethods";
 import RandomIssue from "./RandomIssue";
 import ComicRow from "./ComicRow";
-import { DateTime } from "luxon";
 import "../../index.css"
 
 const Home = (params) => {

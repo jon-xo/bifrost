@@ -12,15 +12,45 @@ export const ReleaseDate = (objectArray) => {
     let targetObject = undefined;
     if(objectArray?.comics !== undefined){
         targetObject = objectArray.comics[0].release_date
+        if(targetObject.includes('.'))
+        {
+            const newTarget = targetObject.split('.');
+            targetObject = newTarget[0];           
+            return targetObject; 
+        }
     }
     return targetObject;
 };
 
-export const WeekStart = (newComicDay) => {
-    const comicDay = DateTime.fromISO(newComicDay)
-    const weekStart = comicDay.startOf('week')
+export const ComicCardDate = (dateString) => {
+    let targetDate = undefined;
+    debugger
+    if(dateString.includes('.')){
+        const newDate = dateString.split('.');
+        let dateEdit = newDate[0];
+        targetDate = DateTime.fromISO(dateEdit);
+        debugger
+        return targetDate.toLocaleString();
+    } else {
+        targetDate = DateTime.fromISO(dateString);
+        debugger
+        return targetDate.toLocaleString();
+    }
 
-    return weekStart.weekdayLong + ", " + weekStart.toLocaleString();
+};
+
+export const WeekStart = (newComicDay, weekPosition) => {
+
+    if (weekPosition === "mid"){
+        const comicDay = DateTime.fromISO(newComicDay)
+
+        return comicDay.weekdayLong + ", " + comicDay.toLocaleString(); 
+    } else {
+        const comicDay = DateTime.fromISO(newComicDay)
+        const weekStart = comicDay.startOf('week')
+    
+        return weekStart.weekdayLong + ", " + weekStart.toLocaleString();
+    }
 }
 
 export const StringArray = (comicId, letterCount) => {

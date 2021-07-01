@@ -9,6 +9,7 @@ import {
     Image
 } from "react-bulma-components";
 import { StringArray, PublisherImage } from "./UtilityMethods";
+import { ComicCardDate } from "./UtilityMethods";
 import "../index.css"
 
 const Comic = ({ comic }) => {
@@ -24,7 +25,7 @@ const Comic = ({ comic }) => {
                     <Content>
                         <h4 className="title is-4">{comic.title}</h4>
                         <h6 className="title is-6">{comic.creators}</h6>
-                        <h6 className="title is-6">{comic.release_date}</h6>
+                        <h6 className="title is-6">{ComicCardDate(comic.release_date)}</h6>
                     </Content>
                     <Content>
                         <Tag className={'tag--container'} size="medium">{PublisherImage(comic.publisher)}</Tag>

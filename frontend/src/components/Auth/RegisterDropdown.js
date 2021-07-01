@@ -64,7 +64,7 @@ const RegisterDropdown = () => {
             color="primary"
             colorVariant="light"
             right="true"
-            icon={<Icon><FontAwesomeIcon className='.logo-icon' icon={faHatWizard} /></Icon>}
+            icon={<Icon><FontAwesomeIcon icon={faHatWizard} /></Icon>}
             label="Register"
         >
             <Dropdown.Item

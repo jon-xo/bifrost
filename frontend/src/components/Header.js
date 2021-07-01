@@ -68,9 +68,11 @@ const Header = () => {
             </Navbar.Brand>            
             <Navbar.Menu>
                 <Navbar.Container position='start' tabs='true'>
-                    <Navbar.Link arrowless='true'>
-                        <NavLink to="/">Home</NavLink>
-                    </Navbar.Link>
+                    <Navbar.Item>
+                        <Navbar.Link renderAs={NavLink} to={'/'} arrowless='true'>
+                           Home
+                        </Navbar.Link>
+                    </Navbar.Item>
                     <Navbar.Item
                         // active="false"
                         hoverable="false"
@@ -80,15 +82,24 @@ const Header = () => {
                             Releases
                         </Navbar.Link>
                         <Navbar.Dropdown>
-                            <Navbar.Link arrowless='true'>
-                                <NavLink to="/previous-comics">Previous Comics</NavLink>
-                            </Navbar.Link>
-                            <Navbar.Link arrowless='true'>
-                                <NavLink to="/current-comics">Current Comics</NavLink>
-                            </Navbar.Link>
-                            <Navbar.Link arrowless='true'>
-                                <NavLink to="/upcoming-comics">Upcoming Comics</NavLink>
-                            </Navbar.Link>
+                        <Navbar.Link>
+                            <Navbar.Item renderAs={NavLink} to={'/previous-comics'} arrowless='true'>
+                                Previous Comics
+                                {/* <NavLink to="/previous-comics">Previous Comics</NavLink> */}
+                            </Navbar.Item>
+                        </Navbar.Link>
+                        <Navbar.Link>
+                            <Navbar.Item renderAs={NavLink} to={'/current-comics'} arrowless='true'>
+                                Current Comics
+                                {/* <NavLink to="/current-comics">Current Comics</NavLink> */}
+                            </Navbar.Item>
+                        </Navbar.Link>
+                        <Navbar.Link>
+                            <Navbar.Item renderAs={NavLink} to={'/upcoming-comics'} arrowless='true'>
+                                Upcoming Comics
+                                {/* <NavLink to="/upcoming-comics">Upcoming Comics</NavLink> */}
+                            </Navbar.Item>
+                        </Navbar.Link>
                         </Navbar.Dropdown>
                     </Navbar.Item>
                     {isLoggedIn ?

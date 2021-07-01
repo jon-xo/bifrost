@@ -36,6 +36,7 @@ code {
 .container-base button {
   padding: 1rem;
   margin: 0 .3rem;
+  width: 7rem;
 }
 
 .nav-controls div, form, button {
@@ -107,4 +108,20 @@ code {
   grid-auto-rows: max-content;
   justify-content: center;
   align-content: center;
+}
+
+/*  ---- Releases views ---- */
+
+.tag--container {
+  margin-top: .5rem !important;
+  height: fit-content !important;
+  width: 9rem; 
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.tag--container figure {
+  margin-top: .2rem !important;
+  height: fit-content !important;
 }

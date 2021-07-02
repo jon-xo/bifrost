@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using bifrost.Models;
 using bifrost.Repository;
 
@@ -10,6 +11,7 @@ namespace bifrost.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserAccountController : ControllerBase
     {
         private readonly IUserAccountRepository _userAccountRepository;

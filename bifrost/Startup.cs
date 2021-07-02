@@ -26,6 +26,7 @@ namespace bifrost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserAccountRepository, UserAccountRepository>();
+            services.AddTransient<ISavedContentRepository, SavedContentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

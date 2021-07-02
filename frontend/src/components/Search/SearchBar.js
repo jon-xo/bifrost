@@ -21,14 +21,42 @@ const SearchBar = () => {
     
     const [ queryString, setQueryString ] = useState("");
     const { searchIssues } = useContext(SearchComicContext);
+    const [ searchType, setSearchType ] = useState({
+        placeholder: "Find comic issues...",
+        queryType: "Issues"
+    });
 
     const handleSearch = (event) => {
         event.preventDefault();
-        const encodedQuery = encodeURIComponent(queryString)
-        searchIssues(encodedQuery)
-        .then(() => {
-            history.push("/search/issues")
-        })
+        if( queryString !== undefined && queryString !== "" )
+        {
+            const encodedQuery = encodeURIComponent(queryString)
+            searchIssues(encodedQuery)
+            .then(() => {
+                history.push("/search/issues")
+            })
+        }
+    };
+
+    const handleQuery = (event) => {
+        event.preventDefault();
+        let activeQuery = undefined;
+
+        if(event.target.value === "Issues") {
+            // debugger
+            activeQuery = {
+                placeholder: "Find comic issues...",
+                queryType: "Issues"
+            };
+            setSearchType(activeQuery);
+        } else if (event.target.value === "Volumes") {
+            // debugger
+            activeQuery = {
+                placeholder: "Search for a comic series...",
+                queryType: "Volumes"
+            };
+            setSearchType(activeQuery);
+        }
     };
 
     return (
@@ -36,18 +64,18 @@ const SearchBar = () => {
             <form>
                 <Form.Field kind="addons">
                     <Form.Control>
-                        <Form.Input placeholder="Find a post" onChange={(e) => {setQueryString(e.target.value)}}/>
+                        <Form.Input placeholder={searchType?.placeholder} onChange={(e) => {setQueryString(e.target.value)}}/>
                     </Form.Control>
                     <Form.Control>
                         <Form.Select
                             color={"info"}
                             colorVariant={"light"}
-                            value={"Filter"}
+                            value={searchType.queryType}
                             textColor={"info"}                         
-                            // onChange={(e) => e.preventDefault()}
+                            onChange={(e) => handleQuery(e)}
                         >
-                            <option value="option 1">Option 1</option>
-                            <option value="option 2">Option 2</option>
+                            <option value="Issues">Issues</option>
+                            <option value="Volumes">Volumes</option>
                         </Form.Select>
                     </Form.Control>
                     <Form.Control >

@@ -38,16 +38,16 @@ export const ReleaseDate = (objectArray) => {
 
 export const ComicCardDate = (dateString) => {
     let targetDate = undefined;
-    debugger
+    // debugger
     if(dateString.includes('.')){
         const newDate = dateString.split('.');
         let dateEdit = newDate[0];
         targetDate = DateTime.fromISO(dateEdit);
-        debugger
+        // debugger
         return targetDate.toLocaleString();
     } else {
         targetDate = DateTime.fromISO(dateString);
-        debugger
+        // debugger
         return targetDate.toLocaleString();
     }
 
@@ -74,6 +74,11 @@ export const WeekStart = (newComicDay, weekPosition) => {
     }
 }
 
+export const FindPublisher = (detailArray) => {
+    const matchedDetail = detailArray.filter(d => d.snippet.includes("published by"))[0];
+    console.log(matchedDetail);
+};
+
 export const StringArray = (comicId, letterCount) => {
     const titleArray = comicId.split("");
     if (letterCount === 1){
@@ -92,6 +97,12 @@ export const PublisherImage = (publisher) => {
                         size={64}
                         alt={publisher}
                     />)
+        case 'Marvel':                
+            return (<Image 
+                        src={marvelLogo}
+                        size={64}
+                        alt={publisher}
+                    />)
         case 'IDW PUBLISHING':
             return (<Image 
                         src={idwLogo}
@@ -104,7 +115,19 @@ export const PublisherImage = (publisher) => {
                         size={32}
                         alt={publisher}
                     />)
+        case 'Image':
+            return (<Image 
+                        src={imageLogo}
+                        size={32}
+                        alt={publisher}
+                    />)
         case 'BOOM! STUDIOS':
+            return (<Image 
+                        src={boomLogo}
+                        size={64}
+                        alt={publisher}
+                    />)
+        case 'Boom! Studios':
             return (<Image 
                         src={boomLogo}
                         size={64}
@@ -116,7 +139,19 @@ export const PublisherImage = (publisher) => {
                         size={48}
                         alt={publisher}
                     />)
+        case 'Dark Horse Comics':
+            return (<Image 
+                        src={darkHorseLogo}
+                        size={48}
+                        alt={publisher}
+                    />)
         case 'DC COMICS':
+            return (<Image 
+                        src={dcComicsLogo}
+                        size={48}
+                        alt={publisher}
+                    />)
+        case 'DC Comics':
             return (<Image 
                         src={dcComicsLogo}
                         size={48}

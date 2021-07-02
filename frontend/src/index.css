@@ -14,7 +14,7 @@ code {
     monospace;
 }
 
-/* --- Navigation --- */
+/* ---- Navigation ---- */
 
 .logo-text-sansSerif
 {
@@ -44,32 +44,27 @@ code {
   justify-content: center;
 }
 
-/* --- Home view --- */
+/* ---- Search ---- */
+
+.search-button--span {
+  padding-right: .5rem !important;
+  width: 7rem;
+}
+
+.search-icon {
+  margin-right: .2rem !important;
+}
+
+/* ---- Home view ---- */
 
 .home-header-dark {
   color: #f1f1f1 !important;
 }
 
-.featured-comic--container {
-  display: grid  !important;
-  justify-content: center !important;
-  justify-items: center !important;
-  width: auto !important;
-  height: auto !important;
-  max-width: 55vw !important; 
-  max-height: 50rem !important;
-  grid-auto-rows: max-content;
-  grid-auto-columns: auto;
-}
-
-.featured-comic--container div.block {
-  max-width: 60% !important;
-  max-height: 65% !important;
-}
-
 .featured-comic--container div img {
-  max-width: 55rem !important;
-  max-height: 55vh !important;
+  width: 50% !important;
+  height: 50% !important;
+  margin-left: 25% !important;
 }
 
 .newsstand-container {
@@ -78,7 +73,6 @@ code {
 
 .newstand-table {
   overflow-y: scroll;
-  /* box-sizing: content-box; */
 }
 
 .newstand-container:after{
@@ -89,10 +83,7 @@ code {
 }
 
 .table-row--container {
-  /* display: grid; */
-  /* align-content: center; */
-  /* justify-content: center; */
-  /* min-height: 15rem !important; */
+
   height: 9rem;
   max-height: fit-content;
 }
@@ -110,7 +101,7 @@ code {
   align-content: center;
 }
 
-/*  ---- Releases views ---- */
+/*  ----- Releases views ----- */
 
 .tag--container {
   margin-top: .5rem !important;

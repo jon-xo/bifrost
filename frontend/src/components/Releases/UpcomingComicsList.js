@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from "react";
 // import { useHistory } from "react-router-dom"
-import { ComicContext } from "../providers/ComicProvider";
+import { ComicContext } from "../../providers/ComicProvider";
 import { Section, Container } from "react-bulma-components";
+import { ReleaseDate, WeekStart } from "../UtilityMethods";
 import Comic from "./Comic"
-import { ReleaseDate, WeekStart } from "./UtilityMethods";
-import "../index.css"
+// import "../index.css"
 
 
-const PastComicsList = () => {
+const UpcomingComicsList = () => {
     // 
     // -- GitHub Issue Ticket # 4 ---
     // [Releases [Ticket #4]](https://github.com/jon-xo/bifrost/issues/5)
     // 
-    //  - previousComics and getPreviousComics are accessed via ComicContext in the provider
+    //  - newComics and getComics are accessed via ComicContext in the provider
     // - Array returned by API is stored in newComics
     // - ReleaseDate & WeekStart are imported from local UtilityMethods,
     //   newComicDay stores a single date as string, if newComicDay
@@ -22,24 +22,24 @@ const PastComicsList = () => {
     //   comic cards.
     //   
     
-    const { previousComics, getPreviousComics } = useContext(ComicContext);
+    const { newComics, getNewComics } = useContext(ComicContext);
 
     useEffect(() => {
-        getPreviousComics();
-    }, [getPreviousComics])
+        getNewComics();
+    }, [getNewComics])
 
-    const newComicDay = ReleaseDate(previousComics);
+    const newComicDay = ReleaseDate(newComics);
 
     return (
             <Section>
-                <h2 className="title is-2">Previous Comics</h2>
-        {newComicDay === undefined ? 
+                <h2 className="title is-2">Upcoming Comics</h2>
+            {newComicDay === undefined ? 
                 <h4 className="subtitle is-5">Release Date: ...</h4>
                 :
                 <h4 className="subtitle is-5"><strong>Release Date</strong>: {WeekStart(newComicDay, "mid")}</h4>
-        }
+            }
                 <Container fluid='true' className='comic-container'>
-                {previousComics.comics?.map((comic) => (                
+                {newComics.comics?.map((comic) => (                
                     <Comic key={comic.diamond_id} comic={comic} />
                 ))}
                 </Container>
@@ -47,4 +47,4 @@ const PastComicsList = () => {
     ); 
 };
 
-export default PastComicsList;
+export default UpcomingComicsList;

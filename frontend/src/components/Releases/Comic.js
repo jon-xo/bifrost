@@ -8,9 +8,9 @@ import {
     Tag,
     Image
 } from "react-bulma-components";
-import { StringArray, PublisherImage } from "./UtilityMethods";
-import { ComicCardDate } from "./UtilityMethods";
-import "../index.css"
+import { StringArray, PublisherImage } from "../UtilityMethods";
+import { ComicCardDate } from "../UtilityMethods";
+// import "../index.css"
 
 const Comic = ({ comic }) => {
     return (

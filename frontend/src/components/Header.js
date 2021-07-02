@@ -5,14 +5,15 @@ import { SearchComicContext } from "../providers/SearchComicProvider";
 import { Navbar, Icon, Form, Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen, faCog, faArrowCircleRight, faSearch } from '@fortawesome/free-solid-svg-icons'
-// import { faArrowAltCircleRight,  } from "@fortawesome/free-regular-svg-icons";
 import LoginDropdown from "./Auth/LoginDropdown";
 import RegisterDropdown from "./Auth/RegisterDropdown";
+import SearchBar from "./Search/SearchBar";
 import "../index.css"
 
 
 const Header = () => {
-    // -- GitHub Issue Ticket # 1 ---
+    // 
+    // ---- GitHub Issue Ticket # 1 ----
     // [Authentication [Ticket #1]](https://github.com/jon-xo/bifrost/issues/2)
     // 
     // - Added isLoggedIn state and logout method from UserAccountProvider to check
@@ -23,22 +24,10 @@ const Header = () => {
     // 
 
 
-    const history = useHistory();
-
     const { isLoggedIn, logout } = useContext(UserAccountContext);
-    
-    const [ queryString, setQueryString ] = useState("");
-    const { searchIssues } = useContext(SearchComicContext);
     const [ showBurger, setShowBurger ] = useState(false);
 
-    const handleSearch = (event) => {
-        event.preventDefault();
-        const encodedQuery = encodeURIComponent(queryString)
-        searchIssues(encodedQuery)
-        .then(() => {
-            history.push("/search/issues")
-        })
-    };
+    const history = useHistory();
 
     // -- GitHub Issue Ticket # 2 ---
     // [Navbar [Ticket #2]](https://github.com/jon-xo/bifrost/issues/3)
@@ -56,13 +45,18 @@ const Header = () => {
 
     return (
         <>
-        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top' active={showBurger}>            
+        <Navbar 
+            aria-label="main navigation" 
+            color='dark' 
+            transparent
+            fixed='top' 
+            active={showBurger}>            
             <Navbar.Brand>
                 <Navbar.Item>
-                <Icon className='logo-icon'>
-                    <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
-                </Icon>
-                <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
+                    <Icon className='logo-icon'>
+                        <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
+                    </Icon>
+                    <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
                 </Navbar.Item>
                 <Navbar.Burger onClick={burgerToggle}/>            
             </Navbar.Brand>            
@@ -74,13 +68,12 @@ const Header = () => {
                         </Navbar.Link>
                     </Navbar.Item>
                     <Navbar.Item
-                        // active="false"
                         hoverable="false"
-                        href="#"
+                        // href="#"
                     >
-                        <Navbar.Link arrowless='true'>
+                        <Navbar.Item arrowless='true'>
                             Releases
-                        </Navbar.Link>
+                        </Navbar.Item>
                         <Navbar.Dropdown>
                         <Navbar.Link>
                             <Navbar.Item renderAs={NavLink} to={'/previous-comics'} arrowless='true'>
@@ -103,15 +96,19 @@ const Header = () => {
                         </Navbar.Dropdown>
                     </Navbar.Item>
                     {isLoggedIn ?
-                         <Navbar.Link arrowless='true'>
-                             <NavLink to="/">Reading List</NavLink>
-                         </Navbar.Link>
+                        <Navbar.Link arrowless='true'>
+                            <Navbar.Item renderAs={NavLink} to={'/reading'} >
+                                Reading List
+                            </Navbar.Item>
+                        </Navbar.Link>
                         :
                         <></>
                     }
                     {isLoggedIn ?
-                         <Navbar.Link arrowless='true'>
-                             <NavLink to="/">Follows</NavLink>
+                        <Navbar.Link arrowless='true'>
+                            <Navbar.Item renderAs={NavLink} to={'/follows'}>
+                                Follows
+                            </Navbar.Item>
                          </Navbar.Link>
                         :
                         <></>
@@ -120,21 +117,7 @@ const Header = () => {
 
                 <Navbar.Container align='right' transparent='true' className='nav-controls'>
                     <Navbar.Item active={'true'}>
-                        <form>
-                            <Form.Field kind="addons">
-                                <Form.Control>
-                                    <Form.Input placeholder="Find a post" onChange={(e) => {setQueryString(e.target.value)}}/>
-                                </Form.Control>
-                                <Form.Control>
-                                    <Button color='info' onClick={(e) => {handleSearch(e)}}>
-                                        <Icon className='logo-icon'>
-                                            <FontAwesomeIcon icon={faSearch} />
-                                        </Icon>
-                                        Search
-                                    </Button>
-                                </Form.Control>
-                            </Form.Field>
-                        </form>
+                        <SearchBar />
                     </Navbar.Item>
                 </Navbar.Container>  
                 <Navbar.Container align='right'>

@@ -5,7 +5,6 @@ import { Content, Columns, Table, Notification } from "react-bulma-components";
 import { ReleaseDate, WeekStart } from "../UtilityMethods";
 import RandomIssue from "./RandomIssue";
 import ComicRow from "./ComicRow";
-import "../../index.css"
 
 const Home = (params) => {
     // -- GitHub Issue Ticket # 3 ---
@@ -76,15 +75,17 @@ const Home = (params) => {
                     tablet={{
                         narrow: false,
                         offset: 0,
-                        size: 12
+                        size: 12,
+                        display: 'grid',
+                        justifyContent: 'center'
                     }}
                     desktop={{
                         narrow: false,
                         offset: 0,
-                        size: 6
+                        size: 6,
                     }}
                 >
-                    <Notification color='text' textAlign='center' style={{height: '74.5vh'}}>
+                    <Notification color='text' textAlign='center' style={{height: '60rem'}}>
                         <Content size='medium'>
                             <h2>Featured Comic</h2>
                         </Content>
@@ -115,7 +116,7 @@ const Home = (params) => {
                         size: 6
                     }}
                 >
-                    <Notification backgroundColor='dark' className='newsstand-container' style={{height: '74.5vh'}}>
+                    <Notification backgroundColor='dark' className='newsstand-container' style={{height: '60rem'}}>
                         <Content size='medium' textAlign='center' >
                             <h2 className='home-header-dark'>Newsstand</h2>
                             {newComicDay === undefined ? 

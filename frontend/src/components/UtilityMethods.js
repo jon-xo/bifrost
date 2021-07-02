@@ -38,16 +38,16 @@ export const ReleaseDate = (objectArray) => {
 
 export const ComicCardDate = (dateString) => {
     let targetDate = undefined;
-    debugger
+    // debugger
     if(dateString.includes('.')){
         const newDate = dateString.split('.');
         let dateEdit = newDate[0];
         targetDate = DateTime.fromISO(dateEdit);
-        debugger
+        // debugger
         return targetDate.toLocaleString();
     } else {
         targetDate = DateTime.fromISO(dateString);
-        debugger
+        // debugger
         return targetDate.toLocaleString();
     }
 
@@ -73,6 +73,11 @@ export const WeekStart = (newComicDay, weekPosition) => {
         return weekStart.weekdayLong + ", " + weekStart.toLocaleString();
     }
 }
+
+export const FindPublisher = (detailArray) => {
+    const matchedDetail = detailArray.filter(d => d.snippet.includes("published by"))[0];
+    console.log(matchedDetail);
+};
 
 export const StringArray = (comicId, letterCount) => {
     const titleArray = comicId.split("");

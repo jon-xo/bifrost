@@ -20,16 +20,20 @@ const SearchComic = ({ comic }) => {
                 />
                 <Card.Content>
                     <Content>
-                        <h4 className="title is-4">{comic.name}</h4>
-                        {comic?.cover_date !== undefined ?
-                            <h6 className="title is-6">{ComicCardDate(comic?.cover_date)}</h6>
+                        {comic?.name === null ?
+                            <h4 className="title is-4">{comic?.volume.name}</h4>
                             :
-                            <h6 className="title is-6">Start date: {comic?.start_year}</h6>
+                            <h4 className="title is-4">{comic.name}</h4>
                         }
                         {comic.count_of_issues !== undefined ?
-                            <h6 className="title is-6">Number of issues: {comic?.count_of_issues}</h6>
+                            <h6 className="subtitle is-6">Number of issues {comic?.count_of_issues}</h6>
                             :
-                            <></>
+                            <h6 className="subtitle is-6">Issue #{comic?.issue_number}</h6>
+                        }
+                        {comic?.cover_date !== undefined ?
+                            <h6 className="subtitle is-6">Published {ComicCardDate(comic?.cover_date)}</h6>
+                            :
+                            <h6 className="subtitle is-6">Start date {comic?.start_year}</h6>
                         }
                     </Content>
                     <Content>

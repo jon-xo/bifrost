@@ -35,13 +35,13 @@ const SearchBar = () => {
         {
             // const encodedQuery = encodeURIComponent(queryString)
             if(searchType?.queryType === "Volumes"){
-                debugger
+                // debugger
                 searchVolumes(queryString)
                 .then(() => {
                     history.push("/search/volumes")
                 })
             } else if (searchType?.queryType === "Issues"){
-                debugger
+                // debugger
                 searchIssues(queryString)
                 .then(() => {
                     history.push("/search/issues")
@@ -57,7 +57,6 @@ const SearchBar = () => {
         if(event.target.value === "Issues") {
             setSearchType(queryObject);
         } else if (event.target.value === "Volumes") {
-            // debugger
             activeQuery = {
                 placeholder: "Find a comic series...",
                 queryType: "Volumes",

@@ -11,6 +11,15 @@ import { ComicCardDate } from "../UtilityMethods";
 import "../../index.css"
 
 const SearchComic = ({ comic }) => {
+    // 
+    // ---- GitHub Issue Ticket # 5 ----
+    // [Search [Ticket #5]](https://github.com/jon-xo/bifrost/issues/5)
+    // 
+    // - SearchComic.js returns results from both search API endpoints,
+    // ternary operators are used to display returned results regardless of source
+    // - Added div to display html returned by API provider
+    // 
+    
     return (
         <>
             <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>

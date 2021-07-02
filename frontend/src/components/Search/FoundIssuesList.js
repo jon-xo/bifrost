@@ -13,7 +13,7 @@ const FoundIssuesList = () => {
 
     return (
         <Section>
-        <h2 className="title is-2">Comics Found</h2>
+        <h2 className="title is-2">Issues Found</h2>
             <Container fluid='true' className='comic-container'>
             {foundComics.results?.map((comic) => (                
                 <SearchComic key={comic.id} comic={comic} />

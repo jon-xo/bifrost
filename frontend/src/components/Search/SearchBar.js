@@ -20,7 +20,7 @@ const SearchBar = () => {
     const history = useHistory();
     
     const [ queryString, setQueryString ] = useState("");
-    const { searchIssues } = useContext(SearchComicContext);
+    const { searchIssues, searchVolumes } = useContext(SearchComicContext);
     const [ searchType, setSearchType ] = useState({
         placeholder: "Find comic issues...",
         queryType: "Issues"
@@ -30,11 +30,20 @@ const SearchBar = () => {
         event.preventDefault();
         if( queryString !== undefined && queryString !== "" )
         {
-            const encodedQuery = encodeURIComponent(queryString)
-            searchIssues(encodedQuery)
-            .then(() => {
-                history.push("/search/issues")
-            })
+            // const encodedQuery = encodeURIComponent(queryString)
+            if(searchType?.queryType === "Volumes"){
+                debugger
+                searchVolumes(queryString)
+                .then(() => {
+                    history.push("/search/volumes")
+                })
+            } else if (searchType?.queryType === "Issues"){
+                debugger
+                searchIssues(queryString)
+                .then(() => {
+                    history.push("/search/issues")
+                })
+            }
         }
     };
 

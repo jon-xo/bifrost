@@ -5,6 +5,7 @@ import CurrentComicsList from "./Releases/CurrentComicsList";
 import UpcomingComicsList from "./Releases/UpcomingComicsList";
 import PastComicsList from "./Releases/PastComicList";
 import FoundIssuesList from "./Search/FoundIssuesList";
+import FoundVolumesList from "./Search/FoundVolumesList";
 import Home from "./Home/Home";
 import Header from "./Header"
 
@@ -29,9 +30,19 @@ export default function ApplicationViews() {
                     <Header />
                     <PastComicsList />
                 </Route>
+                <Route exact path="/reading">
+                    <Header />
+                </Route>
+                <Route exact path="/follows">
+                    <Header />
+                </Route>
                 <Route exact path="/search/issues">
                     <Header />
                     <FoundIssuesList />
+                </Route>
+                <Route exact path="/search/volumes">
+                    <Header />
+                    <FoundVolumesList />
                 </Route>
             </Switch>
         </main>

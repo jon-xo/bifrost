@@ -92,6 +92,12 @@ export const PublisherImage = (publisher) => {
                         size={64}
                         alt={publisher}
                     />)
+        case 'Marvel':                
+            return (<Image 
+                        src={marvelLogo}
+                        size={64}
+                        alt={publisher}
+                    />)
         case 'IDW PUBLISHING':
             return (<Image 
                         src={idwLogo}
@@ -104,7 +110,19 @@ export const PublisherImage = (publisher) => {
                         size={32}
                         alt={publisher}
                     />)
+        case 'Image':
+            return (<Image 
+                        src={imageLogo}
+                        size={32}
+                        alt={publisher}
+                    />)
         case 'BOOM! STUDIOS':
+            return (<Image 
+                        src={boomLogo}
+                        size={64}
+                        alt={publisher}
+                    />)
+        case 'Boom! Studios':
             return (<Image 
                         src={boomLogo}
                         size={64}
@@ -116,7 +134,19 @@ export const PublisherImage = (publisher) => {
                         size={48}
                         alt={publisher}
                     />)
+        case 'Dark Horse Comics':
+            return (<Image 
+                        src={darkHorseLogo}
+                        size={48}
+                        alt={publisher}
+                    />)
         case 'DC COMICS':
+            return (<Image 
+                        src={dcComicsLogo}
+                        size={48}
+                        alt={publisher}
+                    />)
+        case 'DC Comics':
             return (<Image 
                         src={dcComicsLogo}
                         size={48}

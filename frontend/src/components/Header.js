@@ -45,13 +45,18 @@ const Header = () => {
 
     return (
         <>
-        <Navbar aria-label="main navigation" color='dark' transparent='true' fixed='top' active={showBurger}>            
+        <Navbar 
+            aria-label="main navigation" 
+            color='dark' 
+            transparent
+            fixed='top' 
+            active={showBurger}>            
             <Navbar.Brand>
                 <Navbar.Item>
-                <Icon className='logo-icon'>
-                    <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
-                </Icon>
-                <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
+                    <Icon className='logo-icon'>
+                        <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
+                    </Icon>
+                    <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
                 </Navbar.Item>
                 <Navbar.Burger onClick={burgerToggle}/>            
             </Navbar.Brand>            
@@ -63,13 +68,12 @@ const Header = () => {
                         </Navbar.Link>
                     </Navbar.Item>
                     <Navbar.Item
-                        // active="false"
                         hoverable="false"
-                        href="#"
+                        // href="#"
                     >
-                        <Navbar.Link arrowless='true'>
+                        <Navbar.Item arrowless='true'>
                             Releases
-                        </Navbar.Link>
+                        </Navbar.Item>
                         <Navbar.Dropdown>
                         <Navbar.Link>
                             <Navbar.Item renderAs={NavLink} to={'/previous-comics'} arrowless='true'>
@@ -92,15 +96,19 @@ const Header = () => {
                         </Navbar.Dropdown>
                     </Navbar.Item>
                     {isLoggedIn ?
-                         <Navbar.Link arrowless='true'>
-                             <NavLink to="/">Reading List</NavLink>
-                         </Navbar.Link>
+                        <Navbar.Link arrowless='true'>
+                            <Navbar.Item renderAs={NavLink} to={'/reading'} >
+                                Reading List
+                            </Navbar.Item>
+                        </Navbar.Link>
                         :
                         <></>
                     }
                     {isLoggedIn ?
-                         <Navbar.Link arrowless='true'>
-                             <NavLink to="/">Follows</NavLink>
+                        <Navbar.Link arrowless='true'>
+                            <Navbar.Item renderAs={NavLink} to={'/follows'}>
+                                Follows
+                            </Navbar.Item>
                          </Navbar.Link>
                         :
                         <></>

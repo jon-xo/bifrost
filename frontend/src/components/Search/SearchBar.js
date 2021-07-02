@@ -3,7 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { SearchComicContext } from "../../providers/SearchComicProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dropdown, Icon, Form, Button } from "react-bulma-components";
-import { faSearch, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faAngleDown, faBox, faBoxes } from '@fortawesome/free-solid-svg-icons'
 
 const SearchBar = () => {
     // 
@@ -18,13 +18,16 @@ const SearchBar = () => {
     // 
 
     const history = useHistory();
+
+    const queryObject = {
+        placeholder: "Find a comic issues...",
+        queryType: "Issues",
+        icon: "faBox"
+    };
     
     const [ queryString, setQueryString ] = useState("");
     const { searchIssues, searchVolumes } = useContext(SearchComicContext);
-    const [ searchType, setSearchType ] = useState({
-        placeholder: "Find comic issues...",
-        queryType: "Issues"
-    });
+    const [ searchType, setSearchType ] = useState(queryObject);
 
     const handleSearch = (event) => {
         event.preventDefault();
@@ -52,17 +55,13 @@ const SearchBar = () => {
         let activeQuery = undefined;
 
         if(event.target.value === "Issues") {
-            // debugger
-            activeQuery = {
-                placeholder: "Find comic issues...",
-                queryType: "Issues"
-            };
-            setSearchType(activeQuery);
+            setSearchType(queryObject);
         } else if (event.target.value === "Volumes") {
             // debugger
             activeQuery = {
-                placeholder: "Search for a comic series...",
-                queryType: "Volumes"
+                placeholder: "Find a comic series...",
+                queryType: "Volumes",
+                icon: "faBoxes"
             };
             setSearchType(activeQuery);
         }
@@ -73,6 +72,9 @@ const SearchBar = () => {
             <form>
                 <Form.Field kind="addons">
                     <Form.Control>
+                        <Icon align="left" >
+                            <FontAwesomeIcon className='search-icon' icon={faSearch} />
+                        </Icon>
                         <Form.Input placeholder={searchType?.placeholder} onChange={(e) => {setQueryString(e.target.value)}}/>
                     </Form.Control>
                     <Form.Control>
@@ -89,7 +91,11 @@ const SearchBar = () => {
                     </Form.Control>
                     <Form.Control >
                         <Icon align="left" >
-                            <FontAwesomeIcon className='search-icon' icon={faSearch} />
+                            {searchType.icon === "faBox" ?
+                                <FontAwesomeIcon className='search-icon' icon={faBox} />
+                                :                                
+                                <FontAwesomeIcon className='search-icon' icon={faBoxes} />
+                            }
                         </Icon>
                         <Button color='info' onClick={(e) => {handleSearch(e)}} className='search-button--span'>
                             Search

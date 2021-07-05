@@ -30,6 +30,10 @@ namespace bifrost.Models
         [DataType(DataType.Url)]
         public string ComicImage { get; set; }
 
+        [Required]
+        [MaxLength(10)]
+        public string ComicType { get; set; }
+
         public DateTime? PublishDate { get; set; }
 
         [Required]

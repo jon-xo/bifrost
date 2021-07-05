@@ -38,7 +38,8 @@ namespace bifrost.Repository
                                 sc.Read,
                                 sc.LastUpdated,
                                 sc.SeriesId,
-                                sc.Rating
+                                sc.Rating,
+                                sc.ComicType
                         FROM SavedContent sc
                             LEFT JOIN UserAccount u ON sc.UserId = u.Id
                         WHERE UserAccountId = @activeUserId
@@ -66,6 +67,7 @@ namespace bifrost.Repository
                             LastUpdated = DbUtils.GetNullableDateTime(reader, "LastUpdated"),
                             SeriesId = DbUtils.GetString(reader, "SeriesId"),
                             Rating = DbUtils.GetNullableInt(reader, "Rating"),
+                            ComicType = DbUtils.GetString(reader, "ComicType"),
                             UserAccountId = DbUtils.GetInt(reader, "UserAccountId"),
                             UserAccount = new UserAccount()
                             {
@@ -101,6 +103,7 @@ namespace bifrost.Repository
                             Creators,
                             Description,
                             ComicImage,
+                            ComicType,
                             PublishDate,
                             Read,
                             LastUpdated,
@@ -116,6 +119,7 @@ namespace bifrost.Repository
                             @Creators,
                             @Description,
                             @ComicImage,
+                            @ComicType,
                             @PublishDate,
                             @Read,
                             @LastUpdated,
@@ -130,6 +134,7 @@ namespace bifrost.Repository
                     DbUtils.AddParameter(cmd, "@Creators", content.Creators);
                     DbUtils.AddParameter(cmd, "@Description", content.Description);
                     DbUtils.AddParameter(cmd, "@ComicImage", content.ComicImage);
+                    DbUtils.AddParameter(cmd, "@ComicType", content.ComicType);
                     DbUtils.AddParameter(cmd, "@PublishDate", content.PublishDate);
                     DbUtils.AddParameter(cmd, "@Read", content.Read);
                     DbUtils.AddParameter(cmd, "@LastUpdated", content.LastUpdated);

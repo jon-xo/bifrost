@@ -41,6 +41,7 @@ CREATE TABLE [SavedContent] (
   [LastUpdated] datetime,
   [SeriesId] nvarchar(255),
   [Rating] int,
+  [ComicType] nvarchar(10) NOT NULL
 
   CONSTRAINT [FK_SavedContent_UId_User] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id])
 )

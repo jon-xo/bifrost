@@ -42,12 +42,13 @@ export const UserAccountProvider = (props) => {
   
 
     const login = (email, pw) => {
+        // debugger
         return firebase.auth().signInWithEmailAndPassword(email, pw)
         .then((signInResponse) => getUserAccount(signInResponse.user.uid))
         .then((userAccount) => {
+            sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
             setWarningProps({hidden: true});
             setIsLoggedIn(true);
-            sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
         });
     };
 
@@ -78,13 +79,12 @@ export const UserAccountProvider = (props) => {
     const getToken = () => firebase.auth().currentUser.getIdToken();
 
     const getUserAccount = (firebaseUserId) => {
-        return getToken().then((token) => 
-        
-        fetch(`${apiUrl}/${firebaseUserId}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+        return getToken().then((token) =>         
+        fetch(`https://localhost:5001/api/useraccount/${firebaseUserId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
         }).then(r => r.json()));
     };
 
@@ -93,8 +93,8 @@ export const UserAccountProvider = (props) => {
         fetch(apiUrl, {
             method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
             },
             body: JSON.stringify(userAccount)
         }).then(resp => resp.json()));  

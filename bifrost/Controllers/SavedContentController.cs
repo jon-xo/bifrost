@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using bifrost.Models;
 using bifrost.Repository;
+using System;
+using System.Collections.Generic;
 
 namespace bifrost.Controllers
 {

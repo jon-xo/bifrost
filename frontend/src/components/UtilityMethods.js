@@ -8,6 +8,17 @@ import boomLogo from "../assets/images/logos/Boom-Studios_Logo.png";
 import darkHorseLogo from "../assets/images/logos/Dark-Horse-Comics_Logo.png";
 import dcComicsLogo from "../assets/images/logos/DC-Comics_Logo.png";
 
+
+export const ReleaseComicImage = (diamond_id) => {
+    if (diamond_id === "fallback"){
+        return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
+    }
+
+    return `https://www.tfaw.com/media/catalog/product/${StringArray(diamond_id, 1)}/${StringArray(diamond_id, 2)}/${diamond_id}.jpg`
+};
+
+export const currentDate = DateTime.now().toLocaleString();
+
 // **ReleaseDate** method accepts an object returned by the ComicProvider endpoints,
 // if comics array in the object parameter is not undefined, the release_date key
 // of the comic object in index position 0 is returned. 

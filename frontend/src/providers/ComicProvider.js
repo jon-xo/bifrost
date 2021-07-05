@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react"
+import React, { useState, createContext } from "react";
 
 export const ComicContext = createContext();
 
@@ -48,5 +48,5 @@ export const ComicProvider = (props) => {
         }}>
             {props.children}
         </ComicContext.Provider>
-    )
+    );
 };

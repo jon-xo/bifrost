@@ -1,5 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { PublisherImage } from "../UtilityMethods";
+import HandleBuildContent from "../Reading/ReadingContent";
 import clsx from 'clsx';
 
 const ComicRow = ({comic}) => {
@@ -10,6 +12,8 @@ const ComicRow = ({comic}) => {
     //   in comicObject passed in comic prop
     // - if comic.featured key equals true, ComicRow returns tr element 
     //   with the is-selected class to highlight selected row    
+
+    const { isLoggedIn } = useContext(UserAccountContext);
     
     return (
         <>
@@ -19,6 +23,11 @@ const ComicRow = ({comic}) => {
                 <td>{comic.title}</td>
                 <td>{comic.creators}</td>
                 <td>{PublisherImage(comic.publisher)}</td>
+                {isLoggedIn ? 
+                    <td><HandleBuildContent comicId={comic.diamond_id} /></td>
+                : 
+                    <td></td>
+                }
             </tr>
             :
             <tr className="table-row--container" >
@@ -26,6 +35,11 @@ const ComicRow = ({comic}) => {
                 <td>{comic.title}</td>
                 <td>{comic.creators}</td>
                 <td>{PublisherImage(comic.publisher)}</td>
+                {isLoggedIn ? 
+                    <td><HandleBuildContent comicId={comic.diamond_id} /></td>
+                : 
+                    <td></td>
+                }
             </tr>
 
             }

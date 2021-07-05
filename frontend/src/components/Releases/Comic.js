@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useParams } from "react-router-dom";
 // import { Link, useHistory } from "react-router-dom"
-// import { ComicContext } from "../providers/ComicProvider";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { 
     Card, 
     Content,
     Tag,
     Image
 } from "react-bulma-components";
-import { StringArray, PublisherImage } from "../UtilityMethods";
+import { ReleaseComicImage, StringArray, PublisherImage } from "../UtilityMethods";
 import { ComicCardDate } from "../UtilityMethods";
-// import "../index.css"
+import HandleBuildContent from "../Reading/ReadingContent";
 
 const Comic = ({ comic }) => {
+    const { isLoggedIn } = useContext(UserAccountContext);
+    
     return (
         <>
             <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>
+                {isLoggedIn ? 
+                <Card.Header backgroundColor={"string"} py={2} px={2} justifyContent={"flex-end"} alignContent={"center"}>
+                    <HandleBuildContent comicId={comic.diamond_id} />
+                </Card.Header>
+                : 
+                <Card.Header />
+                }
                 <Image
                     size='4by2'
-                    src={`https://www.tfaw.com/media/catalog/product/${StringArray(comic.diamond_id, 1)}/${StringArray(comic.diamond_id, 2)}/${comic.diamond_id}.jpg`}
-                    fallback='https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png'                
+                    src={ReleaseComicImage(comic.diamond_id)}
+                    fallback={ReleaseComicImage("fallback")}
                 />
                 <Card.Content>
                     <Content>

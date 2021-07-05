@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useParams } from "react-router-dom";
 // import { Link, useHistory } from "react-router-dom"
 // import { ComicContext } from "../providers/ComicProvider";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { Card, 
          Content,
          Tag
 } from "react-bulma-components";
 import { StringArray, PublisherImage } from "../UtilityMethods";
 import { ComicCardDate } from "../UtilityMethods";
-import "../../index.css"
+import HandleBuildContent from "../Reading/ReadingContent";
+// import "../../index.css"
 
 const SearchComic = ({ comic }) => {
     // 
@@ -19,10 +21,19 @@ const SearchComic = ({ comic }) => {
     // ternary operators are used to display returned results regardless of source
     // - Added div to display html returned by API provider
     // 
+
+    const { isLoggedIn } = useContext(UserAccountContext);
     
     return (
         <>
             <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>
+            {isLoggedIn ? 
+                <Card.Header backgroundColor={"string"} py={2} px={2} justifyContent={"flex-end"} alignContent={"center"}>
+                    <HandleBuildContent comicId={comic.id} />
+                </Card.Header>
+                : 
+                <Card.Header />
+            }
                 <Card.Image
                     size='4by2'
                     src={comic.image.super_url} 

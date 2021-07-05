@@ -11,7 +11,6 @@ namespace bifrost.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserAccountController : ControllerBase
     {
         private readonly IUserAccountRepository _userAccountRepository;

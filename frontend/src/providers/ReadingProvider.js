@@ -7,10 +7,10 @@ export const ReadingContext = createContext();
 
 export const ReadingProvider = (props) => {
     const [ allReading, setAllReading ] = useState([]);
+    const [ allUnread, setAllUnread ] = useState([]);
+    const [ allRead, setAllRead ] = useState([]);
+    const [ disableReadingButtons, setDisableReadingButton ] = useState(false);
     const { getToken } = useContext(UserAccountContext);
-
-    // const getToken = () => firebase.auth().currentUser.getIdToken();
-    // const userAccount = sessionStorage.getItem("userAccount");
     
     const apiUrl = 'https://localhost:5001/api/savedcontent'
 
@@ -26,44 +26,32 @@ export const ReadingProvider = (props) => {
             .then(setAllReading)        
     };
 
-    // const addContentToReadingList = (contentObject) => {
-    //     return fetch(apiUrl, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(contentObject)
-    //     })
-    // };
-
-    // const addContentToReadingList = (contentObject) => {
-    //     const postObject = (syncToken) => {
-    //         const newPost = { 
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Authorization: `Bearer ${syncToken}`,
-    //         },
-    //         body: JSON.stringify(contentObject)
-    //         }
-    //         console.log(newPost);
-    //         return newPost
-    //     }
-    //     debugger
-    //     return getToken().then((token) =>
-    //         fetch(apiUrl, postObject(token))
-    //         .then(r => {
-    //             console.log(r);
-    //             if (r.ok) {
-    //                 return r.json();
-    //             }
-    //             throw new Error(r.status === 401 ? "401: Unauthorized" : r.status + " " + r. statusText);
-    //         })
-    //     );
-    // };
+    const getUsersReadStatusContent = (userId, readBool) => {
+        if(readBool){
+            return getToken().then((token) => 
+                fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((r) => r.json()))
+                .then(setAllRead)
+            } else {
+            return getToken().then((token) => 
+                fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((r) => r.json()))
+                .then(setAllUnread)
+        }
+    }
 
     const addContentToReadingList = (contentObject) => {
-        debugger
+        // debugger
         return getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",
@@ -83,12 +71,31 @@ export const ReadingProvider = (props) => {
         );
     };
 
+    const toggleReadStatus = (id, readBool) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/update/rs?id=${id}&read=${readBool}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }))
+    };
+
     return (
         <ReadingContext.Provider value={{ 
             allReading, 
             setAllReading, 
+            allUnread,
+            setAllUnread,
+            allRead,
+            setAllRead,
             getUsersReadingList, 
-            addContentToReadingList 
+            addContentToReadingList,
+            getUsersReadStatusContent,
+            toggleReadStatus,
+            disableReadingButtons, 
+            setDisableReadingButton 
         }}>
             {props.children}
         </ReadingContext.Provider>

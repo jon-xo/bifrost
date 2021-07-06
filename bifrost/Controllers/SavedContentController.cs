@@ -26,6 +26,12 @@ namespace bifrost.Controllers
             return Ok(_savedContentRepository.GetUserSavedContent(userId));
         }
 
+        [HttpGet("r")]
+        public IActionResult GetReadUnreadContent(int uId, bool read)
+        {
+            return Ok(_savedContentRepository.GetUserReadStatusContent(uId, read));
+        }
+
         //// GET api/<ValuesController>/5
         //[HttpGet("{id}")]
         //public string Get(int id)
@@ -39,6 +45,14 @@ namespace bifrost.Controllers
         {
             _savedContentRepository.Add(content);
             return Ok(content);
+        }
+
+        // PUT api/<ValuesController>/5
+        [HttpPut("Update/rs")]
+        public IActionResult ReadStatus(int id, bool status)
+        {
+            _savedContentRepository.UpdateReadStatus(id, status);
+            return NoContent();
         }
 
         // PUT api/<ValuesController>/5

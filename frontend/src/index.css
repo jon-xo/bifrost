@@ -132,6 +132,23 @@ code {
 /*  ----- Reading views ----- */
 
 .reading-card--div {
-  min-height: 18rem !important;
+  min-height: 20rem !important;
+}
 
+.reader-tag--div {
+  margin-top: .5rem !important;
+  height: fit-content !important;
+  width: 9rem; 
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.reader-tag--div figure {
+  margin-top: .2rem !important;
+  height: fit-content !important;
+}
+
+.reader-tag--div img {
+  width: 85% !important;
 }

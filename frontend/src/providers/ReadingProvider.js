@@ -22,9 +22,8 @@ export const ReadingProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            .then((r) => r.json())
-            .then(setAllReading)
-        )
+            .then((r) => r.json()))
+            .then(setAllReading)        
     };
 
     // const addContentToReadingList = (contentObject) => {
@@ -64,13 +63,13 @@ export const ReadingProvider = (props) => {
     // };
 
     const addContentToReadingList = (contentObject) => {
-        // debugger
+        debugger
         return getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(contentObject)
             })

@@ -26,7 +26,7 @@ const PastComicsList = () => {
 
     useEffect(() => {
         getPreviousComics();
-    }, [getPreviousComics])
+    }, [])
 
     const newComicDay = ReleaseDate(previousComics);
 

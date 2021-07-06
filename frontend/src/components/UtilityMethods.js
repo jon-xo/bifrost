@@ -17,7 +17,30 @@ export const ReleaseComicImage = (diamond_id) => {
     return `https://www.tfaw.com/media/catalog/product/${StringArray(diamond_id, 1)}/${StringArray(diamond_id, 2)}/${diamond_id}.jpg`
 };
 
-export const currentDate = DateTime.now().toLocaleString();
+export const currentDate = DateTime.now().toISO();
+
+export const ReadingComicDate = (comicDate) => {
+    if(comicDate){
+        // const originalDate = comicObject.release_date;
+        if(comicDate.includes('.'))
+        {
+            const newTarget = comicDate.split('.');
+            try {
+                const modifiedDate = DateTime.fromISO(newTarget[0]);
+                return modifiedDate.toISO(); 
+            } catch (e) {
+                console.error(e);
+                return null;
+            }
+        }
+    }
+    try {
+        return DateTime.fromISO(comicDate).toISO();
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+};
 
 // **ReleaseDate** method accepts an object returned by the ComicProvider endpoints,
 // if comics array in the object parameter is not undefined, the release_date key

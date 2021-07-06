@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import { ComicContext } from "../../providers/ComicProvider";
-import { Content, Columns, Table, Notification } from "react-bulma-components";
+import { Container, Content, Columns, Table, Notification } from "react-bulma-components";
 import { ReleaseDate, WeekStart } from "../UtilityMethods";
 import RandomIssue from "./RandomIssue";
 import ComicRow from "./ComicRow";
+import clsx from 'clsx';
+
 
 const Home = (params) => {
     // -- GitHub Issue Ticket # 3 ---
@@ -62,113 +64,115 @@ const Home = (params) => {
 
     return (
         <>
-            <Columns breakpoint="tablet">
-                <Columns.Column size={12}></Columns.Column>
-                <Columns.Column 
-                    mobile={{
-                        narrow: false,
-                        offset: 0,
-                        size: 12,
-                        textAlign: 'center',
-                        textSize: 3
-                    }}
-                    tablet={{
-                        narrow: false,
-                        offset: 0,
-                        size: 12,
-                        display: 'grid',
-                        justifyContent: 'center'
-                    }}
-                    desktop={{
-                        narrow: false,
-                        offset: 0,
-                        size: 6,
-                    }}
-                >
-                    <Notification color='text' textAlign='center' style={{height: '60rem'}}>
-                        <Content size='medium'>
-                            <h2>Featured Comic</h2>
-                        </Content>
-                        {
-                            focusComic !== undefined ? 
-                            <RandomIssue comic={focusComic} />
-                            :
-                            <></>
-                        }
-                    </Notification>
-                </Columns.Column>
-                <Columns.Column
-                    mobile={{
-                        narrow: false,
-                        offset: 0,
-                        size: 12,
-                        textAlign: 'center',
-                        textSize: 3
-                    }}
-                    tablet={{
-                        narrow: false,
-                        offset: 0,
-                        size: 12
-                    }}
-                    desktop={{
-                        narrow: false,
-                        offset: 0,
-                        size: 6
-                    }}
-                >
-                    <Notification backgroundColor='dark' className='newsstand-container' style={{height: '60rem'}}>
-                        <Content size='medium' textAlign='center' >
-                            <h2 className='home-header-dark'>Newsstand</h2>
-                            {newComicDay === undefined ? 
-                            <h4 className='home-header-dark'>Week of ... </h4>
-                            :    
-                            <h4 className='home-header-dark'>Week of {WeekStart(newComicDay)} </h4>
+            <div>
+                <Columns breakpoint="tablet">
+                    <Columns.Column size={12}></Columns.Column>
+                    <Columns.Column
+                        mobile={{
+                            narrow: false,
+                            offset: 0,
+                            size: 12,
+                            textAlign: 'center',
+                            textSize: 3
+                        }}
+                        tablet={{
+                            narrow: false,
+                            offset: 0,
+                            size: 12,
+                            display: 'grid',
+                            justifyContent: 'center'
+                        }}
+                        desktop={{
+                            narrow: false,
+                            offset: 0,
+                            size: 6,
+                        }}
+                    >
+                        <Notification className={clsx("notification-col--container")} color='text' textAlign='center' >
+                            <Content size='medium'>
+                                <h2>Featured Comic</h2>
+                            </Content>
+                            {
+                                focusComic !== undefined ?
+                                <RandomIssue comic={focusComic} />
+                                :
+                                <></>
                             }
-                            <Table
-                                hoverable
-                                selected
-                                size="default"
-                                striped
-                                className='newstand-table'
-                                textAlign='center'
-                            >
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <abbr title="Release Number">
-                                            #
-                                            </abbr>
-                                        </th>
-                                        <th>
-                                            Title
-                                        </th>
-                                        <th>
-                                            Creators
-                                        </th>
-                                        <th>
-                                            Publisher
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        {focusedComics?.map((comic, index) => {
-                                                // debugger
-                                                comic.listIndex = index + 1;
-                                                comic.featured = undefined;
-                                                if(comic?.diamond_id === focusComic?.diamond_id)
-                                                {
-                                                    comic.featured = true;
+                        </Notification>
+                    </Columns.Column>
+                    <Columns.Column
+                        mobile={{
+                            narrow: false,
+                            offset: 0,
+                            size: 12,
+                            textAlign: 'center',
+                            textSize: 3
+                        }}
+                        tablet={{
+                            narrow: false,
+                            offset: 0,
+                            size: 12
+                        }}
+                        desktop={{
+                            narrow: false,
+                            offset: 0,
+                            size: 6
+                        }}
+                    >
+                        <Notification justifyContent={"center"} className={clsx("notification-col--container, newsstand-container")} backgroundColor='dark'>
+                            <Content size='medium' textAlign='center' >
+                                <h2 className='home-header-dark'>Newsstand</h2>
+                                {newComicDay === undefined ?
+                                <h4 className='home-header-dark'>Week of ... </h4>
+                                :
+                                <h4 className='home-header-dark'>Week of {WeekStart(newComicDay)} </h4>
+                                }
+                                <Table
+                                    hoverable
+                                    selected
+                                    size="default"
+                                    striped
+                                    className='newstand-table'
+                                    textAlign='center'
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <abbr title="Release Number">
+                                                #
+                                                </abbr>
+                                            </th>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                                Creators
+                                            </th>
+                                            <th>
+                                                Publisher
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {focusedComics?.map((comic, index) => {
+                                                    // debugger
+                                                    comic.listIndex = index + 1;
+                                                    comic.featured = undefined;
+                                                    if(comic?.diamond_id === focusComic?.diamond_id)
+                                                    {
+                                                        comic.featured = true;
+                                                        return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                    }
                                                     return <ComicRow key={comic.diamond_id} comic={comic} />
-                                                }
-                                                return <ComicRow key={comic.diamond_id} comic={comic} />
-                                            })                                        
-                                        }
-                                </tbody>
-                            </Table>
-                        </Content>
-                    </Notification>
-                </Columns.Column>
-            </Columns>
+                                                })
+                                            }
+                                    </tbody>
+                                </Table>
+                            </Content>
+                        </Notification>
+                    </Columns.Column>
+                </Columns>
+            </div>
         </>
     )
 };

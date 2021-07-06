@@ -8,7 +8,7 @@ import {
     Tag,
     Image
 } from "react-bulma-components";
-import { ReleaseComicImage, StringArray, PublisherImage } from "../UtilityMethods";
+import { ReleaseComicImage, PublisherImage } from "../UtilityMethods";
 import { ComicCardDate } from "../UtilityMethods";
 import HandleBuildContent from "../Reading/ReadingContent";
 

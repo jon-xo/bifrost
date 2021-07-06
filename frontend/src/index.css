@@ -65,6 +65,11 @@ code {
   color: #f1f1f1 !important;
 }
 
+.notification-col--container {
+  height: 60rem;
+  /* min-width: 50rem; */
+}
+
 .featured-comic--container div img {
   width: 50% !important;
   height: 50% !important;
@@ -72,28 +77,30 @@ code {
 }
 
 .newsstand-container {
-  overflow-y: auto;
+  height: 60rem;
+  padding-bottom: 5rem;
+  overflow-y: scroll !important;
 }
 
 .newstand-table {
-  overflow-y: scroll;
+  margin-left: 1% !important;
+  overflow-y: scroll !important;
 }
 
-.newstand-container:after{
+/* .newstand-container:after{
   content: "";
   display: block;
   width: 100%;
   height: 50rem;
-}
+} */
 
 .table-row--container {
-
   height: 9rem;
   max-height: fit-content;
 }
 
 .table-row--container th, td {
-  text-align: center;
+  /* text-align: center; */
   vertical-align: middle !important;
 }
 
@@ -119,4 +126,12 @@ code {
 .tag--container figure {
   margin-top: .2rem !important;
   height: fit-content !important;
+}
+
+
+/*  ----- Reading views ----- */
+
+.reading-card--div {
+  min-height: 18rem !important;
+
 }

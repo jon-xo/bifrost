@@ -7,24 +7,23 @@ import ReadingCard from "./ReadingCard";
 
 const ReadingList = () => {
     
-    const { allReading, getUsersReadingList } = useContext(ReadingContext);
-    const [ unreadList, setUnreadList ] = useState(undefined);
-    const [ readList, setReadList ] = useState(undefined);
+    const { allReading, getUsersReadingList, getUsersReadStatusContent, allUnread, allRead } = useContext(ReadingContext);
+    const [ unreadList, setUnreadList ] = useState([]);
+    const [ readList, setReadList ] = useState([]);
     const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
     const userId = parseInt(userAccount?.id);
 
-    let newUnread;
-    let newRead;
 
     useEffect(() => {
         getUsersReadingList(userId)
-        .then(() => {
-            newUnread = allReading?.filter((c) => c.read === false);
-            newRead = allReading?.filter((c) => c.read === true);
-        });
-        setUnreadList(newUnread);
-        setReadList(newRead);
     }, [])
+
+    useEffect(() => {
+        getUsersReadStatusContent(userId, true)
+        .then(() => {
+            getUsersReadStatusContent(userId, false);
+    })
+    }, [allReading])
 
     
     return (
@@ -37,23 +36,22 @@ const ReadingList = () => {
                             <Tile kind={"parent"} vertical>
                                 <Tile kind="child" renderAs={Notification} color={"info"} colorVariant={"dark"}>
                                     <Heading textAlign={"center"} >Unread</Heading>
-                                    {unreadList > 0 ?
-                                        <Heading textAlign={"center"} subtitle>Count: {unreadList.length}</Heading>
+                                    {allUnread?.length > 0 ?
+                                        <Heading textAlign={"center"} subtitle>Count: <b>{allUnread.length}</b></Heading>
                                         :
                                         <Heading textAlign={"center"} subtitle>No unread comics</Heading>
                                     }
                                 </Tile>
                                 {allReading?.length > 0 ?
                                     allReading?.filter((c) => c.read === false).map((comic) => {
-                                        debugger
+                                        // debugger
                                         if (comic.pbApiKey) {
-                                            debugger
+                                            // debugger
                                             return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
                                         } else {
-                                            debugger
+                                            // debugger
                                             return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
-                                        }
-                                            
+                                        }                                            
                                     })
                                     :
                                     <></>
@@ -62,22 +60,22 @@ const ReadingList = () => {
                         </Tile>
                         <Tile size={6} vertical>
                             <Tile kind={"parent"} vertical>
-                                <Tile kind="child" renderAs={Notification} color={"success"} colorVariant={"light"}>
+                                <Tile kind="child" renderAs={Notification} color={"success"} colorVariant={"dark"}>
                                     <Heading textAlign={"center"} >Read</Heading>
-                                    {readList > 0 ?
-                                        <Heading textAlign={"center"} subtitle>Count: {readList.length}</Heading>
+                                    {allRead?.length > 0 ?
+                                        <Heading textAlign={"center"} subtitle>Count: <b>{allRead.length}</b></Heading>
                                         :
                                         <Heading textAlign={"center"} subtitle>No read comics</Heading>
                                     }
                                 </Tile>
                                 {allReading?.length > 0 ?
                                     allReading?.filter((c) => c.read === true).map((comic) => {
-                                        debugger
+                                        // debugger
                                         if (comic.pbApiKey) {
-                                            debugger
+                                            // debugger
                                             return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
                                         } else {
-                                            debugger
+                                            // debugger
                                             return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
                                         }
                                             

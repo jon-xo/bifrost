@@ -116,17 +116,17 @@ namespace bifrost.Repository
                                 sc.ComicType
                         FROM SavedContent sc
                             LEFT JOIN UserAccount u ON sc.UserId = u.Id
-                        WHERE sc.UserId = @activeUserId                        
+                        WHERE sc.UserId = @activeUserId AND sc.[Read] = @readStatus
                     ";
 
-                    if (readStatus)
-                    {
-                        cmd.CommandText += " WHERE sc.[Read] = @readStatus";
-                    }
-                    else
-                    {
-                        cmd.CommandText += " WHERE sc.[Read] = @readStatus";
-                    }
+                    //if (readStatus)
+                    //{
+                    //    cmd.CommandText += " WHERE sc.[Read] = @readStatus";
+                    //}
+                    //else
+                    //{
+                    //    cmd.CommandText += " WHERE sc.[Read] = @readStatus";
+                    //}
 
                     cmd.CommandText += " ORDER BY sc.LastUpdated";
 

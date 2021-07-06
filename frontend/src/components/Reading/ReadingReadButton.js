@@ -9,6 +9,7 @@ import ReadingCard from "./ReadingCard";
 const ReadingReadButton = ({ comicObject }) => {
     const { disableReadingButtons, setDisableReadingButton, toggleReadStatus, getUsersReadingList } = useContext(ReadingContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
+    // const [ updateComic, setUpdateComic ] = useState({});
     const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
     const userId = parseInt(userAccount?.id);
     
@@ -16,7 +17,9 @@ const ReadingReadButton = ({ comicObject }) => {
         event.preventDefault();
         setButtonLoading(true);
         setDisableReadingButton(true);
-        toggleReadStatus(comicId, comicObject.read)
+        const readStatus = !comicObject.read;
+        // debugger
+        toggleReadStatus(comicId, readStatus)
         .then(() => {
             getUsersReadingList(userId);
             setButtonLoading(false);
@@ -26,17 +29,32 @@ const ReadingReadButton = ({ comicObject }) => {
 
     return (
         <>
-            <Button
-                color="success"
-                renderAs="span"
-                loading={buttonLoading}
-                disabled={disableReadingButtons}
-                onClick={(e) => {
-                    handleMarkRead(e, comicObject.id)
-                }}
-            >
-                Mark as read
-            </Button>
+            {comicObject.read ?
+                <Button
+                    color="success"
+                    renderAs="span"                    
+                    inverted
+                    loading={buttonLoading}
+                    disabled={disableReadingButtons}
+                    onClick={(e) => {
+                        handleMarkRead(e, comicObject.id)
+                    }}
+                >
+                    Mark unread
+                </Button>
+            :
+                <Button
+                    color="success"
+                    renderAs="span"
+                    loading={buttonLoading}
+                    disabled={disableReadingButtons}
+                    onClick={(e) => {
+                        handleMarkRead(e, comicObject.id)
+                    }}
+                >
+                    Mark as read
+                </Button>
+            }
         </>
     )
 };

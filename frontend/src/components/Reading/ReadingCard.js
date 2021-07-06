@@ -5,11 +5,20 @@ import ReadingReadButton from "./ReadingReadButton";
 import clsx from 'clsx';
 
 const ReadingCard = ({ savedComic }) => {
+
+    // const [ readStatus, setReadStatus ] = useState();
+
+    let readStatus = "info";
+    
+    if (savedComic.read){
+        readStatus = "success";
+    } 
+    
     if (savedComic.comicType === "issue" && savedComic.pbApiKey){
-        debugger
+        // debugger
         return (
             <> 
-                <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={"info"} colorVariant={"light"}>
+                <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
                     <div className="content">
                         <Columns>
                             <Columns.Column size={3}>

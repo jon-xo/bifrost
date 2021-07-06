@@ -72,14 +72,27 @@ export const ReadingProvider = (props) => {
     };
 
     const toggleReadStatus = (id, readBool) => {
-        return getToken().then((token) =>
-            fetch(`${apiUrl}/update/rs?id=${id}&read=${readBool}`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            }))
+        if (readBool) {
+            debugger
+            return getToken().then((token) =>
+                fetch(`${apiUrl}/update/rs?id=${id}&status=true`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }))
+            } else {
+            debugger
+            return getToken().then((token) =>
+                fetch(`${apiUrl}/update/rs?id=${id}&status=false`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }))
+        }
     };
 
     return (

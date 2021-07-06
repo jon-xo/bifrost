@@ -29,17 +29,18 @@ CREATE TABLE [UserAccount] (
 CREATE TABLE [SavedContent] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [UserId] int,
-  [CVApiKey] nvarchar(15),
+  [CVApiKey] int,
   [PBApiKey] nvarchar(15),
   [Title] nvarchar(255) NOT NULL,
   [Publisher] nvarchar(255),
   [Creators] nvarchar(255),
   [Description] text,
+  [AltDescription] text NULL,
   [ComicImage] nvarchar(255),
   [PublishDate] datetime,
   [Read] bit,
   [LastUpdated] datetime,
-  [SeriesId] nvarchar(255),
+  [SeriesId] int,
   [Rating] int,
   [ComicType] nvarchar(10) NOT NULL
 

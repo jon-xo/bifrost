@@ -18,6 +18,7 @@ export const addReadingContent = ( comicObject, loginState, addMethod ) => {
         Creators: undefined,
         Publisher: undefined,
         Description: comicObject.description,
+        altDescription: undefined,
         PublishDate: undefined,
         Read: false,
         LastUpdated: currentDate,
@@ -30,18 +31,20 @@ export const addReadingContent = ( comicObject, loginState, addMethod ) => {
         savedContent.Title = comicObject.title;
         savedContent.ComicImage = ReleaseComicImage(comicObject.diamond_id);
         savedContent.ComicType = "issue";
-        // savedContent.Creators = comicObject.creators;
+        savedContent.Creators = comicObject.creators;
         savedContent.Publisher = comicObject.publisher;
         savedContent.PublishDate = ReadingComicDate(comicObject.release_date);
     } else if (comicObject.resource_type === "issue") {
         savedContent.CVApiKey = comicObject.id;
-        if (comicObject.name !== null || comicObject.name !== undefined){
+        if (comicObject.name){
+            // debugger
             savedContent.Title = comicObject.name;
         } else {
+            // debugger
             savedContent.Title = comicObject.volume.name;
         }
         savedContent.PublishDate = ReadingComicDate(comicObject?.cover_date);
-        savedContent.SeriesId = comicObject?.volume?.id;
+        savedContent.SeriesId = comicObject.volume?.id;
         savedContent.ComicImage = comicObject?.image?.super_url;
         savedContent.ComicType = comicObject.resource_type;
     } else if (comicObject.resource_type === "volume") {
@@ -51,7 +54,8 @@ export const addReadingContent = ( comicObject, loginState, addMethod ) => {
         savedContent.PublishDate = ReadingComicDate(comicObject?.start_year);
         savedContent.ComicImage = comicObject?.image?.super_url;
         savedContent.SeriesId = comicObject?.first_issue.id
-        savedContent.ComicType = comicObject.resource_type;        
+        savedContent.ComicType = comicObject.resource_type;
+        savedContent.altDescription = `${comicObject.count_of_issues}`;   
     } 
 
     if(loginState) {

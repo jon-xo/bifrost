@@ -15,7 +15,7 @@ const ReadingCard = ({ savedComic }) => {
         readStatus = "success";
     } 
     
-    if (savedComic.comicType === "issue" && savedComic.pbApiKey){
+    if (savedComic.pbApiKey){
         // debugger
         return (
             <> 
@@ -43,12 +43,6 @@ const ReadingCard = ({ savedComic }) => {
                                     <Button.Group align="right">
                                         <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
                                         <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />
-                                        {/* <Button
-                                            color="danger"
-                                            renderAs="span"
-                                        >
-                                            Delete
-                                        </Button> */}
                                     </Button.Group>
                                 </Container>
                             </Columns.Column>
@@ -57,44 +51,86 @@ const ReadingCard = ({ savedComic }) => {
                 </Tile>
             </>
         );
-    } else if (savedComic.comicType === "issue" && savedComic.cvApiKey) {
+    } else if (savedComic.cvApiKey) {
+        if (savedComic.comicType === "issue")
+        {
+            debugger
+            return (
+                <>
+                    <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
+                        <div className="content">
+                            <Columns>
+                                <Columns.Column size={3}>
+                                    <Image 
+                                        size={128} 
+                                        src={savedComic.comicImage}
+                                        fallback={ReleaseComicImage("fallback")} 
+                                    />
+                                </Columns.Column>
+                                <Columns.Column size={9}>
+                                    <Heading textAlign={"center"} size={4}>{savedComic.title}</Heading>
+                                    <Heading textAlign={"center"} subtitle size={6}>Release Date: {ComicCardDate(savedComic.publishDate)}</Heading>
+                                    <Content pull={"right"}>
+                                        {/* <Tag className={'tag--container'} size="medium" justifyContent={"center"} alignContent={"center"}> {PublisherImage(savedComic.publisher)}</Tag> */}
+                                    </Content>
+                                </Columns.Column>
+                            </Columns>
+                            <Columns>
+                                <Columns.Column size={12}>
+                                    <Container fluid={"true"} mt={5}>
+                                        <Button.Group align="right">
+                                            <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
+                                            <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />
+                                        </Button.Group>
+                                    </Container>
+                                </Columns.Column>
+                            </Columns>
+                        </div>
+                    </Tile>
+                </>
+            );
+
+        } else {
         debugger
         return (
             <>
-                <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={"info"} colorVariant={"light"}>
-                    <Columns>
-                        <Columns.Column size={3}>
-                            <Image 
-                                size={128} 
-                                src={savedComic.comicImage}
-                                fallback={ReleaseComicImage("fallback")} 
-                            />
-                        </Columns.Column>
-                        <Columns.Column size={9}>
-                            <Heading textAlign={"center"} size={4}>{savedComic.title}</Heading>
-                            <Heading textAlign={"center"} subtitle size={6}>{ComicCardDate(savedComic.publishDate)}</Heading>
-                            <Content>
-                                <Tag className={'tag--container'} size="medium" justifyContent={"center"} alignContent={"center"}> {PublisherImage(savedComic.publisher)}</Tag>
-                            </Content>
-                        </Columns.Column>
-                    </Columns>
+                <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
+                    <div className="content">
+                        <Columns>
+                            <Columns.Column size={3}>
+                                <Image 
+                                    size={128} 
+                                    src={savedComic.comicImage}
+                                    fallback={ReleaseComicImage("fallback")} 
+                                />
+                            </Columns.Column>
+                            <Columns.Column size={9}>
+                                <Heading textAlign={"center"} size={4}>{savedComic.title}</Heading>
+                                <Heading textAlign={"center"} subtitle size={6}>Release Date: {ComicCardDate(savedComic.publishDate)}</Heading>
+                                <Heading textAlign={"center"} subtitle size={6}>Volume</Heading>
+                                <Heading textAlign={"center"} subtitle size={6}>Issue Count: {parseInt(savedComic.altDescription)}</Heading>
+                                <Content pull={"right"}>
+                                    <Tag className={'tag--container'} size="medium" justifyContent={"center"} alignContent={"center"}> {PublisherImage(savedComic.publisher)}</Tag>
+                                </Content>
+                            </Columns.Column>
+                        </Columns>
+                        <Columns>
+                            <Columns.Column size={12}>
+                                <Container fluid={"true"} mt={5}>
+                                    <Button.Group align="right">
+                                        <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
+                                        <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />
+                                    </Button.Group>
+                                </Container>
+                            </Columns.Column>
+                        </Columns>
+                    </div>
                 </Tile>
             </>
         );
-    } else if (savedComic.ComicType === "volume"){
-        debugger
-        return (
-            <>
-                <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={"info"} colorVariant={"light"}>
-                    <Heading textAlign={"center"} size={4}>Sample</Heading>
-                    <Heading textAlign={"center"}  subtitle>Sample Info</Heading>
-                </Tile>
-            </>
-        );
-    } else {
-        return null;
-    }
-    
+        }
+    } 
+    return null;    
 };
 
 export default ReadingCard;

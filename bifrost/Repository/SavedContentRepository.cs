@@ -33,6 +33,7 @@ namespace bifrost.Repository
                                 sc.Publisher,
                                 sc.Creators,
                                 sc.[Description],
+                                sc.AltDescription,
                                 sc.ComicImage,
                                 sc.PublishDate,
                                 sc.[Read],
@@ -56,16 +57,17 @@ namespace bifrost.Repository
                         {
                             Id = DbUtils.GetInt(reader, "SavedContentId"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            CVApiKey = DbUtils.GetString(reader, "CVApiKey"),
+                            CVApiKey = DbUtils.GetNullableInt(reader, "CVApiKey"),
                             PBApiKey = DbUtils.GetString(reader, "PBApiKey"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
                             Creators = DbUtils.GetString(reader, "Creators"),
                             Description = DbUtils.GetString(reader, "Description"),
+                            AltDescription = DbUtils.GetString(reader, "AltDescription"),
                             ComicImage = DbUtils.GetString(reader, "ComicImage"),
                             PublishDate = DbUtils.GetNullableDateTime(reader, "PublishDate"),
                             Read = DbUtils.GetBoolean(reader, "Read"),
                             LastUpdated = DbUtils.GetNullableDateTime(reader, "LastUpdated"),
-                            SeriesId = DbUtils.GetString(reader, "SeriesId"),
+                            SeriesId = DbUtils.GetNullableInt(reader, "SeriesId"),
                             Rating = DbUtils.GetNullableInt(reader, "Rating"),
                             ComicType = DbUtils.GetString(reader, "ComicType"),
                             UserId = DbUtils.GetInt(reader, "UserAccountId"),
@@ -107,6 +109,7 @@ namespace bifrost.Repository
                                 sc.Publisher,
                                 sc.Creators,
                                 sc.[Description],
+                                sc.AltDescription,
                                 sc.ComicImage,
                                 sc.PublishDate,
                                 sc.[Read],
@@ -141,16 +144,17 @@ namespace bifrost.Repository
                         {
                             Id = DbUtils.GetInt(reader, "SavedContentId"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            CVApiKey = DbUtils.GetString(reader, "CVApiKey"),
+                            CVApiKey = DbUtils.GetNullableInt(reader, "CVApiKey"),
                             PBApiKey = DbUtils.GetString(reader, "PBApiKey"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
                             Creators = DbUtils.GetString(reader, "Creators"),
                             Description = DbUtils.GetString(reader, "Description"),
+                            AltDescription = DbUtils.GetString(reader, "AltDescription"),
                             ComicImage = DbUtils.GetString(reader, "ComicImage"),
                             PublishDate = DbUtils.GetNullableDateTime(reader, "PublishDate"),
                             Read = DbUtils.GetBoolean(reader, "Read"),
                             LastUpdated = DbUtils.GetNullableDateTime(reader, "LastUpdated"),
-                            SeriesId = DbUtils.GetString(reader, "SeriesId"),
+                            SeriesId = DbUtils.GetNullableInt(reader, "SeriesId"),
                             Rating = DbUtils.GetNullableInt(reader, "Rating"),
                             ComicType = DbUtils.GetString(reader, "ComicType"),
                             UserId = DbUtils.GetInt(reader, "UserAccountId"),
@@ -186,14 +190,15 @@ namespace bifrost.Repository
                             Title,
                             Publisher,
                             Creators,
-                            Description,
+                            Description,                            
                             ComicImage,
                             PublishDate,
                             [Read],
                             LastUpdated,
                             SeriesId,
                             Rating,
-                            ComicType)
+                            ComicType,
+                            AltDescription)
                         OUTPUT INSERTED.ID
                         VALUES (
                             @UserId,                           
@@ -209,7 +214,8 @@ namespace bifrost.Repository
                             @LastUpdated,
                             @SeriesId,
                             @Rating,
-                            @ComicType)";
+                            @ComicType,
+                            @AltDescription)";
 
                     DbUtils.AddParameter(cmd, "@UserId", content.UserId);
                     DbUtils.AddParameter(cmd, "@CVApiKey", content.CVApiKey);
@@ -218,6 +224,7 @@ namespace bifrost.Repository
                     DbUtils.AddParameter(cmd, "@Publisher", content.Publisher);
                     DbUtils.AddParameter(cmd, "@Creators", content.Creators);
                     DbUtils.AddParameter(cmd, "@Description", content.Description);
+                    DbUtils.AddParameter(cmd, "@AltDescription", content.AltDescription);
                     DbUtils.AddParameter(cmd, "@ComicImage", content.ComicImage);
                     DbUtils.AddParameter(cmd, "@PublishDate", content.PublishDate);
                     cmd.Parameters.Add("@Read", SqlDbType.Bit).Value = content.Read;

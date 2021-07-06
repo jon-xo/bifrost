@@ -42,7 +42,7 @@ const ReadingList = () => {
                     <Tile kind={"ancestor"}>
                         <Tile size={6} vertical>
                             <Tile kind={"parent"} vertical>
-                                <Tile kind="child" renderAs={Notification} color={"info"} colorVariant={"dark"}>
+                                <Tile className={"reading-header--div"} kind="child" renderAs={Notification} color={"info"} colorVariant={"dark"}>
                                     <Heading textAlign={"center"} >Unread</Heading>
                                     {allUnread?.length > 0 ?
                                         <Heading textAlign={"center"} subtitle>Count: <b>{allUnread.length}</b></Heading>
@@ -52,12 +52,9 @@ const ReadingList = () => {
                                 </Tile>
                                 {allReading?.length > 0 ?
                                     allReading?.filter((c) => c.read === false).map((comic) => {
-                                        // debugger
                                         if (comic.pbApiKey) {
-                                            // debugger
                                             return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
                                         } else {
-                                            // debugger
                                             return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
                                         }                                            
                                     })
@@ -68,7 +65,7 @@ const ReadingList = () => {
                         </Tile>
                         <Tile size={6} vertical>
                             <Tile kind={"parent"} vertical>
-                                <Tile kind="child" renderAs={Notification} color={"success"} colorVariant={"dark"}>
+                                <Tile className={"reading-header--div"} kind="child" renderAs={Notification} color={"success"} colorVariant={"dark"}>
                                     <Heading textAlign={"center"} >Read</Heading>
                                     {allRead?.length > 0 ?
                                         <Heading textAlign={"center"} subtitle>Count: <b>{allRead.length}</b></Heading>

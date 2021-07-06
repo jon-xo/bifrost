@@ -51,7 +51,7 @@ export const ReadingProvider = (props) => {
     }
 
     const addContentToReadingList = (contentObject) => {
-        // debugger
+        debugger
         return getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",

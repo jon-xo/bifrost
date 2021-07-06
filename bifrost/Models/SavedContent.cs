@@ -9,13 +9,13 @@ namespace bifrost.Models
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("User")]
+        //[DisplayName("User")]
         public int UserId { get; set; }
 
-        [MaxLength(15)]
-        public string CVApiKey { get; set; }
+        //[MaxLength(15)]
+        public int? CVApiKey { get; set; }
 
-        [MaxLength(15)]
+        //[MaxLength(15)]
         public string PBApiKey { get; set; }
         public string Publisher { get; set; }
         
@@ -25,6 +25,7 @@ namespace bifrost.Models
         
         [Required]
         public string Description { get; set; }
+        public string AltDescription { get; set; }
         
         [Required]
         [DataType(DataType.Url)]
@@ -41,7 +42,7 @@ namespace bifrost.Models
 
         [Required]
         public DateTime? LastUpdated { get; set; }
-        public string SeriesId { get; set; }
+        public int? SeriesId { get; set; }
         public int? Rating { get; set; }
 
         public UserAccount UserAccount { get; set; }

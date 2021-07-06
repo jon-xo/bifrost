@@ -135,6 +135,11 @@ code {
   min-height: 20rem !important;
 }
 
+.reading-header--div {
+  height: 6.5rem !important;
+  max-height: 16rem !important;
+}
+
 .reader-tag--div {
   margin-top: .5rem !important;
   height: fit-content !important;

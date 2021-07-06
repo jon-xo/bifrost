@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace bifrost.Models
@@ -23,7 +24,7 @@ namespace bifrost.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public DateTime CreateDateTime { get; set; }
+        public DateTime? CreateDateTime { get; set; }
 
         [MaxLength(255)]
         [DataType(DataType.Url)]
@@ -34,5 +35,6 @@ namespace bifrost.Models
 
         [Required]
         public Boolean Private { get; set; }
+
     }
 }

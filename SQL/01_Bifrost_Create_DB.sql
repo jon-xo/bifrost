@@ -30,17 +30,19 @@ CREATE TABLE [SavedContent] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [UserId] int,
   [CVApiKey] int,
-  [PBApiKey] int,
+  [PBApiKey] nvarchar(15),
   [Title] nvarchar(255) NOT NULL,
   [Publisher] nvarchar(255),
   [Creators] nvarchar(255),
-  [Description] nvarchar(512),
-  [ComicImage] nvarchar,
+  [Description] text,
+  [AltDescription] text NULL,
+  [ComicImage] nvarchar(255),
   [PublishDate] datetime,
   [Read] bit,
   [LastUpdated] datetime,
-  [SeriesId] nvarchar(255),
+  [SeriesId] int,
   [Rating] int,
+  [ComicType] nvarchar(10) NOT NULL
 
   CONSTRAINT [FK_SavedContent_UId_User] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id])
 )
@@ -49,7 +51,7 @@ CREATE TABLE [SavedContent] (
 CREATE TABLE [Comments] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [SavedContentId] int,
-  [Text] nvarchar(512),
+  [Text] nvarchar(max),
   [UserId] int,
   [date] datetime,
   [draft] bit,

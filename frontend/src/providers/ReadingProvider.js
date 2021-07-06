@@ -95,6 +95,16 @@ export const ReadingProvider = (props) => {
         }
     };
 
+    const deleteComicReadingList = (id) => {
+        return getToken().then((token) => 
+          fetch(`${apiUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }))
+      };
+
     return (
         <ReadingContext.Provider value={{ 
             allReading, 
@@ -107,8 +117,9 @@ export const ReadingProvider = (props) => {
             addContentToReadingList,
             getUsersReadStatusContent,
             toggleReadStatus,
+            deleteComicReadingList,
             disableReadingButtons, 
-            setDisableReadingButton 
+            setDisableReadingButton
         }}>
             {props.children}
         </ReadingContext.Provider>

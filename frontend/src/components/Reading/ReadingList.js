@@ -30,6 +30,14 @@ const ReadingList = () => {
         <>
             <Section>
                 <h2 className="title is-2">Reading List</h2>
+                {allReading?.length > 0 ?
+                    allReading.length === 1 && allUnread.length !== 2 ?
+                    <h4 className="subtitle is-5">{allReading.length} comic added</h4>
+                    :
+                    <h4 className="subtitle is-5">{allReading.length} comics added</h4>                    
+                :
+                <h4 className="subtitle is-5">No Comics Added</h4>
+                }
                 <Container fluid='true'>
                     <Tile kind={"ancestor"}>
                         <Tile size={6} vertical>

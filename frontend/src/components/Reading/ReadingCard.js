@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Container, Content, Notification, Heading, Tile, Columns, Image, Tag, Button } from "react-bulma-components";
 import { ComicCardDate, ReleaseComicImage, PublisherImage } from "../UtilityMethods";
 import ReadingReadButton from "./ReadingReadButton";
+import ReadingDeleteButton from "./ReadingDeleteButton";
 import clsx from 'clsx';
 
 const ReadingCard = ({ savedComic }) => {
@@ -41,12 +42,13 @@ const ReadingCard = ({ savedComic }) => {
                                 <Container fluid={"true"} mt={5}>
                                     <Button.Group align="right">
                                         <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
-                                        <Button
+                                        <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />
+                                        {/* <Button
                                             color="danger"
                                             renderAs="span"
                                         >
                                             Delete
-                                        </Button>
+                                        </Button> */}
                                     </Button.Group>
                                 </Container>
                             </Columns.Column>

@@ -63,8 +63,10 @@ namespace bifrost.Controllers
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _savedContentRepository.Delete(id);
+            return NoContent();
         }
     }
 }

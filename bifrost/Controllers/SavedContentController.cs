@@ -9,7 +9,7 @@ namespace bifrost.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class SavedContentController : ControllerBase
     {
         private readonly ISavedContentRepository _savedContentRepository;
@@ -23,7 +23,7 @@ namespace bifrost.Controllers
         [HttpGet("{userId}")]
         public IActionResult Get(int userId)
         {
-            return Ok(_savedContentRepository);
+            return Ok(_savedContentRepository.GetUserSavedContent(userId));
         }
 
         //// GET api/<ValuesController>/5

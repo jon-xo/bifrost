@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using bifrost.Models;
 using bifrost.Utils;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace bifrost.Repository
 {
@@ -21,28 +22,27 @@ namespace bifrost.Repository
                     cmd.CommandText = @"
                         SELECT  sc.Id AS SavedContentId,
                                 sc.UserId AS UserAccountId,
-                                u.Name AS UserAccountName,
+                                u.[Name] AS UserAccountName,
                                 u.DisplayName AS UserAccountDisplayName,
                                 u.Email AS UserAccountEmail,
                                 u.ImageLocation AS UserAccountImage,
-                                u.Email AS UserAccountEmail,
-                                u.Private AS UserAccountPrivate,
+                                u.[Private] AS UserAccountPrivate,
                                 sc.CVApiKey,
                                 sc.PBApiKey,
                                 sc.Title,
-                                sc.Publisher
+                                sc.Publisher,
                                 sc.Creators,
-                                sc.Description,
+                                sc.[Description],
                                 sc.ComicImage,
                                 sc.PublishDate,
-                                sc.Read,
+                                sc.[Read],
                                 sc.LastUpdated,
                                 sc.SeriesId,
                                 sc.Rating,
                                 sc.ComicType
                         FROM SavedContent sc
                             LEFT JOIN UserAccount u ON sc.UserId = u.Id
-                        WHERE UserAccountId = @activeUserId
+                        WHERE sc.UserId = @activeUserId
                         ORDER BY sc.LastUpdated
                     ";
 
@@ -68,7 +68,7 @@ namespace bifrost.Repository
                             SeriesId = DbUtils.GetString(reader, "SeriesId"),
                             Rating = DbUtils.GetNullableInt(reader, "Rating"),
                             ComicType = DbUtils.GetString(reader, "ComicType"),
-                            UserAccountId = DbUtils.GetInt(reader, "UserAccountId"),
+                            UserId = DbUtils.GetInt(reader, "UserAccountId"),
                             UserAccount = new UserAccount()
                             {
                                 Id = DbUtils.GetInt(reader, "UserAccountId"),
@@ -99,32 +99,32 @@ namespace bifrost.Repository
                             CVApiKey,
                             PBApiKey,
                             Title,
-                            Publisher
+                            Publisher,
                             Creators,
                             Description,
                             ComicImage,
-                            ComicType,
                             PublishDate,
-                            Read,
+                            [Read],
                             LastUpdated,
                             SeriesId,
-                            Rating)
+                            Rating,
+                            ComicType)
                         OUTPUT INSERTED.ID
                         VALUES (
                             @UserId,                           
                             @CVApiKey,
                             @PBApiKey,
                             @Title,
-                            @Publisher
+                            @Publisher,
                             @Creators,
                             @Description,
                             @ComicImage,
-                            @ComicType,
                             @PublishDate,
                             @Read,
                             @LastUpdated,
                             @SeriesId,
-                            @Rating)";
+                            @Rating,
+                            @ComicType)";
 
                     DbUtils.AddParameter(cmd, "@UserId", content.UserId);
                     DbUtils.AddParameter(cmd, "@CVApiKey", content.CVApiKey);
@@ -134,12 +134,22 @@ namespace bifrost.Repository
                     DbUtils.AddParameter(cmd, "@Creators", content.Creators);
                     DbUtils.AddParameter(cmd, "@Description", content.Description);
                     DbUtils.AddParameter(cmd, "@ComicImage", content.ComicImage);
-                    DbUtils.AddParameter(cmd, "@ComicType", content.ComicType);
                     DbUtils.AddParameter(cmd, "@PublishDate", content.PublishDate);
-                    DbUtils.AddParameter(cmd, "@Read", content.Read);
+                    cmd.Parameters.Add("@Read", SqlDbType.Bit).Value = content.Read;
+                    //if(content.Read == false)
+                    //{
+                    //    //cmd.Parameters.Add("@Read", SqlDbType.Bit ).Value = content.Read;
+                    //    DbUtils.AddParameter(cmd, "@Read", 0);
+                    //}
+                    //else
+                    //    //cmd.Parameters.Add("@Read", SqlDbType.Bit).Value = content.Read;
+                    //{
+                    //    DbUtils.AddParameter(cmd, "@Read", 1);
+                    //}
                     DbUtils.AddParameter(cmd, "@LastUpdated", content.LastUpdated);
                     DbUtils.AddParameter(cmd, "@SeriesId", content.SeriesId);
                     DbUtils.AddParameter(cmd, "@Rating", content.Rating);
+                    DbUtils.AddParameter(cmd, "@ComicType", content.ComicType);
 
                     content.Id = (int)cmd.ExecuteScalar();
                 }

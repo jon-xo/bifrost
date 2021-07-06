@@ -9,8 +9,9 @@ namespace bifrost.Models
         public int Id { get; set; }
 
         [Required]
-        
-        public string UserId { get; set; }
+        [DisplayName("User")]
+        public int UserId { get; set; }
+
         [MaxLength(15)]
         public string CVApiKey { get; set; }
 
@@ -23,7 +24,6 @@ namespace bifrost.Models
         public string Creators { get; set; }
         
         [Required]
-        [MaxLength(512)]
         public string Description { get; set; }
         
         [Required]
@@ -44,8 +44,6 @@ namespace bifrost.Models
         public string SeriesId { get; set; }
         public int? Rating { get; set; }
 
-        [DisplayName("User")]
-        public int UserAccountId { get; set; }
         public UserAccount UserAccount { get; set; }
     }
 }

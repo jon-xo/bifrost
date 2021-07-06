@@ -59,6 +59,8 @@ namespace bifrost.Utils
 
         public static Boolean GetBoolean(SqlDataReader reader, string column)
         {
+            //bool newBool = reader.GetBoolean(reader.GetOrdinal("column"));
+            //return newBool;
             return reader.GetBoolean(reader.GetOrdinal(column));
         }
 
@@ -135,5 +137,6 @@ namespace bifrost.Utils
                 cmd.Parameters.AddWithValue(name, value);
             }
         }
+
     }
 }

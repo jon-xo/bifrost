@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom"
 import { ComicContext } from "../../providers/ComicProvider";
 import { Container, Content, Columns, Table, Notification } from "react-bulma-components";
 import { ReleaseDate, WeekStart } from "../UtilityMethods";
+import HomeLoader from "./HomeLoader";
 import RandomIssue from "./RandomIssue";
 import ComicRow from "./ComicRow";
 import clsx from 'clsx';
@@ -21,7 +22,7 @@ const Home = (params) => {
     //   once the array is modified, that array is mapped and 
     //   the ComicRow is returned inside JSX table
     
-    const { currentComics, getCurrentComics } = useContext(ComicContext);
+    const { currentComics, getCurrentComics, isLoading, setIsLoading } = useContext(ComicContext);
     const [ focusComic, setFocusComic ] = useState(undefined);
     const [ focusedComics, setFocusedComics ] = useState([]);
     
@@ -65,7 +66,10 @@ const Home = (params) => {
     return (
         <>
             <div>
-                <Columns breakpoint="tablet">
+                {isLoading ?
+                    <HomeLoader />
+                    :
+                    <Columns breakpoint="tablet">
                     <Columns.Column size={12}></Columns.Column>
                     <Columns.Column
                         mobile={{
@@ -171,7 +175,7 @@ const Home = (params) => {
                             </Content>
                         </Notification>
                     </Columns.Column>
-                </Columns>
+                </Columns>}
             </div>
         </>
     )

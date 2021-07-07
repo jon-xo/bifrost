@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 // import { useHistory } from "react-router-dom"
 import { Section, Container } from "react-bulma-components";
 import { ComicContext } from "../../providers/ComicProvider";
-import { ReleaseDate, WeekStart } from "../UtilityMethods";
+import { DotLoader, ReleaseDate, WeekStart } from "../UtilityMethods";
 import Comic from "./Comic"
 
 
@@ -33,7 +33,7 @@ const CurrentComicsList = () => {
             <Section>
                 <h2 className="title is-2">Current Comics</h2>
             {newComicDay === undefined ? 
-                <h4 className="subtitle is-5">Release Date: ...</h4>
+                <DotLoader />
                 :
                 <h4 className="subtitle is-5"><strong>Release Date</strong>: {WeekStart(newComicDay, "mid")}</h4>
             }

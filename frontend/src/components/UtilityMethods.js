@@ -1,13 +1,37 @@
 import React from "react";
 import { DateTime } from "luxon";
-import { Image } from "react-bulma-components";
+import { Image, Icon } from "react-bulma-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSnowflake } from '@fortawesome/free-solid-svg-icons'
 import marvelLogo from "../assets/images/logos/Marvel-Comics_Logo.png";
 import idwLogo from "../assets/images/logos/IDW_Publishing_logo.png";
 import imageLogo from "../assets/images/logos/Image-Comics_Logo.png";
 import boomLogo from "../assets/images/logos/Boom-Studios_Logo.png";
 import darkHorseLogo from "../assets/images/logos/Dark-Horse-Comics_Logo.png";
 import dcComicsLogo from "../assets/images/logos/DC-Comics_Logo.png";
+import Loader from "react-loader-spinner";
 
+export const BfLoader = () => {
+    return (
+        <Icon>
+            <div className={"fa-3x"}>
+                <FontAwesomeIcon className='fa-spin' icon={faSnowflake} />
+            </div>
+        </Icon>
+    );
+};
+
+export const DotLoader = () => {
+    return (
+        <Loader
+          type="ThreeDots"
+          color="#010101"
+          height={20}
+          width={65}
+          timeout={3000} //3 secs
+        />
+    );
+};
 
 export const ReleaseComicImage = (diamond_id) => {
     if (diamond_id === "fallback"){

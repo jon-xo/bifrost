@@ -61,6 +61,26 @@ code {
 
 /* ---- Home view ---- */
 
+.loading-container--div {
+  /* margin-top: 20rem !important; */
+  width: 90vw !important;
+  height: 90vh !important;
+}
+
+.loading-notification--div {
+  width: 80vw !important;
+  height: 80vh !important;
+}
+
+.loading-notification--div div {
+  margin-top: 25%;
+}
+
+.loading-alignment {
+  text-align: center;
+  justify-content: center !important;
+}
+
 .home-header-dark {
   color: #f1f1f1 !important;
 }

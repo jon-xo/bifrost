@@ -6,6 +6,8 @@ export const ComicProvider = (props) => {
     const [ previousComics, setPreviousComics ] = useState([]);
     const [ currentComics, setCurrentComics ] = useState([]);
     const [ newComics, setNewComics ] = useState([]);
+    const [ isLoading, setIsLoading ] = useState(false);
+
     // const CV_API_KEY = process.env.REACT_APP_COMIC_API_KEY;
     // const SB_API = 'https://api.shortboxed.com/comics/v1'
     const API_PROXY = 'https://bifrost-proxy.herokuapp.com/api'
@@ -27,11 +29,15 @@ export const ComicProvider = (props) => {
     };
 
     const getCurrentComics = () => {
+        setIsLoading(true);
         return fetch(`${API_PROXY}/current`, {
             method: "GET"
         })
         .then((r) => r.json())
-        .then(setCurrentComics);
+        .then(setCurrentComics)
+        .then(() => {
+            setIsLoading(false);
+        });
     };
 
     return (
@@ -44,7 +50,9 @@ export const ComicProvider = (props) => {
             setCurrentComics,
             getNewComics,
             getPreviousComics,
-            getCurrentComics
+            getCurrentComics,
+            isLoading,
+            setIsLoading
         }}>
             {props.children}
         </ComicContext.Provider>

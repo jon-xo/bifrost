@@ -88,6 +88,80 @@ namespace bifrost.Repository
             }
         }
 
+        public List<SavedContent> GetAllPublicContent()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT  sc.Id AS SavedContentId,
+                                sc.UserId AS UserAccountId,
+                                u.[Name] AS UserAccountName,
+                                u.DisplayName AS UserAccountDisplayName,
+                                u.Email AS UserAccountEmail,
+                                u.ImageLocation AS UserAccountImage,
+                                u.[Private] AS UserAccountPrivate,
+                                sc.CVApiKey,
+                                sc.PBApiKey,
+                                sc.Title,
+                                sc.Publisher,
+                                sc.Creators,
+                                sc.[Description],
+                                sc.AltDescription,
+                                sc.ComicImage,
+                                sc.PublishDate,
+                                sc.[Read],
+                                sc.LastUpdated,
+                                sc.SeriesId,
+                                sc.Rating,
+                                sc.ComicType
+                        FROM SavedContent sc
+                            LEFT JOIN UserAccount u ON sc.UserId = u.Id
+                        WHERE u.[Private] = 0
+                        ORDER BY sc.LastUpdated
+                    ";
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<SavedContent> savedContents = new List<SavedContent>();
+                    while (reader.Read())
+                    {
+                        savedContents.Add(new SavedContent()
+                        {
+                            Id = DbUtils.GetInt(reader, "SavedContentId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            CVApiKey = DbUtils.GetNullableInt(reader, "CVApiKey"),
+                            PBApiKey = DbUtils.GetString(reader, "PBApiKey"),
+                            Publisher = DbUtils.GetString(reader, "Publisher"),
+                            Creators = DbUtils.GetString(reader, "Creators"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            AltDescription = DbUtils.GetString(reader, "AltDescription"),
+                            ComicImage = DbUtils.GetString(reader, "ComicImage"),
+                            PublishDate = DbUtils.GetNullableDateTime(reader, "PublishDate"),
+                            Read = DbUtils.GetBoolean(reader, "Read"),
+                            LastUpdated = DbUtils.GetNullableDateTime(reader, "LastUpdated"),
+                            SeriesId = DbUtils.GetNullableInt(reader, "SeriesId"),
+                            Rating = DbUtils.GetNullableInt(reader, "Rating"),
+                            ComicType = DbUtils.GetString(reader, "ComicType"),
+                            UserId = DbUtils.GetInt(reader, "UserAccountId"),
+                            UserAccount = new UserAccount()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserAccountId"),
+                                Name = DbUtils.GetString(reader, "UserAccountName"),
+                                DisplayName = DbUtils.GetString(reader, "UserAccountDisplayName"),
+                                Email = DbUtils.GetString(reader, "UserAccountEmail"),
+                                ImageLocation = DbUtils.GetString(reader, "UserAccountImage"),
+                                Private = DbUtils.GetBoolean(reader, "UserAccountPrivate")
+                            }
+                        });
+                    }
+                    reader.Close();
+                    return savedContents;
+                }
+            }
+        }
+
         public List<SavedContent> GetUserReadStatusContent(int activeUserId, bool readStatus)
         {
             using (SqlConnection conn = Connection)

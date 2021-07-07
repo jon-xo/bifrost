@@ -28,9 +28,12 @@ const SearchBar = () => {
     const [ queryString, setQueryString ] = useState("");
     const { searchIssues, searchVolumes } = useContext(SearchComicContext);
     const [ searchType, setSearchType ] = useState(queryObject);
+    const [ searchDisabled, setSearchDisabled ] = useState(true);
+    const [ searchLoading, setSearchLoading ] = useState(false);
 
     const handleSearch = (event) => {
         event.preventDefault();
+        setSearchLoading(true);
         if( queryString !== undefined && queryString !== "" )
         {
             // const encodedQuery = encodeURIComponent(queryString)
@@ -39,12 +42,14 @@ const SearchBar = () => {
                 searchVolumes(queryString)
                 .then(() => {
                     history.push("/search/volumes")
+                    setSearchLoading(false);
                 })
             } else if (searchType?.queryType === "Issues"){
                 // debugger
                 searchIssues(queryString)
                 .then(() => {
                     history.push("/search/issues")
+                    setSearchLoading(false);
                 })
             }
         }
@@ -66,6 +71,15 @@ const SearchBar = () => {
         }
     };
 
+    const handleActiveSearch = (value) => {
+        if(value !== undefined && value !== ""){
+            setSearchDisabled(false);
+            setQueryString(value)
+        } else {
+            setSearchDisabled(true);
+        }
+    };
+
     return (
         <>
             <form>
@@ -74,7 +88,7 @@ const SearchBar = () => {
                         <Icon align="left" >
                             <FontAwesomeIcon className='search-icon' icon={faSearch} />
                         </Icon>
-                        <Form.Input placeholder={searchType?.placeholder} onChange={(e) => {setQueryString(e.target.value)}}/>
+                        <Form.Input placeholder={searchType?.placeholder} onChange={(e) => {handleActiveSearch(e.target.value)}}/>
                     </Form.Control>
                     <Form.Control>
                         <Form.Select
@@ -96,7 +110,13 @@ const SearchBar = () => {
                                 <FontAwesomeIcon className='search-icon' icon={faBoxes} />
                             }
                         </Icon>
-                        <Button color='info' onClick={(e) => {handleSearch(e)}} className='search-button--span'>
+                        <Button 
+                            isStatic={searchDisabled}
+                            loading={searchLoading}
+                            color='info' 
+                            onClick={(e) => {handleSearch(e)}} 
+                            className='search-button--span'
+                        >
                             Search
                         </Button>
                     </Form.Control>

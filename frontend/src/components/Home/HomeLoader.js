@@ -14,7 +14,7 @@ const HomeLoader = () => {
                 display={"flex"}
                 justifyContent={"center"} 
                 alignContent={"center"}
-                className={"loading-container--div"}
+                className={clsx("loading-container--div", "fade")}
                 mt={5}
             >
                  <Notification 

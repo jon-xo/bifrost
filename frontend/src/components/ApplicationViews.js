@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Columns, Container } from "react-bulma-components";
-// import { UserAccountContext } from "../providers/UserAccountProvider";
+import { ComicContext } from "../providers/ComicProvider.js";
 import CurrentComicsList from "./Releases/CurrentComicsList";
 import UpcomingComicsList from "./Releases/UpcomingComicsList";
 import PastComicsList from "./Releases/PastComicList";
@@ -12,6 +12,9 @@ import Home from "./Home/Home";
 import Header from "./Header"
 
 export default function ApplicationViews() {
+
+    const { isLoading } = useContext(ComicContext);
+    
     return (
         <>
         <main>

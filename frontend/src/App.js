@@ -7,6 +7,7 @@ import { UserAccountProvider } from "./providers/UserAccountProvider";
 import { ReadingProvider } from "./providers/ReadingProvider";
 // import logo from './logo.svg';
 import 'bulma/css/bulma.min.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import './App.css';
 
 function App() {

@@ -53,8 +53,7 @@ const ReadingCard = ({ savedComic }) => {
         );
     } else if (savedComic.cvApiKey) {
         if (savedComic.comicType === "issue")
-        {
-            debugger
+        {            
             return (
                 <>
                     <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
@@ -91,7 +90,6 @@ const ReadingCard = ({ savedComic }) => {
             );
 
         } else {
-        debugger
         return (
             <>
                 <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>

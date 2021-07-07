@@ -6,6 +6,8 @@ import { UserAccountContext } from "./UserAccountProvider";
 export const ReadingContext = createContext();
 
 export const ReadingProvider = (props) => {
+
+    const [ allPublicContent, setAllPublicContent ] = useState([]);
     const [ allReading, setAllReading ] = useState([]);
     const [ allUnread, setAllUnread ] = useState([]);
     const [ allRead, setAllRead ] = useState([]);
@@ -13,6 +15,19 @@ export const ReadingProvider = (props) => {
     const { getToken } = useContext(UserAccountContext);
     
     const apiUrl = 'https://localhost:5001/api/savedcontent'
+
+    const getAllPublicContent = () => {
+        return getToken().then((token) =>
+            fetch(apiUrl, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((r) => r.json()))
+            .then(setAllReading)    
+    };
+
 
     const getUsersReadingList = (userId) => {
         return getToken().then((token) =>
@@ -73,7 +88,6 @@ export const ReadingProvider = (props) => {
 
     const toggleReadStatus = (id, readBool) => {
         if (readBool) {
-            debugger
             return getToken().then((token) =>
                 fetch(`${apiUrl}/update/rs?id=${id}&status=true`, {
                     method: "PUT",
@@ -83,7 +97,6 @@ export const ReadingProvider = (props) => {
                     }
                 }))
             } else {
-            debugger
             return getToken().then((token) =>
                 fetch(`${apiUrl}/update/rs?id=${id}&status=false`, {
                     method: "PUT",
@@ -119,7 +132,10 @@ export const ReadingProvider = (props) => {
             toggleReadStatus,
             deleteComicReadingList,
             disableReadingButtons, 
-            setDisableReadingButton
+            setDisableReadingButton,            
+            getAllPublicContent,
+            allPublicContent, 
+            setAllPublicContent
         }}>
             {props.children}
         </ReadingContext.Provider>

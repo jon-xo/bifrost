@@ -4,7 +4,7 @@ import { UserAccountContext } from "../providers/UserAccountProvider";
 import { SearchComicContext } from "../providers/SearchComicProvider";
 import { Navbar, Icon, Form, Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen, faCog, faArrowCircleRight, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faCog, faArrowCircleRight, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 import LoginDropdown from "./Auth/LoginDropdown";
 import RegisterDropdown from "./Auth/RegisterDropdown";
 import SearchBar from "./Search/SearchBar";
@@ -54,28 +54,28 @@ const Header = () => {
             <Navbar.Brand>
                 <Navbar.Item>
                     <Icon className='logo-icon'>
-                        <FontAwesomeIcon className='.logo-icon' icon={faBookOpen} />
+                        <FontAwesomeIcon className='.logo-icon' icon={faSnowflake} />
                     </Icon>
-                    <p className='logo-text-sansSerif'>Hello</p><p className='logo-text-serif'>Story</p>
+                    <p className='logo-text-sansSerif'>bifröst</p>
                 </Navbar.Item>
                 <Navbar.Burger onClick={burgerToggle}/>            
             </Navbar.Brand>            
             <Navbar.Menu>
                 <Navbar.Container position='start' tabs='true'>
                     <Navbar.Item>
-                        <Navbar.Link renderAs={NavLink} to={'/'} arrowless='true'>
+                        <Navbar.Link className={"nav-links"} renderAs={NavLink} to={'/'} arrowless='true'>
                            Home
                         </Navbar.Link>
                     </Navbar.Item>
-                    <Navbar.Item
+                    <Navbar.Item 
                         hoverable="false"
-                        // href="#"
+                        href="#"
                     >
-                        <Navbar.Item arrowless='true'>
+                        <Navbar.Item  className={"nav-links"} arrowless='true'>
                             Releases
                         </Navbar.Item>
                         <Navbar.Dropdown>
-                        <Navbar.Link>
+                        <Navbar.Link >
                             <Navbar.Item renderAs={NavLink} to={'/previous-comics'} arrowless='true'>
                                 Previous Comics
                                 {/* <NavLink to="/previous-comics">Previous Comics</NavLink> */}
@@ -97,7 +97,7 @@ const Header = () => {
                     </Navbar.Item>
                     {isLoggedIn ?
                         <Navbar.Link arrowless='true'>
-                            <Navbar.Item renderAs={NavLink} to={'/reading'} >
+                            <Navbar.Item className={"nav-links"} renderAs={NavLink} to={'/reading'} >
                                 Reading List
                             </Navbar.Item>
                         </Navbar.Link>
@@ -106,8 +106,8 @@ const Header = () => {
                     }
                     {isLoggedIn ?
                         <Navbar.Link arrowless='true'>
-                            <Navbar.Item renderAs={NavLink} to={'/follows'}>
-                                Follows
+                            <Navbar.Item className={"nav-links"} renderAs={NavLink} to={'/follows'}>
+                                Activity
                             </Navbar.Item>
                          </Navbar.Link>
                         :

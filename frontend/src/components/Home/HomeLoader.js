@@ -31,7 +31,7 @@ const HomeLoader = () => {
                             weight={"bold"}
                             display={"block"}
                         >
-                            bifröst
+                            <p className="logo-header-sansSerif">bifröst</p>
                         </Heading>
                         <BfLoader />
                      </div>

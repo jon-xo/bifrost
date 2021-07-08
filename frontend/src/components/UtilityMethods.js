@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
 import { Image, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +12,14 @@ import darkHorseLogo from "../assets/images/logos/Dark-Horse-Comics_Logo.png";
 import dcComicsLogo from "../assets/images/logos/DC-Comics_Logo.png";
 import Loader from "react-loader-spinner";
 
+
+export const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
+export const userId = parseInt(userAccount?.id);
+
+export const getUserDetail = () => {
+    const localAccount = JSON.parse(sessionStorage.getItem("userAccount"));
+    return parseInt(localAccount?.id)
+};
 export const BfLoader = () => {
     return (
         <Icon>
@@ -34,14 +43,24 @@ export const DotLoader = () => {
 };
 
 export const ReleaseComicImage = (diamond_id) => {
+    const location = useLocation();
+    
     if (diamond_id === "fallback"){
-        return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
+        if (location.pathname.includes("activity")){
+            return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
+        } else {
+            return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
+        }
     }
-
     return `https://www.tfaw.com/media/catalog/product/${StringArray(diamond_id, 1)}/${StringArray(diamond_id, 2)}/${diamond_id}.jpg`
 };
 
 export const currentDate = DateTime.now().toISO();
+
+export const TimelineDate = (activityDate) => {
+    const newActivty = DateTime.fromISO(activityDate);
+    return newActivty.toLocaleString(DateTime.DATETIME_SHORT);
+};
 
 export const ReadingComicDate = (comicDate) => {
     if(comicDate){

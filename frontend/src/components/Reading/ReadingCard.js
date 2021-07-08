@@ -27,6 +27,7 @@ const ReadingCard = ({ savedComic }) => {
                                     size={128}
                                     src={savedComic.comicImage}
                                     fallback={ReleaseComicImage("fallback")}
+                                    className={"reading-cover--img"}
                                 />
                             </Columns.Column>
                             <Columns.Column size={9}>
@@ -53,8 +54,7 @@ const ReadingCard = ({ savedComic }) => {
         );
     } else if (savedComic.cvApiKey) {
         if (savedComic.comicType === "issue")
-        {
-            debugger
+        {            
             return (
                 <>
                     <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
@@ -65,6 +65,7 @@ const ReadingCard = ({ savedComic }) => {
                                         size={128} 
                                         src={savedComic.comicImage}
                                         fallback={ReleaseComicImage("fallback")} 
+                                        className={"reading-cover--img"}
                                     />
                                 </Columns.Column>
                                 <Columns.Column size={9}>
@@ -91,7 +92,6 @@ const ReadingCard = ({ savedComic }) => {
             );
 
         } else {
-        debugger
         return (
             <>
                 <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
@@ -101,7 +101,8 @@ const ReadingCard = ({ savedComic }) => {
                                 <Image 
                                     size={128} 
                                     src={savedComic.comicImage}
-                                    fallback={ReleaseComicImage("fallback")} 
+                                    fallback={ReleaseComicImage("fallback")}
+                                    className={"reading-cover--img"}
                                 />
                             </Columns.Column>
                             <Columns.Column size={9}>

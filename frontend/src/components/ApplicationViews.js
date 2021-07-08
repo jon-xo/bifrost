@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Columns, Container } from "react-bulma-components";
 import { ComicContext } from "../providers/ComicProvider.js";
 import CurrentComicsList from "./Releases/CurrentComicsList";
@@ -8,12 +8,15 @@ import PastComicsList from "./Releases/PastComicList";
 import FoundIssuesList from "./Search/FoundIssuesList";
 import FoundVolumesList from "./Search/FoundVolumesList";
 import ReadingList from "./Reading/ReadingList";
+import ActivityList from "./Activity/ActivityList";
 import Home from "./Home/Home";
 import Header from "./Header"
+import { UserAccountContext } from "../providers/UserAccountProvider.js";
 
 export default function ApplicationViews() {
 
     const { isLoading } = useContext(ComicContext);
+    const { isLoggedIn } = useContext(UserAccountContext);
     
     return (
         <>
@@ -38,11 +41,33 @@ export default function ApplicationViews() {
                     <PastComicsList />
                 </Route>
                 <Route exact path="/reading">
-                    <Header />
-                    <ReadingList />
+                    {isLoggedIn ? 
+                        <>
+                        <Header />
+                        <ReadingList />
+                        </>
+                    :
+                        <Redirect to="/" />
+                    }
+                </Route>
+                <Route exact path="/activity">
+                    {isLoggedIn ? 
+                    <>
+                        <Header />
+                        <ActivityList />
+                    </>
+                    :
+                        <Redirect to="/" />
+                    }
                 </Route>
                 <Route exact path="/follows">
-                    <Header />
+                    {isLoggedIn ? 
+                    <>
+                        <Header />
+                    </>
+                    :
+                        <Redirect to="/" />
+                    }
                 </Route>
                 <Route exact path="/search/issues">
                     <Header />

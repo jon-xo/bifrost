@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { ReadingContext } from "../../providers/ReadingProvider";
 import { Section, Notification, Heading, Tile, Container } from "react-bulma-components";
+import { userId } from "../UtilityMethods";
 import ReadingCard from "./ReadingCard";
 
 
@@ -10,8 +11,8 @@ const ReadingList = () => {
     const { allReading, getUsersReadingList, getUsersReadStatusContent, allUnread, allRead } = useContext(ReadingContext);
     const [ unreadList, setUnreadList ] = useState([]);
     const [ readList, setReadList ] = useState([]);
-    const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
-    const userId = parseInt(userAccount?.id);
+    // const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
+    // const userId = parseInt(userAccount?.id);
 
 
     useEffect(() => {

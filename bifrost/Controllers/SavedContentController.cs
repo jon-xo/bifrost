@@ -20,6 +20,12 @@ namespace bifrost.Controllers
         }
 
         // GET: api/<ValuesController>
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_savedContentRepository.GetAllPublicContent());
+        }
+
         [HttpGet("{userId}")]
         public IActionResult Get(int userId)
         {
@@ -31,6 +37,7 @@ namespace bifrost.Controllers
         {
             return Ok(_savedContentRepository.GetUserReadStatusContent(uId, read));
         }
+
 
         //// GET api/<ValuesController>/5
         //[HttpGet("{id}")]
@@ -49,9 +56,9 @@ namespace bifrost.Controllers
 
         // PUT api/<ValuesController>/5
         [HttpPut("Update/rs")]
-        public IActionResult ReadStatus(int id, bool status)
+        public IActionResult ReadStatus(int id, SavedContent content)
         {
-            _savedContentRepository.UpdateReadStatus(id, status);
+            _savedContentRepository.UpdateReadStatus(id, content);
             return NoContent();
         }
 

@@ -3,23 +3,26 @@ import { ReadingContext } from "../../providers/ReadingProvider";
 import { Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { userId, currentDate } from "../UtilityMethods";
 import ReadingCard from "./ReadingCard";
 
 
 const ReadingReadButton = ({ comicObject }) => {
     const { disableReadingButtons, setDisableReadingButton, toggleReadStatus, getUsersReadingList } = useContext(ReadingContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
-    // const [ updateComic, setUpdateComic ] = useState({});
-    const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
-    const userId = parseInt(userAccount?.id);
     
     const handleMarkRead = (event, comicId) => {
         event.preventDefault();
         setButtonLoading(true);
         setDisableReadingButton(true);
-        const readStatus = !comicObject.read;
+
+        const updatedComic = {...comicObject};
+        updatedComic.read = !comicObject.read;
+        updatedComic.lastUpdated = currentDate;        
+
+        // const readStatus = !comicObject.read;
         // debugger
-        toggleReadStatus(comicId, readStatus)
+        toggleReadStatus(comicId, updatedComic)
         .then(() => {
             getUsersReadingList(userId);
             setButtonLoading(false);

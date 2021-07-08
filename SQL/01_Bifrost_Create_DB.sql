@@ -21,7 +21,7 @@ CREATE TABLE [UserAccount] (
   [Firebase_Id] nvarchar(28),
   [UserSummary] nvarchar(280),
   [CreateDateTime] datetime NOT NULL,
-  [ImageLocation] nvarchar,
+  [ImageLocation] nvarchar(255),
   [Private] bit
 )
 

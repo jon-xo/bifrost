@@ -6,6 +6,8 @@ import { UserAccountContext } from "./UserAccountProvider";
 export const ReadingContext = createContext();
 
 export const ReadingProvider = (props) => {
+
+    const [ allPublicContent, setAllPublicContent ] = useState([]);
     const [ allReading, setAllReading ] = useState([]);
     const [ allUnread, setAllUnread ] = useState([]);
     const [ allRead, setAllRead ] = useState([]);
@@ -13,6 +15,19 @@ export const ReadingProvider = (props) => {
     const { getToken } = useContext(UserAccountContext);
     
     const apiUrl = 'https://localhost:5001/api/savedcontent'
+
+    const getAllPublicContent = () => {
+        return getToken().then((token) =>
+            fetch(apiUrl, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((r) => r.json()))
+            .then(setAllPublicContent)
+    };
+
 
     const getUsersReadingList = (userId) => {
         return getToken().then((token) =>
@@ -23,7 +38,8 @@ export const ReadingProvider = (props) => {
                 }
             })
             .then((r) => r.json()))
-            .then(setAllReading)        
+            .then(setAllReading)
+            .then(getAllPublicContent)        
     };
 
     const getUsersReadStatusContent = (userId, readBool) => {
@@ -37,6 +53,7 @@ export const ReadingProvider = (props) => {
                 })
                 .then((r) => r.json()))
                 .then(setAllRead)
+                .then(getAllPublicContent)
             } else {
             return getToken().then((token) => 
                 fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
@@ -47,11 +64,11 @@ export const ReadingProvider = (props) => {
                 })
                 .then((r) => r.json()))
                 .then(setAllUnread)
+                .then(getAllPublicContent)
         }
     }
 
-    const addContentToReadingList = (contentObject) => {
-        debugger
+    const addContentToReadingList = (contentObject) => {        
         return getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",
@@ -64,36 +81,48 @@ export const ReadingProvider = (props) => {
             .then(r => {
                 console.log(r);
                 if (r.ok) {
-                    return r.json();
+                    return r.json()
+                    .then(getAllPublicContent)
                 }
                 throw new Error(r.status === 401 ? "401: Unauthorized" : r.status + " " + r. statusText);
             })
         );
     };
 
-    const toggleReadStatus = (id, readBool) => {
-        if (readBool) {
-            debugger
-            return getToken().then((token) =>
-                fetch(`${apiUrl}/update/rs?id=${id}&status=true`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }
-                }))
-            } else {
-            debugger
-            return getToken().then((token) =>
-                fetch(`${apiUrl}/update/rs?id=${id}&status=false`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }
-                }))
-        }
+    const toggleReadStatus = (id, contentObject) => {
+        debugger
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/update/rs?id=${id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(contentObject)
+            }))
     };
+
+    // const toggleReadStatus = (id, readBool) => {
+    //     if (readBool) {
+    //         return getToken().then((token) =>
+    //             fetch(`${apiUrl}/update/rs?id=${id}&status=true`, {
+    //                 method: "PUT",
+    //                 headers: {
+    //                     "Authorization": `Bearer ${token}`,
+    //                     "Content-Type": "application/json"
+    //                 }
+    //             }))
+    //         } else {
+    //         return getToken().then((token) =>
+    //             fetch(`${apiUrl}/update/rs?id=${id}&status=false`, {
+    //                 method: "PUT",
+    //                 headers: {
+    //                     "Authorization": `Bearer ${token}`,
+    //                     "Content-Type": "application/json"
+    //                 }
+    //             }))
+    //     }
+    // };
 
     const deleteComicReadingList = (id) => {
         return getToken().then((token) => 
@@ -119,7 +148,10 @@ export const ReadingProvider = (props) => {
             toggleReadStatus,
             deleteComicReadingList,
             disableReadingButtons, 
-            setDisableReadingButton
+            setDisableReadingButton,            
+            getAllPublicContent,
+            allPublicContent,
+            setAllPublicContent
         }}>
             {props.children}
         </ReadingContext.Provider>

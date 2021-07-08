@@ -25,7 +25,7 @@ export const ReadingProvider = (props) => {
                 }
             })
             .then((r) => r.json()))
-            .then(setAllReading)    
+            .then(setAllPublicContent)
     };
 
 
@@ -38,7 +38,8 @@ export const ReadingProvider = (props) => {
                 }
             })
             .then((r) => r.json()))
-            .then(setAllReading)        
+            .then(setAllReading)
+            .then(getAllPublicContent)        
     };
 
     const getUsersReadStatusContent = (userId, readBool) => {
@@ -52,6 +53,7 @@ export const ReadingProvider = (props) => {
                 })
                 .then((r) => r.json()))
                 .then(setAllRead)
+                .then(getAllPublicContent)
             } else {
             return getToken().then((token) => 
                 fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
@@ -62,11 +64,11 @@ export const ReadingProvider = (props) => {
                 })
                 .then((r) => r.json()))
                 .then(setAllUnread)
+                .then(getAllPublicContent)
         }
     }
 
-    const addContentToReadingList = (contentObject) => {
-        debugger
+    const addContentToReadingList = (contentObject) => {        
         return getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",
@@ -79,34 +81,48 @@ export const ReadingProvider = (props) => {
             .then(r => {
                 console.log(r);
                 if (r.ok) {
-                    return r.json();
+                    return r.json()
+                    .then(getAllPublicContent)
                 }
                 throw new Error(r.status === 401 ? "401: Unauthorized" : r.status + " " + r. statusText);
             })
         );
     };
 
-    const toggleReadStatus = (id, readBool) => {
-        if (readBool) {
-            return getToken().then((token) =>
-                fetch(`${apiUrl}/update/rs?id=${id}&status=true`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }
-                }))
-            } else {
-            return getToken().then((token) =>
-                fetch(`${apiUrl}/update/rs?id=${id}&status=false`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }
-                }))
-        }
+    const toggleReadStatus = (id, contentObject) => {
+        debugger
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/update/rs?id=${id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(contentObject)
+            }))
     };
+
+    // const toggleReadStatus = (id, readBool) => {
+    //     if (readBool) {
+    //         return getToken().then((token) =>
+    //             fetch(`${apiUrl}/update/rs?id=${id}&status=true`, {
+    //                 method: "PUT",
+    //                 headers: {
+    //                     "Authorization": `Bearer ${token}`,
+    //                     "Content-Type": "application/json"
+    //                 }
+    //             }))
+    //         } else {
+    //         return getToken().then((token) =>
+    //             fetch(`${apiUrl}/update/rs?id=${id}&status=false`, {
+    //                 method: "PUT",
+    //                 headers: {
+    //                     "Authorization": `Bearer ${token}`,
+    //                     "Content-Type": "application/json"
+    //                 }
+    //             }))
+    //     }
+    // };
 
     const deleteComicReadingList = (id) => {
         return getToken().then((token) => 
@@ -134,7 +150,7 @@ export const ReadingProvider = (props) => {
             disableReadingButtons, 
             setDisableReadingButton,            
             getAllPublicContent,
-            allPublicContent, 
+            allPublicContent,
             setAllPublicContent
         }}>
             {props.children}

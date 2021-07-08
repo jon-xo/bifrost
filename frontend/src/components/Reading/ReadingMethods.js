@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { currentDate } from "../UtilityMethods";
+import { userAccount, currentDate } from "../UtilityMethods";
 import { ReleaseComicImage, ReadingComicDate } from "../UtilityMethods";
 // import { UserAccountContext } from "../../providers/UserAccountProvider";
 // import { ReadingContext } from "../../providers/ReadingProvider";
 
 export const addReadingContent = ( comicObject, loginState, addMethod ) => {
 
-    const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
+    // const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
     // debugger
     const savedContent = {
         UserId: parseInt(userAccount?.id),

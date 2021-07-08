@@ -10,7 +10,6 @@ import RegisterDropdown from "./Auth/RegisterDropdown";
 import SearchBar from "./Search/SearchBar";
 import "../index.css"
 
-
 const Header = () => {
     // 
     // ---- GitHub Issue Ticket # 1 ----
@@ -106,7 +105,7 @@ const Header = () => {
                     }
                     {isLoggedIn ?
                         <Navbar.Link arrowless='true'>
-                            <Navbar.Item className={"nav-links"} renderAs={NavLink} to={'/follows'}>
+                            <Navbar.Item className={"nav-links"} renderAs={NavLink} to={'/activity'}>
                                 Activity
                             </Navbar.Item>
                          </Navbar.Link>

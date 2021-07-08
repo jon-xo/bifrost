@@ -56,9 +56,9 @@ namespace bifrost.Controllers
 
         // PUT api/<ValuesController>/5
         [HttpPut("Update/rs")]
-        public IActionResult ReadStatus(int id, bool status)
+        public IActionResult ReadStatus(int id, SavedContent content)
         {
-            _savedContentRepository.UpdateReadStatus(id, status);
+            _savedContentRepository.UpdateReadStatus(id, content);
             return NoContent();
         }
 

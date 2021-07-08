@@ -120,7 +120,7 @@ namespace bifrost.Repository
                         FROM SavedContent sc
                             LEFT JOIN UserAccount u ON sc.UserId = u.Id
                         WHERE u.[Private] = 0
-                        ORDER BY sc.LastUpdated
+                        ORDER BY sc.LastUpdated DESC
                     ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -324,7 +324,7 @@ namespace bifrost.Repository
             return content;
         }
 
-        public void UpdateReadStatus(int id, bool readStatus)
+        public void UpdateReadStatus(int id, SavedContent content)
         {
             using (SqlConnection conn = Connection)
             {
@@ -334,11 +334,13 @@ namespace bifrost.Repository
                     cmd.CommandText = @"
                         UPDATE SavedContent
                         SET
-                            [Read] = @readStatus
+                            [Read] = @readStatus,
+                            lastUpdated = @lastUpdated
                         WHERE Id = @id
                     ";
 
-                    DbUtils.AddParameter(cmd, "@readStatus", readStatus);
+                    DbUtils.AddParameter(cmd, "@readStatus", content.Read);
+                    DbUtils.AddParameter(cmd, "@lastUpdated", content.LastUpdated);
                     DbUtils.AddParameter(cmd, "@Id", id);
 
                     cmd.ExecuteNonQuery();

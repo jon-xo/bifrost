@@ -16,7 +16,6 @@ const HandleBuildContent = ( {comicId} ) => {
     const { addContentToReadingList } = useContext(ReadingContext);
     const { previousComics, currentComics, newComics } = useContext(ComicContext);
     const { foundComics, foundVolumes } = useContext(SearchComicContext);
-    // const userAccount = sessionStorage.getItem("userAccount");
     const location = useLocation();
     const route = location.pathname;
 
@@ -24,14 +23,18 @@ const HandleBuildContent = ( {comicId} ) => {
     const handleAddContent = ( event, comicId ) => {
         event.preventDefault();
         let selectedComic = null;
-        if(route.includes("-comics")){
-            if(route.includes("upcoming-comics") && newComics !== undefined){
+        if(route.includes("-comics") || route === "/" ){
+            if (route === "/" || route.includes("current-comics") && currentComics !== undefined){
+                selectedComic = currentComics?.comics.find(c => c.diamond_id === comicId);
+            } else if(route.includes("upcoming-comics") && newComics !== undefined){
                 selectedComic = newComics?.comics.find(c => c.diamond_id === comicId);
             } else if (route.includes("previous-comics") && previousComics !== undefined){
                 selectedComic = previousComics?.comics.find(c => c.diamond_id === comicId);
-            } else if (route.includes("current-comics") && currentComics !== undefined){
-                selectedComic = currentComics?.comics.find(c => c.diamond_id === comicId);
-            }
+            } 
+            // else if (route === "/" || route.includes("current-comics") && currentComics !== undefined){
+            //     debugger
+            //     selectedComic = currentComics?.comics.find(c => c.diamond_id === comicId);
+            // }
         } else if (route.includes("search")) {
             if(route.includes("search/issues")){
                 selectedComic = foundComics?.results.find(c => c.id === comicId);
@@ -39,8 +42,8 @@ const HandleBuildContent = ( {comicId} ) => {
                 selectedComic = foundVolumes?.results.find(c => c.id === comicId);
             }
         }
-        console.log(selectedComic)
-        console.log(location.pathname)
+        // console.log(selectedComic)
+        // console.log(location.pathname)
 
         addReadingContent(selectedComic, isLoggedIn, addContentToReadingList);
     };

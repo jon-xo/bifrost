@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using bifrost.Models;
 using bifrost.Utils;
 using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace bifrost.Repository
 {
@@ -114,6 +115,88 @@ namespace bifrost.Repository
                     DbUtils.AddParameter(cmd, "@Private", userAccount.Private);
 
                     userAccount.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void AddFollow(int leader, int follower)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Follows (
+                                                UserId, 
+                                                FollowId)
+                                         OUTPUT INSERTED.ID
+                                         VALUES (
+                                                @UserId, 
+                                                @FollowId)";
+
+                    DbUtils.AddParameter(cmd, "@UserId", leader);
+                    DbUtils.AddParameter(cmd, "@FollowId", follower);
+
+                    cmd.ExecuteNonQuery();
+                }            
+            }
+        }
+
+        public List<UserAccount> GetFollows(int leader, bool followBack)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    var sqlQuery =
+                        @"
+                        SELECT  fw.UserId AS LeaderId,
+                                fw.FollowId AS FollowerId
+                                u.Id AS FollowerId,
+                                u.Firebase_Id AS FollowerFirebaseId, 
+                                u.[Name] AS FollowerName,
+                                u.DisplayName AS FollowerDisplayName,
+                                u.Email AS FollowerEmail,
+                                u.CreateDateTime AS FollowerUserCreated,
+                                u.ImageLocation AS FollowerAvatar,
+                                u.UserSummary AS FollowerSummary,
+                                u.Private AS FollowerPublic
+                        FROM Follows fw";
+
+                    if(followBack)
+                    {
+                        sqlQuery += " LEFT JOIN UserAccount u on fw.UserId = u.Id";
+                    }
+                    else
+                    {
+                        sqlQuery += " LEFT JOIN UserAccount u on fw.FollowId = u.Id";
+                    }
+
+                    sqlQuery += @"WHERE fw.UserId = @leader AND u.[Private] = 0
+                                  ORDER BY u.DisplayName";
+
+                    cmd.CommandText = sqlQuery;
+
+                    DbUtils.AddParameter(cmd, "@leader", leader);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<UserAccount> followers = new List<UserAccount>();
+
+                    while(reader.Read())
+                    {
+                        followers.Add(new UserAccount()
+                        {
+                            Id = DbUtils.GetInt(reader, "FollowerId"),
+                            Name = DbUtils.GetString(reader, "FollowerName"),
+                            DisplayName = DbUtils.GetString(reader, "FollowerDisplayName"),
+                            Email = DbUtils.GetString(reader, "FollowerEmail"),
+                            ImageLocation = DbUtils.GetString(reader, "FollowerAvatar"),
+                            Private = DbUtils.GetBoolean(reader, "FollowerPublic")
+                        });
+                    }
+                    reader.Close();
+                    return followers;
                 }
             }
         }

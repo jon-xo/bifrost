@@ -84,8 +84,9 @@ code {
 /* ---- Home view ---- */
 
 .loading-container--div {
-  /* margin-top: 20rem !important; */
+  min-width: 75vw;
   width: 95vw !important;
+  min-height: 80vh;
   height: 90vh !important;
   overflow: hidden;
 }
@@ -97,7 +98,7 @@ code {
 }
 
 .loading-notification--div div {
-  margin-top: 25%;
+  margin-top: 15%;
 }
 
 .loading-alignment {

@@ -70,6 +70,20 @@ code {
   color: #5E81AC !important;
 }
 
+/*  ----- Activity view ----- */
+
+.dropdown-container-parent--div > div {
+  margin-right: 2rem !important;
+}
+
+.dropdown-container-parent--div > div + div {
+  margin-right: 2rem !important;
+}
+/* .dropdown-form--div {
+  margin-right: 3rem;
+} */
+
+
 /* ---- Search ---- */
 
 .search-button--span {
@@ -112,13 +126,19 @@ code {
 
 .notification-col--container {
   height: 60rem;
+  min-width: 35rem !important;
   /* min-width: 50rem; */
+}
+
+.featured-comic--container {
+  max-height: 65vh;
 }
 
 .featured-comic--container div img {
   width: 50% !important;
-  height: 50% !important;
+  height: 55vh !important;
   margin-left: 25% !important;
+  min-width: 25rem !important;
 }
 
 .newsstand-container {
@@ -175,9 +195,15 @@ code {
 }
 
 
-/*  ----- Reading views ----- */
+dropdown-container-parent--div
 
 .reading-card--div {
+  flex-wrap: wrap;
+  min-height: 20rem !important;
+  max-height: 30rem !important;
+}
+
+.reading-card-end--div {
   flex-wrap: wrap;
   min-height: 20rem !important;
 }

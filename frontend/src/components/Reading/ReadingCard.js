@@ -16,7 +16,7 @@ const ReadingCard = ({ savedComic }) => {
     } 
     
     if (savedComic.pbApiKey){
-        // debugger
+            // debugger
         return (
             <> 
                 <Tile className={"reading-card--div"} kind={"child"} renderAs={Notification} color={readStatus} colorVariant={"light"}>
@@ -27,7 +27,7 @@ const ReadingCard = ({ savedComic }) => {
                                     size={128}
                                     src={savedComic.comicImage}
                                     fallback={ReleaseComicImage("fallback")}
-                                    className={"reading-cover--img"}
+                                className={"reading-cover--img"}
                                 />
                             </Columns.Column>
                             <Columns.Column size={9}>

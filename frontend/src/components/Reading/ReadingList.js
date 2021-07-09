@@ -52,13 +52,41 @@ const ReadingList = () => {
                                     }
                                 </Tile>
                                 {allReading?.length > 0 ?
-                                    allReading?.filter((c) => c.read === false).map((comic) => {
-                                        if (comic.pbApiKey) {
-                                            return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
+                                    allReading?.filter((c) => c.read === false).map((comic, index) => {
+                                        comic.final = false;
+                                        let readingListIndex = index + 1;
+                                        readingListIndex++
+                                        debugger
+                                        if(readingListIndex === allReading.length)
+                                        {
+                                            debugger
+                                            comic.final = true;
+                                            if (comic.pbApiKey) {
+                                                return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
+                                            } else {
+                                                return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
+                                            }                                            
                                         } else {
-                                            return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
-                                        }                                            
+                                            debugger
+                                            if (comic.pbApiKey) {
+                                                return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
+                                            } else {
+                                                return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
+                                            }                                            
+                                        }
                                     })
+                                    :
+                                    <></>
+                                }
+                                {allReading?.filter((c) => c.read === false) < allReading?.filter((c) => c.read === true) ?
+                                    <Tile 
+                                        className={"reading-card-end--div"} 
+                                        kind={"child"} 
+                                        renderAs={Notification} 
+                                        color={"info"} 
+                                        colorVariant={"light"}
+                                    >
+                                    </Tile>
                                     :
                                     <></>
                                 }
@@ -86,6 +114,18 @@ const ReadingList = () => {
                                         }
                                             
                                     })
+                                    :
+                                    <></>
+                                }
+                                {allReading?.filter((c) => c.read === false) > allReading?.filter((c) => c.read === true) ?
+                                    <Tile 
+                                        className={"reading-card-end--div"} 
+                                        kind={"child"} 
+                                        renderAs={Notification} 
+                                        color={"success"} 
+                                        colorVariant={"light"}
+                                    >
+                                    </Tile>
                                     :
                                     <></>
                                 }

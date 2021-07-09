@@ -229,6 +229,14 @@ code {
   width: 30rem;
 }
 
+.activty-tile-follower--div {
+  width: 35rem;
+}
+
+.follower-avatar--img {
+  margin-right: .9rem !important;
+}
+
 .activity-tile-self--div {
   /* width: 30rem; */
   margin-left: 10rem !important;

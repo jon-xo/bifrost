@@ -57,17 +57,17 @@ namespace bifrost.Controllers
                 userAccount);
         }
 
-        [HttpPost("/fw{leader}/{follower}")]
-        public IActionResult FollowUser(int leadId, int followId)
+        [HttpPost("fw")]
+        public IActionResult FollowUser(int uId, int fId)
         {
-            _userAccountRepository.AddFollow(leadId, followId);
+            _userAccountRepository.AddFollow(uId, fId);
             return NoContent();
         }
 
-        [HttpGet("/fw{userId}/{followBack}")]
-        public IActionResult GetFollows(int userId, bool followBack)
+        [HttpGet("fw")]
+        public IActionResult GetFollows(int uId, bool fb)
         {
-            return Ok(_userAccountRepository.GetFollows(userId, followBack));             
+            return Ok(_userAccountRepository.GetFollows(uId, fb));             
         }
 
     }

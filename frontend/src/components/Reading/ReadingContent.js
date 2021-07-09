@@ -97,7 +97,7 @@ const HandleBuildContent = ( {comicId} ) => {
                         handleAddContent(e, comicId);
                     }}
                 >
-                    <Icon align="left">
+                    <Icon>
                         <FontAwesomeIcon icon={faPlusCircle} />
                     </Icon>
                     <span>Add to Reading List</span>

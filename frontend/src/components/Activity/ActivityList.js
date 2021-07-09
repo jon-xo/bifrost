@@ -3,16 +3,22 @@ import { ReadingContext } from "../../providers/ReadingProvider";
 import { Box, Section, Notification, Heading, Tile, Container } from "react-bulma-components";
 import ActivityCard from "./ActivityCard";
 import { getUserDetail } from "../UtilityMethods";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
 
 
 const ActivityList = () => {
     const { getAllPublicContent, allPublicContent } = useContext(ReadingContext);
+    const { GetFollows } = useContext(UserAccountContext);
     
     let userId = getUserDetail();
     
     useEffect(() => {
         userId = getUserDetail();
         getAllPublicContent();
+    }, [])
+
+    useEffect(() => {
+        GetFollows(userId, false);
     }, [])
     
     return (

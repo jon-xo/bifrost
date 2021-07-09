@@ -10,7 +10,7 @@ const FollowList = () => {
     
     return (
         <Section>
-            <h2 className="title is-2">Follows</h2>
+        <h2 className="title is-2">Follows</h2>
             <Container breakpoint={"fluid"} >
                 <Tile kind={"ancestor"} display={"flex"} justifyContent={"center"}>
                     <Tile size={4} vertical>

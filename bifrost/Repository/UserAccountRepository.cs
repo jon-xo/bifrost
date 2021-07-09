@@ -122,14 +122,13 @@ namespace bifrost.Repository
         public void AddFollow(int leader, int follower)
         {
             using (SqlConnection conn = Connection)
-            {
+            {                
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO Follows (
                                                 UserId, 
                                                 FollowId)
-                                         OUTPUT INSERTED.ID
                                          VALUES (
                                                 @UserId, 
                                                 @FollowId)";
@@ -152,8 +151,8 @@ namespace bifrost.Repository
                     var sqlQuery =
                         @"
                         SELECT  fw.UserId AS LeaderId,
-                                fw.FollowId AS FollowerId
-                                u.Id AS FollowerId,
+                                fw.FollowId AS FollowerId,
+                                u.Id AS FollowerUserId,
                                 u.Firebase_Id AS FollowerFirebaseId, 
                                 u.[Name] AS FollowerName,
                                 u.DisplayName AS FollowerDisplayName,
@@ -161,20 +160,23 @@ namespace bifrost.Repository
                                 u.CreateDateTime AS FollowerUserCreated,
                                 u.ImageLocation AS FollowerAvatar,
                                 u.UserSummary AS FollowerSummary,
-                                u.Private AS FollowerPublic
+                                u.[Private] AS isPrivate
                         FROM Follows fw";
 
                     if(followBack)
                     {
-                        sqlQuery += " LEFT JOIN UserAccount u on fw.UserId = u.Id";
+                        sqlQuery += @" LEFT JOIN UserAccount u on fw.UserId = u.Id
+                                    WHERE fw.UserId = @leader AND u.[Private] = 0
+                                    ORDER BY u.DisplayName";
                     }
                     else
                     {
-                        sqlQuery += " LEFT JOIN UserAccount u on fw.FollowId = u.Id";
+                        sqlQuery += @" LEFT JOIN UserAccount u on fw.FollowId = u.Id
+                                    WHERE fw.UserId = @leader AND u.[Private] = 0
+                                    ORDER BY u.DisplayName";
                     }
 
-                    sqlQuery += @"WHERE fw.UserId = @leader AND u.[Private] = 0
-                                  ORDER BY u.DisplayName";
+                    //sqlQuery += "WHERE UserId = @leader AND u.[Private] = 0  ORDER BY u.DisplayName";
 
                     cmd.CommandText = sqlQuery;
 
@@ -187,12 +189,12 @@ namespace bifrost.Repository
                     {
                         followers.Add(new UserAccount()
                         {
-                            Id = DbUtils.GetInt(reader, "FollowerId"),
+                            Id = DbUtils.GetInt(reader, "FollowerUserId"),
                             Name = DbUtils.GetString(reader, "FollowerName"),
                             DisplayName = DbUtils.GetString(reader, "FollowerDisplayName"),
                             Email = DbUtils.GetString(reader, "FollowerEmail"),
                             ImageLocation = DbUtils.GetString(reader, "FollowerAvatar"),
-                            Private = DbUtils.GetBoolean(reader, "FollowerPublic")
+                            Private = DbUtils.GetBoolean(reader, "isPrivate")
                         });
                     }
                     reader.Close();

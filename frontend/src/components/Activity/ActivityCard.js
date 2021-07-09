@@ -1,9 +1,24 @@
-import React, { useState } from "react";
-import { Container, Content, Notification, Heading, Tile, Columns, Image, Tag, Button } from "react-bulma-components";
+import React, { useState, useContext } from "react";
+import { Container, Notification, Heading, Tile, Columns, Image } from "react-bulma-components";
 import { TimelineDate, ReleaseComicImage } from "../UtilityMethods";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
+import FollowUserButton from "../Follows/FollowUserButton";
 import clsx from 'clsx';
 
 const ActivityCard = ({ activity }) => {
+    const { usersFollowers } = useContext(UserAccountContext);
+    const activityUID = activity.userId;
+
+    const checkFollower = (currentId) => {
+        if(usersFollowers?.find(u => u.id === currentId)){
+            return true
+        } else {
+            return false
+        }
+    };
+
+    const activeFollow = checkFollower(activityUID)
+    
     if(activity.activeUser) {
         return (
             <>
@@ -17,7 +32,7 @@ const ActivityCard = ({ activity }) => {
                                         size={64}
                                         mt={1}
                                         mr={4}
-                                    />
+                                    />                                    
                                 </Columns.Column>
                                 <Columns.Column>
                                     <Heading
@@ -77,17 +92,31 @@ const ActivityCard = ({ activity }) => {
         
     return (
         <>
-            <Tile className={"activity-tile--div"} kind={"child"} renderAs={Notification} color={"info"} colorVariant={"dark"}>
+            <Tile className={"activty-tile-follower--div"} kind={"child"} renderAs={Notification} color={"info"} colorVariant={"dark"}>
                 <Container p={5}>
                     <Columns breakpoint={"fluid"}>
-                        <Columns.Column mr={6} size={1}>
-                            <Image
-                                src={activity.userAccount.imageLocation}
-                                fallback={ReleaseComicImage("fallback")}
-                                size={64}
-                                mt={1}
-                                mr={4}
-                            />                            
+                        <Columns.Column mr={6} size={2}>
+                            <Container 
+                                pull={"left"}
+                                paddingless={true}
+                                >
+                                <Image
+                                    src={activity.userAccount.imageLocation}
+                                    // fallback={ReleaseComicImage("fallback")}
+                                    size={"96"}
+                                    className={"follower-avatar--img"}
+                                    paddingless={true}
+                                    mt={1}
+                                />
+                                <FollowUserButton 
+                                    uId={activityUID}
+                                    mr={3} 
+                                    mt={2} 
+                                    size={"small"} 
+                                    fStatus={activeFollow}
+                                    paddingless={false}
+                                />
+                            </Container>             
                         </Columns.Column>
                         <Columns.Column>
                             <Heading

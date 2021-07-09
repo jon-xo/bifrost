@@ -34,6 +34,7 @@ export const UserAccountProvider = (props) => {
     const [ warningProps, setWarningProps ] = useState({});
     const [ currentUserFollows, setCurrentUserFollows ] = useState([]);
     const [ usersFollowers, setUserFollowers ] = useState([]);
+    const [ disableFollowButtons, setDisableFollowButtons ] = useState(false);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     useEffect(() => {
@@ -96,50 +97,51 @@ export const UserAccountProvider = (props) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(userAccount)
         }).then(resp => resp.json()));  
     };
     
     const AddUserFollow = (leadUser, followUser) => {
+        // debugger
         return getToken().then((token) => 
-        fetch(`${apiUrl}/fw?uId=${leadUser}/?fId=${followUser}`, {
+        fetch(`${apiUrl}/fw?uId=${leadUser}&fId=${followUser}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
             }
         }));  
     };
     
     const GetFollows = (leadUser, followBack) => {
         if(followBack){
+            // debugger
             return getToken().then((token) => 
-            fetch(`${apiUrl}/fw?uId=${leadUser}/?fb=${followBack}`, {
+            fetch(`${apiUrl}/fw?uId=${leadUser}&fb=${followBack}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    "Authorization": `Bearer ${token}`,
                 }
             })
             .then((r) => r.json()))
             .then(setCurrentUserFollows)
         } else {
+            // debugger
             return getToken().then((token) => 
-            fetch(`${apiUrl}/fw?uId=${leadUser}/?fb=${followBack}`, {
+            fetch(`${apiUrl}/fw?uId=${leadUser}&fb=${followBack}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    "Authorization": `Bearer ${token}`,
                 }
             })
             .then((r) => r.json()))
             .then(setUserFollowers)
         }
     };
-    
-
 
     return (
         <UserAccountContext.Provider 
@@ -154,12 +156,15 @@ export const UserAccountProvider = (props) => {
                 AddUserFollow,
                 GetFollows,
                 usersFollowers,
-                currentUserFollows
+                currentUserFollows,
+                disableFollowButtons,
+                setDisableFollowButtons
             }}>
             {isFirebaseReady ?
             props.children
             : <Progress
-                color="link"  
+                color="grey"  
+                colorVariant="light"
                 max={75}
                 size="large"
                 value={null}

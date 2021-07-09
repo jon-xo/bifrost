@@ -35,6 +35,7 @@ export const UserAccountProvider = (props) => {
     const [ currentUserFollows, setCurrentUserFollows ] = useState([]);
     const [ usersFollowers, setUserFollowers ] = useState([]);
     const [ disableFollowButtons, setDisableFollowButtons ] = useState(false);
+    const [ followDetailReady, setFollowDetailReady ] = useState(false);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     useEffect(() => {
@@ -158,7 +159,9 @@ export const UserAccountProvider = (props) => {
                 usersFollowers,
                 currentUserFollows,
                 disableFollowButtons,
-                setDisableFollowButtons
+                setDisableFollowButtons,
+                followDetailReady, 
+                setFollowDetailReady
             }}>
             {isFirebaseReady ?
             props.children

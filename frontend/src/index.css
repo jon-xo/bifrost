@@ -251,10 +251,74 @@ code {
 /*  ----- Follow view ----- */
 
 .follow-container--div {
-  min-height: 30rem;
+  min-height: 60rem;
   height: 75vh;
 }
 
 .follow-container--table {
-  width: 90%;
+  width: 100%;
+  min-width: 35rem;
+  overflow: hidden;
+  overflow-y: scroll;
 }
+
+
+.follow-activity--div {
+  width: 100%;
+  height: 65vh !important;
+  min-width: 50rem !important;
+  min-height: 25rem !important;
+  overflow: hidden !important;
+  overflow-y: scroll !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.follow-activity-container--div {
+  min-height: 40rem;
+  height: fit-content;
+}
+
+.follow-activity--div div {
+  /* min-width: 100%; */
+  width: 90%;
+  margin-left: 2%;
+}
+
+.follow-activity-parent--div {
+  width: 20rem;
+  /* margin-left: 10rem !important; */
+  margin-top: 1rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.follow-activity-tile--div {
+  min-width: 35rem;
+  max-width: 95rem;
+}
+
+/* .activity-tile-self--div {
+  width: 30rem;
+  margin-left: 10rem !important;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem !important;
+} */
+
+/* .activity-tile--div {
+  width: 30rem;
+} */
+
+/* .activity-box--div {
+  min-height: 30rem;
+  height: 75vh;
+  min-width: 50rem;
+  width: 55rem !important;
+  max-width: 75vw !important;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.activity-box--div div {
+  padding: 0 1rem 0;
+  width: 90%;
+} */

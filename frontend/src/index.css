@@ -239,3 +239,14 @@ code {
 .activty-cover--img img {
   border-radius: 5px;
 }
+
+/*  ----- Follow view ----- */
+
+.follow-container--div {
+  min-height: 30rem;
+  height: 75vh;
+}
+
+.follow-container--table {
+  width: 90%;
+}

@@ -32,6 +32,8 @@ export const UserAccountProvider = (props) => {
     const userAccount = sessionStorage.getItem("userAccount");
     const [ isLoggedIn, setIsLoggedIn ] = useState(userAccount != null);
     const [ warningProps, setWarningProps ] = useState({});
+    const [ currentUserFollows, setCurrentUserFollows ] = useState([]);
+    const [ usersFollowers, setUserFollowers ] = useState([]);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     useEffect(() => {
@@ -99,6 +101,45 @@ export const UserAccountProvider = (props) => {
             body: JSON.stringify(userAccount)
         }).then(resp => resp.json()));  
     };
+    
+    const AddUserFollow = (leadUser, followUser) => {
+        return getToken().then((token) => 
+        fetch(`${apiUrl}/fw?uId=${leadUser}/?fId=${followUser}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        }));  
+    };
+    
+    const GetFollows = (leadUser, followBack) => {
+        if(followBack){
+            return getToken().then((token) => 
+            fetch(`${apiUrl}/fw?uId=${leadUser}/?fb=${followBack}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then((r) => r.json()))
+            .then(setCurrentUserFollows)
+        } else {
+            return getToken().then((token) => 
+            fetch(`${apiUrl}/fw?uId=${leadUser}/?fb=${followBack}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then((r) => r.json()))
+            .then(setUserFollowers)
+        }
+    };
+    
+
 
     return (
         <UserAccountContext.Provider 
@@ -109,7 +150,11 @@ export const UserAccountProvider = (props) => {
                 register, 
                 getToken, 
                 warningProps, 
-                setWarningProps 
+                setWarningProps,
+                AddUserFollow,
+                GetFollows,
+                usersFollowers,
+                currentUserFollows
             }}>
             {isFirebaseReady ?
             props.children

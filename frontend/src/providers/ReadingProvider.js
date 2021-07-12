@@ -8,6 +8,7 @@ export const ReadingContext = createContext();
 export const ReadingProvider = (props) => {
 
     const [ allPublicContent, setAllPublicContent ] = useState([]);
+    const [ selectedUsersContent, setSelectedUsersContent ] = useState([]);
     const [ allReading, setAllReading ] = useState([]);
     const [ allUnread, setAllUnread ] = useState([]);
     const [ allRead, setAllRead ] = useState([]);
@@ -29,17 +30,29 @@ export const ReadingProvider = (props) => {
     };
 
 
-    const getUsersReadingList = (userId) => {
-        return getToken().then((token) =>
-            fetch(`${apiUrl}/${userId}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((r) => r.json()))
-            .then(setAllReading)
-            .then(getAllPublicContent)        
+    const getUsersReadingList = (userId, fBool) => {
+        if(fBool){
+            return getToken().then((token) =>
+                fetch(`${apiUrl}/${userId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((r) => r.json()))
+                .then(setSelectedUsersContent)
+        } else {
+            return getToken().then((token) =>
+                fetch(`${apiUrl}/${userId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((r) => r.json()))
+                .then(setAllReading)
+                .then(getAllPublicContent)       
+        }
     };
 
     const getUsersReadStatusContent = (userId, readBool) => {
@@ -151,7 +164,8 @@ export const ReadingProvider = (props) => {
             setDisableReadingButton,            
             getAllPublicContent,
             allPublicContent,
-            setAllPublicContent
+            setAllPublicContent,
+            selectedUsersContent
         }}>
             {props.children}
         </ReadingContext.Provider>

@@ -1,7 +1,4 @@
 import React, { useContext } from "react";
-// import { useParams } from "react-router-dom";
-// import { Link, useHistory } from "react-router-dom"
-// import { ComicContext } from "../providers/ComicProvider";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { Card, 
          Content,
@@ -10,9 +7,8 @@ import { Card,
 import { StringArray, PublisherImage } from "../UtilityMethods";
 import { ComicCardDate } from "../UtilityMethods";
 import HandleBuildContent from "../Reading/ReadingContent";
-// import "../../index.css"
 
-const SearchComic = ({ comic }) => {
+const SearchComic = ({ ...props }) => {
     // 
     // ---- GitHub Issue Ticket # 5 ----
     // [Search [Ticket #5]](https://github.com/jon-xo/bifrost/issues/5)
@@ -23,13 +19,16 @@ const SearchComic = ({ comic }) => {
     // 
 
     const { isLoggedIn } = useContext(UserAccountContext);
+
+    const comic = props.comic;
+    const inReading = props.inReading;
     
     return (
         <>
             <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>
             {isLoggedIn ? 
                 <Card.Header backgroundColor={"string"} py={2} px={2} justifyContent={"flex-end"} alignContent={"center"}>
-                    <HandleBuildContent comicId={comic.id} />
+                    <HandleBuildContent comicId={comic.id} inReading={inReading} />
                 </Card.Header>
                 : 
                 <Card.Header />

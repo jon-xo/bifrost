@@ -12,6 +12,7 @@ import ActivityList from "./Activity/ActivityList";
 import Home from "./Home/Home";
 import Header from "./Header"
 import { UserAccountContext } from "../providers/UserAccountProvider.js";
+import FollowList from "./Follows/FollowList.js";
 
 export default function ApplicationViews() {
 
@@ -64,6 +65,7 @@ export default function ApplicationViews() {
                     {isLoggedIn ? 
                     <>
                         <Header />
+                        <FollowList />
                     </>
                     :
                         <Redirect to="/" />

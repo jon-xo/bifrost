@@ -47,13 +47,14 @@ const LoginDropdown = () => {
         <Dropdown
             closeOnSelect={false}
             color="link"
-            // right="false"
+            className={"dropdown-container-parent--div"}
             icon={<Icon><FontAwesomeIcon icon={faKey} /></Icon>}
             label="Login"
         >
             <Dropdown.Item
                  renderAs="form"
                  value="form"
+                 className={"dropdown-form--div"}
             >
                 <WarnUser {...warningProps} />
                 <Form.Field>
@@ -100,7 +101,7 @@ const LoginDropdown = () => {
             renderAs="a"
             value="divider"
             >
-                Placeholder
+                Enter email and password to login.
             </Dropdown.Item>
         </Dropdown>
     );

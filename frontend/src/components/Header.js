@@ -112,6 +112,15 @@ const Header = () => {
                         :
                         <></>
                     }
+                    {isLoggedIn ?
+                        <Navbar.Link arrowless='true'>
+                            <Navbar.Item className={"nav-links"} renderAs={NavLink} to={'/follows'}>
+                                Follows
+                            </Navbar.Item>
+                         </Navbar.Link>
+                        :
+                        <></>
+                    }
                 </Navbar.Container>
 
                 <Navbar.Container align='right' transparent='true' className='nav-controls'>

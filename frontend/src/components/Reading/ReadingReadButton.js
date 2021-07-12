@@ -4,7 +4,7 @@ import { Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { userId, currentDate } from "../UtilityMethods";
-import ReadingCard from "./ReadingCard";
+// import ReadingCard from "./ReadingCard";
 
 
 const ReadingReadButton = ({ comicObject }) => {

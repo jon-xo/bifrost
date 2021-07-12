@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from "react";
 // import { useHistory } from "react-router-dom"
 import { Section, Container } from "react-bulma-components";
 import { ComicContext } from "../../providers/ComicProvider";
-import { DotLoader, ReleaseDate, WeekStart } from "../UtilityMethods";
+import { ReadingContext } from "../../providers/ReadingProvider";
+import { DotLoader, ReleaseDate, WeekStart, getUserDetail } from "../UtilityMethods";
 import Comic from "./Comic"
 
 
@@ -22,12 +23,18 @@ const CurrentComicsList = () => {
     //   
     
     const { currentComics, getCurrentComics } = useContext(ComicContext);
+    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+
+    let userId = getUserDetail();
+    const newComicDay = ReleaseDate(currentComics);
 
     useEffect(() => {
         getCurrentComics();
     }, [])
 
-    const newComicDay = ReleaseDate(currentComics);
+    useEffect(() => {
+        getUsersReadingList(userId);
+    }, [allReading])
 
     return (
             <Section>
@@ -39,9 +46,13 @@ const CurrentComicsList = () => {
             }
                 <Container fluid='true' className='comic-container'>
 
-                {currentComics.comics?.map((comic) => (
-                    <Comic key={comic.diamond_id} comic={comic} />
-                ))}
+                {currentComics?.comics?.map((comic) => {
+                    if(allReading?.find((r) => r.pbApiKey === comic.diamond_id)){
+                        return <Comic key={comic.diamond_id} comic={comic} inReading={true}/>
+                    } else {
+                        return <Comic key={comic.diamond_id} comic={comic} inReading={false}/>
+                    }
+                })}
                 </Container>
             </Section>
     ); 

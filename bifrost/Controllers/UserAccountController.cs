@@ -57,5 +57,18 @@ namespace bifrost.Controllers
                 userAccount);
         }
 
+        [HttpPost("fw")]
+        public IActionResult FollowUser(int uId, int fId)
+        {
+            _userAccountRepository.AddFollow(uId, fId);
+            return NoContent();
+        }
+
+        [HttpGet("fw")]
+        public IActionResult GetFollows(int uId, bool fb)
+        {
+            return Ok(_userAccountRepository.GetFollows(uId, fb));             
+        }
+
     }
 }

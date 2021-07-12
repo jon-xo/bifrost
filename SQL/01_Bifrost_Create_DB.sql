@@ -44,7 +44,7 @@ CREATE TABLE [SavedContent] (
   [Rating] int,
   [ComicType] nvarchar(10) NOT NULL
 
-  CONSTRAINT [FK_SavedContent_UId_User] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id])
+  CONSTRAINT [w] FOREIGN KEY ([UserId]) REFERENCES [UserAccount] ([Id])
 )
 
 

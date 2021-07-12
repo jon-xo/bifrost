@@ -29,8 +29,24 @@ const FollowList = () => {
         <Section>
         <h2 className="title is-2">Follows</h2>
             <Container breakpoint={"fluid"} >
-                <Columns display={"flex"} justifyContent={"center"}>
-                    <Columns.Column size={4} >
+                <Columns breakpoint="desktop" display={"flex"} justifyContent={"center"}>
+                    <Columns.Column 
+                        desktop={{
+                            size: 10,
+                            offset: 0,
+                            narrow: true
+                        }}
+                        widescreen={{
+                            size: 6,
+                            offset: 0,
+                            narrow: false
+                        }}
+                        fullhd={{
+                            narrow: false,
+                            offset: 0,
+                            size: 6
+                        }}
+                    >
                         <Notification 
                             className={"follow-container--div"} 
                             // renderAs={Notification} 
@@ -83,58 +99,68 @@ const FollowList = () => {
                             </div>
                         </Notification>
                     </Columns.Column>
-                    <Columns.Column size={5}>
-                        {/* <Tile kind={"ancestor"}>
-                                <Tile size={6} vertical>
-                                    <Tile kind="parent"> */}
-                                        <Notification 
-                                            className={"follow-container--div"} 
-                                            // renderAs={Notification} 
-                                            color={"link"} 
-                                            colorVariant={"light"}
-                                            display={"flex"} 
-                                            justifyContent={"center"}
-                                            alignContent={"center"}
-                                        >
-                                            <div>
-                                                <Heading
-                                                    size={3}
-                                                    weight={"bold"}
-                                                    display={"flex"}
-                                                    justifyContent={"center"}
-                                                    alignContent={"center"}
-                                                >
-                                                    Timeline
-                                                </Heading>
-                                                {usersFollowers.length > 0 ?
-                                                <Heading
-                                                    size={5}
-                                                    subtitle
-                                                    weight={"semibold"}
-                                                    display={"flex"}
-                                                    justifyContent={"center"}
-                                                    alignContent={"center"}
-                                                >
-                                                    @{displayUserName(selectedUsersContent)}
-                                                </Heading>
-                                                :
-                                                <Heading
-                                                    size={5}
-                                                    subtitle
-                                                    weight={"semibold"}
-                                                    display={"flex"}
-                                                    justifyContent={"center"}
-                                                    alignContent={"center"}
-                                                >
-                                                    @{displayUserName(selectedUsersContent)}
-                                                </Heading>
-                                                }
-                                                <ActivityList />
-                                            </div>
-                                        </Notification>
-                                    {/* </Tile>
-                                </Tile>
-                        </Tile> */}
+                    <Columns.Column 
+                        desktop={{
+                            size: 10,
+                            offset: 0,
+                            narrow: true
+                        }}
+                        widescreen={{
+                            size: 6,
+                            offset: 0,
+                            narrow: false
+                        }}
+                        fullhd={{
+                            narrow: false,
+                            offset: 0,
+                            size: 6
+                        }}
+                    >
+                        <Notification 
+                            className={"follow-container--div"} 
+                            // renderAs={Notification} 
+                            color={"link"} 
+                            colorVariant={"light"}
+                            display={"flex"} 
+                            justifyContent={"center"}
+                            alignContent={"center"}
+                        >
+                            <div>
+                                <Heading
+                                    size={3}
+                                    weight={"bold"}
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                    alignContent={"center"}
+                                >
+                                    Timeline
+                                </Heading>
+                                {usersFollowers.length > 0 ?
+                                <Heading
+                                    size={5}
+                                    subtitle
+                                    weight={"semibold"}
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                    alignContent={"center"}
+                                >
+                                    @{displayUserName(selectedUsersContent)}
+                                </Heading>
+                                :
+                                <Heading
+                                    size={5}
+                                    subtitle
+                                    weight={"semibold"}
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                    alignContent={"center"}
+                                >
+                                    @{displayUserName(selectedUsersContent)}
+                                </Heading>
+                                }
+                                <ActivityList />
+                            </div>
+                        </Notification>                                    
                     </Columns.Column>
                 </Columns>
             </Container>

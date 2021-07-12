@@ -278,7 +278,10 @@ dropdown-container-parent--div
 
 .follow-container--div {
   min-height: 60rem;
+  min-width: 35vw;
   height: 75vh;
+  overflow: hidden;
+  overflow-x: scroll;
 }
 
 

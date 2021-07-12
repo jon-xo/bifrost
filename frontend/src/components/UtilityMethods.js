@@ -43,14 +43,9 @@ export const DotLoader = () => {
 };
 
 export const ReleaseComicImage = (diamond_id) => {
-    const location = useLocation();
-    
+    // const location = useLocation();
     if (diamond_id === "fallback"){
-        if (location.pathname.includes("activity")){
-            return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
-        } else {
-            return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
-        }
+        return "https://www.tfaw.com/media/catalog/product/placeholder/default/missingimage600.png"
     }
     return `https://www.tfaw.com/media/catalog/product/${StringArray(diamond_id, 1)}/${StringArray(diamond_id, 2)}/${diamond_id}.jpg`
 };

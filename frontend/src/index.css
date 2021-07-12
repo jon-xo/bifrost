@@ -281,13 +281,24 @@ dropdown-container-parent--div
   height: 75vh;
 }
 
-.follow-container--table {
-  width: 100%;
-  min-width: 35rem;
+
+.follow-container--table {  
   overflow: hidden;
   overflow-y: scroll;
 }
 
+.follow-activity--div {
+  overflow: hidden !important;
+  overflow-y: scroll !important;
+  height: 65vh !important;
+  min-height: 25rem !important;
+}
+
+.follow-activity-parent--div {
+  margin-top: 1rem;
+}
+
+/*
 
 .follow-activity--div {
   width: 100%;
@@ -306,14 +317,12 @@ dropdown-container-parent--div
 }
 
 .follow-activity--div div {
-  /* min-width: 100%; */
   width: 90%;
   margin-left: 2%;
 }
 
 .follow-activity-parent--div {
   width: 20rem;
-  /* margin-left: 10rem !important; */
   margin-top: 1rem;
   margin-bottom: 1.5rem !important;
 }
@@ -321,30 +330,4 @@ dropdown-container-parent--div
 .follow-activity-tile--div {
   min-width: 35rem;
   max-width: 95rem;
-}
-
-/* .activity-tile-self--div {
-  width: 30rem;
-  margin-left: 10rem !important;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem !important;
-} */
-
-/* .activity-tile--div {
-  width: 30rem;
-} */
-
-/* .activity-box--div {
-  min-height: 30rem;
-  height: 75vh;
-  min-width: 50rem;
-  width: 55rem !important;
-  max-width: 75vw !important;
-  overflow: hidden;
-  overflow-y: scroll;
-}
-
-.activity-box--div div {
-  padding: 0 1rem 0;
-  width: 90%;
 } */

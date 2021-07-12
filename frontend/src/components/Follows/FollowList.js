@@ -15,11 +15,9 @@ const FollowList = () => {
     }, [selectedUsersContent])
 
     const displayUserName = (userArray) => {
-        debugger
         let primeUsername = "username";
         if(userArray.length > 0 )
         {
-            debugger
             const primeUserName = userArray[0].userAccount.displayName
             return primeUserName
         }

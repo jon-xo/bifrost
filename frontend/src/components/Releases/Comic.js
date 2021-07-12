@@ -12,15 +12,18 @@ import { ReleaseComicImage, PublisherImage } from "../UtilityMethods";
 import { ComicCardDate } from "../UtilityMethods";
 import HandleBuildContent from "../Reading/ReadingContent";
 
-const Comic = ({ comic }) => {
+const Comic = ({ ...props }) => {
     const { isLoggedIn } = useContext(UserAccountContext);
+
+    const comic = props.comic;
+    const inReading = props.inReading;
     
     return (
         <>
             <Card style={{ width: '50rem', margin: 'auto', marginTop: '1rem' }}>
                 {isLoggedIn ? 
                 <Card.Header backgroundColor={"string"} py={2} px={2} justifyContent={"flex-end"} alignContent={"center"}>
-                    <HandleBuildContent comicId={comic.diamond_id} />
+                    <HandleBuildContent comicId={comic.diamond_id} inReading={inReading} />
                 </Card.Header>
                 : 
                 <Card.Header />

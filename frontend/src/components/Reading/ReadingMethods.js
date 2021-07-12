@@ -4,10 +4,10 @@ import { ReleaseComicImage, ReadingComicDate } from "../UtilityMethods";
 // import { UserAccountContext } from "../../providers/UserAccountProvider";
 // import { ReadingContext } from "../../providers/ReadingProvider";
 
-export const addReadingContent = ( comicObject, loginState, addMethod ) => {
+export const addReadingContent = ( comicObject, loginState, addMethod, loadStateFunction ) => {
 
     // const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
-    // debugger
+    debugger
     const savedContent = {
         UserId: parseInt(userAccount?.id),
         CVApiKey: undefined,
@@ -27,6 +27,7 @@ export const addReadingContent = ( comicObject, loginState, addMethod ) => {
     };
 
     if (comicObject.diamond_id){
+        debugger
         savedContent.PBApiKey = comicObject.diamond_id;
         savedContent.Title = comicObject.title;
         savedContent.ComicImage = ReleaseComicImage(comicObject.diamond_id);
@@ -58,8 +59,12 @@ export const addReadingContent = ( comicObject, loginState, addMethod ) => {
         savedContent.altDescription = `${comicObject.count_of_issues}`;   
     } 
 
+    debugger
     if(loginState) {
-        // debugger
-        addMethod(savedContent);
+        debugger
+        addMethod(savedContent)
+        .then(() => {
+            loadStateFunction(false)
+        })
     }
 };

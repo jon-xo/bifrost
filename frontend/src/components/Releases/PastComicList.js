@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 // import { useHistory } from "react-router-dom"
-import { ComicContext } from "../../providers/ComicProvider";
 import { Section, Container } from "react-bulma-components";
-import { DotLoader, ReleaseDate, WeekStart } from "../UtilityMethods";
+import { ComicContext } from "../../providers/ComicProvider";
+import { ReadingContext } from "../../providers/ReadingProvider";
+import { DotLoader, ReleaseDate, WeekStart, getUserDetail } from "../UtilityMethods";
 import Comic from "./Comic"
-// import "../index.css"
 
 
 const PastComicsList = () => {
@@ -23,10 +23,17 @@ const PastComicsList = () => {
     //   
     
     const { previousComics, getPreviousComics } = useContext(ComicContext);
+    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+
+    let userId = getUserDetail();
 
     useEffect(() => {
         getPreviousComics();
-}, [])
+    }, [])
+
+    useEffect(() => {
+        getUsersReadingList(userId);
+    }, [allReading])
 
     const newComicDay = ReleaseDate(previousComics);
 
@@ -34,15 +41,19 @@ const PastComicsList = () => {
         <>
             <Section>
                 <h2 className="title is-2">Previous Comics</h2>
-        {newComicDay === undefined ? 
+            {newComicDay === undefined ? 
                 <><DotLoader /></>
                 :
                 <h4 className="subtitle is-5"><strong>Release Date</strong>: {WeekStart(newComicDay, "mid")}</h4>
-        }
+            }
                 <Container fluid='true' className='comic-container'>
-                {previousComics.comics?.map((comic) => (                
-                    <Comic key={comic.diamond_id} comic={comic} />
-                ))}
+                {previousComics?.comics?.map((comic) => {
+                    if(allReading?.find((r) => r.pbApiKey === comic.diamond_id)){
+                        return <Comic key={comic.diamond_id} comic={comic} inReading={true}/>
+                    } else {
+                        return <Comic key={comic.diamond_id} comic={comic} inReading={false}/>
+                    }
+                })}
                 </Container>
             </Section>
         </>

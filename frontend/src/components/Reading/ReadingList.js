@@ -11,12 +11,10 @@ const ReadingList = () => {
     const { allReading, getUsersReadingList, getUsersReadStatusContent, allUnread, allRead } = useContext(ReadingContext);
     const [ unreadList, setUnreadList ] = useState([]);
     const [ readList, setReadList ] = useState([]);
-    // const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
-    // const userId = parseInt(userAccount?.id);
 
 
     useEffect(() => {
-        getUsersReadingList(userId)
+        getUsersReadingList(userId);
     }, [])
 
     useEffect(() => {
@@ -52,7 +50,7 @@ const ReadingList = () => {
                                     }
                                 </Tile>
                                 {allReading?.length > 0 ?
-                                    allReading?.filter((c) => c.read === false).map((comic, index) => {
+                                allReading?.filter((c) => c.read === false).map((comic, index) => {
                                         comic.final = false;
                                         let readingListIndex = index + 1;
                                         readingListIndex++
@@ -78,7 +76,8 @@ const ReadingList = () => {
                                     :
                                     <></>
                                 }
-                                {allReading?.filter((c) => c.read === false) < allReading?.filter((c) => c.read === true) ?
+                                {allReading?.length > 0 ?
+                                allReading?.filter((c) => c.read === false) < allReading?.filter((c) => c.read === true) ?
                                     <Tile 
                                         className={"reading-card-end--div"} 
                                         kind={"child"} 
@@ -89,6 +88,8 @@ const ReadingList = () => {
                                     </Tile>
                                     :
                                     <></>
+                                :
+                                <></>
                                 }
                             </Tile>
                         </Tile>
@@ -117,15 +118,18 @@ const ReadingList = () => {
                                     :
                                     <></>
                                 }
-                                {allReading?.filter((c) => c.read === false) > allReading?.filter((c) => c.read === true) ?
-                                    <Tile 
-                                        className={"reading-card-end--div"} 
-                                        kind={"child"} 
-                                        renderAs={Notification} 
-                                        color={"success"} 
-                                        colorVariant={"light"}
-                                    >
-                                    </Tile>
+                                {allReading?.length > 0 ?
+                                    allReading?.filter((c) => c.read === false) > allReading?.filter((c) => c.read === true) ?
+                                        <Tile 
+                                            className={"reading-card-end--div"} 
+                                            kind={"child"} 
+                                            renderAs={Notification} 
+                                            color={"success"} 
+                                            colorVariant={"light"}
+                                        >
+                                        </Tile>
+                                        :
+                                        <></>
                                     :
                                     <></>
                                 }

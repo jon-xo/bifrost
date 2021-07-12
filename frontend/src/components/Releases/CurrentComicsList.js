@@ -23,7 +23,7 @@ const CurrentComicsList = () => {
     //   
     
     const { currentComics, getCurrentComics } = useContext(ComicContext);
-    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+    const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
 
     let userId = getUserDetail();
     const newComicDay = ReleaseDate(currentComics);
@@ -36,7 +36,16 @@ const CurrentComicsList = () => {
         if(userId){
             getUsersReadingList(userId);
         }
-    }, [allReading])
+    }, [])
+
+    useEffect(() => {
+        if(refreshState){
+            getUsersReadingList(userId)
+            .then(() => {
+                setRefreshState(false);
+            })
+        }
+    }, [refreshState])
 
     return (
             <Section>

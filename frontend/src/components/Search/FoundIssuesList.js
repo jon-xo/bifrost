@@ -7,7 +7,7 @@ import SearchComic from "./SearchComic";
 
 const FoundIssuesList = () => {
     const { foundComics } = useContext(SearchComicContext)
-    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+    const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
     // const [ detailReady, setDetailReady ] = useState(false);
 
     let userId = getUserDetail();
@@ -17,6 +17,15 @@ const FoundIssuesList = () => {
             getUsersReadingList(userId);
         }
     }, [])
+
+    useEffect(() => {
+        if(refreshState){
+            getUsersReadingList(userId)
+            .then(() => {
+                setRefreshState(false);
+            })
+        }
+    }, [refreshState])
     
     // Experimental UseEffect, Method, and Fetch call to retreive 
     // comic publisher from alternate endpoint.

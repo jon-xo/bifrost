@@ -7,7 +7,7 @@ import SearchComic from "./SearchComic";
 
 const FoundVolumesList = () => {
     const { foundVolumes } = useContext(SearchComicContext);
-    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+    const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
     let userId = getUserDetail();
     
     const checkVolumesArray = () => {
@@ -21,7 +21,17 @@ const FoundVolumesList = () => {
         if(userId){
             getUsersReadingList(userId);
         }
-    }, [allReading])
+    }, [])
+
+    useEffect(() => {
+        if(refreshState){
+            getUsersReadingList(userId)
+            .then(() => {
+                setRefreshState(false);
+            })
+        }
+    }, [refreshState])
+
     
     const volumesArray = checkVolumesArray();
     

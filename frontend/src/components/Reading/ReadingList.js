@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { ReadingContext } from "../../providers/ReadingProvider";
 import { Section, Notification, Heading, Tile, Container } from "react-bulma-components";
-import { userId } from "../UtilityMethods";
+import { getUserDetail } from "../UtilityMethods";
 import ReadingCard from "./ReadingCard";
 
 
@@ -12,6 +12,7 @@ const ReadingList = () => {
     const [ unreadList, setUnreadList ] = useState([]);
     const [ readList, setReadList ] = useState([]);
 
+    let userId = getUserDetail();
 
     useEffect(() => {
         getUsersReadingList(userId);

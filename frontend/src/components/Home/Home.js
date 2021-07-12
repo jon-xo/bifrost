@@ -23,8 +23,8 @@ const Home = (params) => {
     //   once the array is modified, that array is mapped and 
     //   the ComicRow is returned inside JSX table
     
-    const { currentComics, getCurrentComics, isLoading, setIsLoading } = useContext(ComicContext);
-    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+    const { currentComics, getCurrentComics, isLoading } = useContext(ComicContext);
+    const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
     const [ focusComic, setFocusComic ] = useState(undefined);
     const [ focusedComics, setFocusedComics ] = useState([]);
     
@@ -59,7 +59,16 @@ const Home = (params) => {
         if(userId){
             getUsersReadingList(userId);
         }
-    }, [allReading])
+    }, [])
+
+    useEffect(() => {
+        if(refreshState){
+            getUsersReadingList(userId)
+            .then(() => {
+                setRefreshState(false);
+            })
+        }
+    }, [refreshState])
 
     useEffect(() => {
         if(currentComics.comics?.length > 0)

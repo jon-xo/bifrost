@@ -1,12 +1,20 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Section, Container } from "react-bulma-components";
 import { SearchComicContext } from "../../providers/SearchComicProvider";
-import { FindPublisher } from "../UtilityMethods";
+import { ReadingContext } from "../../providers/ReadingProvider";
+import { FindPublisher, getUserDetail } from "../UtilityMethods";
 import SearchComic from "./SearchComic";
 
 const FoundIssuesList = () => {
-    const { foundComics, searchDetails, foundDetails} = useContext(SearchComicContext)
-    const [ detailReady, setDetailReady ] = useState(false);
+    const { foundComics } = useContext(SearchComicContext)
+    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+    // const [ detailReady, setDetailReady ] = useState(false);
+
+    let userId = getUserDetail();
+    
+    useEffect(() => {
+        getUsersReadingList(userId);
+    }, [allReading])
     
     // Experimental UseEffect, Method, and Fetch call to retreive 
     // comic publisher from alternate endpoint.
@@ -27,32 +35,12 @@ const FoundIssuesList = () => {
         <Section>
         <h2 className="title is-2">Issues Found</h2>
             <Container fluid='true' className='comic-container'>
-            {foundComics.results?.map((comic) => {
-                // Experimental UseEffect, Method, and Fetch call to retreive 
-                // comic publisher from alternate endpoint.
-                
-                // if(detailReady){
-                //     if(comic.name === undefined){
-                //         searchDetails(comic.name)
-                //         .then(() => {
-                //             if(foundDetails?.search !== undefined)
-                //             {
-                //                 debugger
-                //                 FindPublisher(foundDetails.search)
-                //             }
-                //         })
-                //     } else {
-                //         searchDetails(comic.volume.name)
-                //         .then(() => {
-                //             if(foundDetails?.search !== undefined)
-                //             {
-                //                 debugger
-                //                 FindPublisher(foundDetails.search)
-                //             }
-                //         })       
-                //     }
-                // }           
-                return <SearchComic key={comic.id} comic={comic} />
+            {foundComics?.results?.map((comic) => {                
+                if(allReading?.find((r) => r.cvApiKey === comic.id)){
+                    return <SearchComic key={comic.id} comic={comic} inReading={true}/>
+                } else {
+                    return <SearchComic key={comic.id} comic={comic} inReading={false}/>
+                }
             })}
             </Container>
         </Section>

@@ -15,15 +15,9 @@ const HandleBuildContent = ( {...props} ) => {
 
     const comicId = props.comicId;
     const inReading = props.inReading;
+    const invert = props.inverted;
 
-    const colorVariant = (readingBool) => {
-        if(readingBool){
-            return "success"
-        } else {
-            return "info"
-        }
-    }; 
-
+    
     const { isLoggedIn } = useContext(UserAccountContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
     const { addContentToReadingList } = useContext(ReadingContext);
@@ -32,6 +26,17 @@ const HandleBuildContent = ( {...props} ) => {
     const location = useLocation();
     const route = location.pathname;
 
+    const colorVariant = (readingBool) => {
+        if(readingBool){
+            if(route === "/"){
+                return "dark"
+            } else {
+                return "success"
+            }
+        } else {
+            return "info"
+        }
+    }; 
     
     const handleAddContent = ( event, comicId ) => {
         event.preventDefault();
@@ -98,16 +103,30 @@ const HandleBuildContent = ( {...props} ) => {
             <>
                 <Button
                     color="info"
-                    colorVariant="light"
+                    colorVariant={colorVariant(inReading)}
                     outlined
+                    isStatic={inReading}
+                    disabled={inReading}
+                    loading={buttonLoading}
                     onClick={(e) => {
                         handleAddContent(e, comicId);
                     }}
                 >
-                    <Icon align="left">
-                        <FontAwesomeIcon icon={faPlusCircle} />
-                    </Icon>
-                    <span>Add Volume</span>
+                    {inReading ?
+                        <>
+                            <Icon align="left">
+                                <FontAwesomeIcon icon={faCheckCircle} />
+                            </Icon>
+                            <span>Volume Added</span>
+                        </>
+                        :
+                        <>
+                            <Icon align="left">
+                                <FontAwesomeIcon icon={faPlusCircle} />
+                            </Icon>
+                            <span>Add Volume</span>
+                        </>
+                    }
                 </Button>
             </>
         );
@@ -116,18 +135,32 @@ const HandleBuildContent = ( {...props} ) => {
         return (
             <>
                 <Button
-                    color="info"
-                    colorVariant="light"
-                    outlined
+                    color={colorVariant(inReading)}
+                    colorVariant={colorVariant(inReading)}
+                    inverted={invert}
+                    isStatic={inReading}
+                    disabled={inReading}
+                    loading={buttonLoading}
                     size="small"
                     onClick={(e) => {
                         handleAddContent(e, comicId);
                     }}
                 >
-                    <Icon>
-                        <FontAwesomeIcon icon={faPlusCircle} />
-                    </Icon>
-                    <span>Add to Reading List</span>
+                    {inReading ?
+                        <>
+                            <Icon align="left">
+                                <FontAwesomeIcon icon={faCheckCircle} />
+                            </Icon>
+                            <span>Added to Reading List</span>
+                        </>
+                        :
+                        <>
+                            <Icon align="left">
+                                <FontAwesomeIcon icon={faPlusCircle} />
+                            </Icon>
+                            <span>Add to Reading List</span>
+                        </>
+                    }
                 </Button>
             </>
         );

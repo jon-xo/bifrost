@@ -4,7 +4,7 @@ import { PublisherImage } from "../UtilityMethods";
 import HandleBuildContent from "../Reading/ReadingContent";
 import clsx from 'clsx';
 
-const ComicRow = ({comic}) => {
+const ComicRow = ({...props}) => {
     // -- GitHub Issue Ticket # 3 ---
     // [Home [Ticket #3]](https://github.com/jon-xo/bifrost/issues/4)
     // 
@@ -14,6 +14,9 @@ const ComicRow = ({comic}) => {
     //   with the is-selected class to highlight selected row    
 
     const { isLoggedIn } = useContext(UserAccountContext);
+
+    const comic = props.comic;
+    const inReading = props.inReading;
     
     return (
         <>
@@ -24,7 +27,7 @@ const ComicRow = ({comic}) => {
                 <td>{comic.creators}</td>
                 <td>{PublisherImage(comic.publisher)}</td>
                 {isLoggedIn ? 
-                    <td><HandleBuildContent comicId={comic.diamond_id} /></td>
+                    <td><HandleBuildContent comicId={comic.diamond_id} inReading={inReading}/></td>
                 : 
                     <td></td>
                 }
@@ -36,7 +39,7 @@ const ComicRow = ({comic}) => {
                 <td>{comic.creators}</td>
                 <td>{PublisherImage(comic.publisher)}</td>
                 {isLoggedIn ? 
-                    <td><HandleBuildContent comicId={comic.diamond_id} /></td>
+                    <td><HandleBuildContent comicId={comic.diamond_id} inReading={inReading}/></td>
                 : 
                     <td></td>
                 }

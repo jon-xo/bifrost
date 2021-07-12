@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom"
+// import { useHistory } from "react-router-dom"
 import { ComicContext } from "../../providers/ComicProvider";
-import { Container, Content, Columns, Table, Notification } from "react-bulma-components";
-import { ReleaseDate, WeekStart } from "../UtilityMethods";
+import { ReadingContext } from "../../providers/ReadingProvider";
+import { Content, Columns, Table, Notification } from "react-bulma-components";
+import { ReleaseDate, WeekStart, getUserDetail } from "../UtilityMethods";
 import HomeLoader from "./HomeLoader";
 import RandomIssue from "./RandomIssue";
 import ComicRow from "./ComicRow";
@@ -23,6 +24,7 @@ const Home = (params) => {
     //   the ComicRow is returned inside JSX table
     
     const { currentComics, getCurrentComics, isLoading, setIsLoading } = useContext(ComicContext);
+    const { getUsersReadingList, allReading } = useContext(ReadingContext);
     const [ focusComic, setFocusComic ] = useState(undefined);
     const [ focusedComics, setFocusedComics ] = useState([]);
     
@@ -46,11 +48,16 @@ const Home = (params) => {
         return array;
     };
 
+    let userId = getUserDetail();
     const newComicDay = ReleaseDate(currentComics);
         
     useEffect(() => {
         getCurrentComics()
     }, [])
+
+    useEffect(() => {
+        getUsersReadingList(userId);
+    }, [allReading])
 
     useEffect(() => {
         if(currentComics.comics?.length > 0)
@@ -165,9 +172,18 @@ const Home = (params) => {
                                                     if(comic?.diamond_id === focusComic?.diamond_id)
                                                     {
                                                         comic.featured = true;
-                                                        return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                        if(allReading?.find((r) => r.pbApiKey === comic.diamond_id)){
+                                                            return <ComicRow key={comic.diamond_id} comic={comic} inReading={true} inverted={false}/>
+                                                        } else {
+                                                            return <ComicRow key={comic.diamond_id} comic={comic} inReading={false} inverted={false}/>                                                            
+                                                        }
+                                                    } else {
+                                                        if(allReading?.find((r) => r.pbApiKey === comic.diamond_id)){
+                                                            return <ComicRow key={comic.diamond_id} comic={comic} inReading={true} inverted={false}/>
+                                                        } else {
+                                                            return <ComicRow key={comic.diamond_id} comic={comic} inReading={false} inverted={false}/>
+                                                        }
                                                     }
-                                                    return <ComicRow key={comic.diamond_id} comic={comic} />
                                                 })
                                             }
                                     </tbody>

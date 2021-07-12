@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-// import { useParams } from "react-router-dom";
-// import { Link, useHistory } from "react-router-dom"
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { 
     Card, 

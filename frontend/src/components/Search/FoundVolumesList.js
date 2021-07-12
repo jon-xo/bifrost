@@ -18,7 +18,9 @@ const FoundVolumesList = () => {
     };
     
     useEffect(() => {
-        getUsersReadingList(userId);
+        if(userId){
+            getUsersReadingList(userId);
+        }
     }, [allReading])
     
     const volumesArray = checkVolumesArray();

@@ -16,9 +16,14 @@ import Loader from "react-loader-spinner";
 export const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
 export const userId = parseInt(userAccount?.id);
 
-export const getUserDetail = () => {
+export const getUserDetail = (string) => {
     const localAccount = JSON.parse(sessionStorage.getItem("userAccount"));
-    return parseInt(localAccount?.id)
+    if(localAccount !== undefined || localAccount !== null)
+    {
+        return parseInt(localAccount?.id)
+    } else {
+        return undefined;
+    }
 };
 export const BfLoader = () => {
     return (

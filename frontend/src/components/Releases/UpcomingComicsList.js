@@ -34,7 +34,9 @@ const UpcomingComicsList = () => {
     }, [])
 
     useEffect(() => {
-        getUsersReadingList(userId);
+        if(userId){
+            getUsersReadingList(userId);
+        }
     }, [allReading])
 
     return (

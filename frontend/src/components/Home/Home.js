@@ -56,7 +56,9 @@ const Home = (params) => {
     }, [])
 
     useEffect(() => {
-        getUsersReadingList(userId);
+        if(userId){
+            getUsersReadingList(userId);
+        }
     }, [allReading])
 
     useEffect(() => {
@@ -166,9 +168,9 @@ const Home = (params) => {
                                     </thead>
                                     <tbody>
                                             {focusedComics?.map((comic, index) => {
-                                                    // debugger
-                                                    comic.listIndex = index + 1;
-                                                    comic.featured = undefined;
+                                                comic.listIndex = index + 1;
+                                                comic.featured = undefined;
+                                                if(userId && allReading?.length > 0){
                                                     if(comic?.diamond_id === focusComic?.diamond_id)
                                                     {
                                                         comic.featured = true;
@@ -184,6 +186,15 @@ const Home = (params) => {
                                                             return <ComicRow key={comic.diamond_id} comic={comic} inReading={false} inverted={false}/>
                                                         }
                                                     }
+
+                                                } else {
+                                                    if(comic?.diamond_id === focusComic?.diamond_id)
+                                                    {
+                                                        comic.featured = true;
+                                                        return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                    }
+                                                    return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                }
                                                 })
                                             }
                                     </tbody>

@@ -33,7 +33,9 @@ const CurrentComicsList = () => {
     }, [])
 
     useEffect(() => {
-        getUsersReadingList(userId);
+        if(userId){
+            getUsersReadingList(userId);
+        }
     }, [allReading])
 
     return (

@@ -1,15 +1,13 @@
-import React, { useContext, useState } from "react";
-import { userAccount, currentDate } from "../UtilityMethods";
-import { ReleaseComicImage, ReadingComicDate } from "../UtilityMethods";
-// import { UserAccountContext } from "../../providers/UserAccountProvider";
-// import { ReadingContext } from "../../providers/ReadingProvider";
+import React from "react";
+import { currentDate, getUserDetail, ReleaseComicImage, ReadingComicDate } from "../UtilityMethods";
 
 export const addReadingContent = ( comicObject, loginState, addMethod, loadStateFunction ) => {
-
+    
     // const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
-    debugger
+    let userId = getUserDetail();
+    
     const savedContent = {
-        UserId: parseInt(userAccount?.id),
+        UserId: userId,
         CVApiKey: undefined,
         PBApiKey: undefined,
         Title: undefined,
@@ -27,7 +25,7 @@ export const addReadingContent = ( comicObject, loginState, addMethod, loadState
     };
 
     if (comicObject.diamond_id){
-        debugger
+        // debugger
         savedContent.PBApiKey = comicObject.diamond_id;
         savedContent.Title = comicObject.title;
         savedContent.ComicImage = ReleaseComicImage(comicObject.diamond_id);
@@ -59,12 +57,11 @@ export const addReadingContent = ( comicObject, loginState, addMethod, loadState
         savedContent.altDescription = `${comicObject.count_of_issues}`;   
     } 
 
-    debugger
     if(loginState) {
-        debugger
         addMethod(savedContent)
+        .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
         .then(() => {
-            loadStateFunction(false)
+            loadStateFunction(false);
         })
     }
 };

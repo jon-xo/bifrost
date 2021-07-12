@@ -54,10 +54,10 @@ const ReadingList = () => {
                                         comic.final = false;
                                         let readingListIndex = index + 1;
                                         readingListIndex++
-                                        debugger
+                                        // debugger
                                         if(readingListIndex === allReading.length)
                                         {
-                                            debugger
+                                            // debugger
                                             comic.final = true;
                                             if (comic.pbApiKey) {
                                                 return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
@@ -65,7 +65,7 @@ const ReadingList = () => {
                                                 return <ReadingCard key={comic.cvApiKey} savedComic={comic} />
                                             }                                            
                                         } else {
-                                            debugger
+                                            // debugger
                                             if (comic.pbApiKey) {
                                                 return <ReadingCard key={comic.pbApiKey} savedComic={comic} />
                                             } else {

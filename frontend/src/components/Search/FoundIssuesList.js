@@ -13,8 +13,10 @@ const FoundIssuesList = () => {
     let userId = getUserDetail();
     
     useEffect(() => {
-        getUsersReadingList(userId);
-    }, [allReading])
+        if(userId){
+            getUsersReadingList(userId);
+        }
+    }, [])
     
     // Experimental UseEffect, Method, and Fetch call to retreive 
     // comic publisher from alternate endpoint.

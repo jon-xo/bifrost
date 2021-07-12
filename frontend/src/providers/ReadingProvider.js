@@ -12,6 +12,7 @@ export const ReadingProvider = (props) => {
     const [ allReading, setAllReading ] = useState([]);
     const [ allUnread, setAllUnread ] = useState([]);
     const [ allRead, setAllRead ] = useState([]);
+    const [ refreshState, setRefreshState ] = useState(false);
     const [ disableReadingButtons, setDisableReadingButton ] = useState(false);
     const { getToken } = useContext(UserAccountContext);
     
@@ -31,6 +32,7 @@ export const ReadingProvider = (props) => {
 
 
     const getUsersReadingList = (userId, fBool) => {
+        // setRefreshState(false);
         if(fBool){
             return getToken().then((token) =>
                 fetch(`${apiUrl}/${userId}`, {
@@ -41,6 +43,9 @@ export const ReadingProvider = (props) => {
                 })
                 .then((r) => r.json()))
                 .then(setSelectedUsersContent)
+                // .then(() => {
+                //     setRefreshState(true);                    
+                // })
         } else {
             return getToken().then((token) =>
                 fetch(`${apiUrl}/${userId}`, {
@@ -51,7 +56,10 @@ export const ReadingProvider = (props) => {
                 })
                 .then((r) => r.json()))
                 .then(setAllReading)
-                .then(getAllPublicContent)       
+                .then(getAllPublicContent)
+                // .then(() => {
+                //     setRefreshState(true);
+                // })      
         }
     };
 
@@ -82,6 +90,7 @@ export const ReadingProvider = (props) => {
     }
 
     const addContentToReadingList = (contentObject) => {        
+        // debugger
         return getToken().then((token) =>
             fetch(apiUrl, {
                 method: "POST",
@@ -92,10 +101,14 @@ export const ReadingProvider = (props) => {
                 body: JSON.stringify(contentObject)
             })
             .then(r => {
-                console.log(r);
+                // console.log(r);
                 if (r.ok) {
                     return r.json()
                     .then(getAllPublicContent)
+                    .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
+                    .then(() => {
+                        setRefreshState(true);
+                    }) 
                 }
                 throw new Error(r.status === 401 ? "401: Unauthorized" : r.status + " " + r. statusText);
             })
@@ -165,7 +178,9 @@ export const ReadingProvider = (props) => {
             getAllPublicContent,
             allPublicContent,
             setAllPublicContent,
-            selectedUsersContent
+            selectedUsersContent,
+            refreshState,
+            setRefreshState
         }}>
             {props.children}
         </ReadingContext.Provider>

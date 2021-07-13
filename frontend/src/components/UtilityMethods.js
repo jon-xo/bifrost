@@ -17,10 +17,12 @@ export const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
 export const userId = parseInt(userAccount?.id);
 
 export const getAvatarImage = (src) => {
-    if(src.includes("./")){
-        return `${process.env.PUBLIC_URL}/pub_assets/avatars/${src}`
-    } else {
-        return src
+    if(src){
+        if(src.includes("./")){
+            return `${process.env.PUBLIC_URL}/pub_assets/avatars/${src}`
+        } else {
+            return src
+        }
     }
 };
 

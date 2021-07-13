@@ -55,22 +55,7 @@ const ActivityList = () => {
                                 return <ActivityCard key={activity.id} activity={activity} />
                             })
                             :
-                            <div className={"follow-activity-parent--div"}>
-                                <Notification className={"follow-activity-tile--div"}
-                                color={"link"} 
-                                colorVariant={"dark"}
-                                >
-                                <Heading
-                                    size={3}
-                                    weight={"semibold"}
-                                    textAlign={"center"}
-                                >
-                                    No user selected
-                                </Heading>
-
-                                </Notification>
-                            </div>
-                            
+                                <ActivityCard activity={null} />                             
                             }                                        
                         </Notification>                                    
                     </Box>

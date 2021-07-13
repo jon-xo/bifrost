@@ -13,6 +13,7 @@ const FollowList = () => {
     let userId = getUserDetail();
 
     useEffect(() => {
+        // debugger
         GetFollows(userId, false, true);
     }, [])
     
@@ -94,6 +95,7 @@ const FollowList = () => {
                                     <tbody>
                                         {usersFollowers.length > 0 ?
                                         usersFollowers?.map((user, index) => {
+                                            // debugger
                                             user.listIndex = index + 1;
                                             return <FollowRow key={user.id} follower={user} />
                                         })

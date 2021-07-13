@@ -24,7 +24,7 @@ const UpcomingComicsList = () => {
     //   
     
     const { newComics, getNewComics } = useContext(ComicContext);
-    const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
+const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
     
     let userId = getUserDetail();
     const newComicDay = ReleaseDate(newComics);

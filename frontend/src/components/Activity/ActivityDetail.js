@@ -56,7 +56,13 @@ const ActivityDetail = ({ ...props }) => {
     const btnMarginTop = props?.props.mt;
     const padding = props?.props.paddingless;
     const currentUser = props?.props.userObject;
-
+    let btnMarginRight
+    if(props?.props.mr){
+        btnMarginRight = props?.props.mr + 2;        
+    } else {
+        btnMarginRight = 0;
+    }
+    
     const { DeleteFollow } = useContext(UserAccountContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
         
@@ -82,11 +88,12 @@ const ActivityDetail = ({ ...props }) => {
                 <Button                    
                     color={"warning"}
                     // outlined
+                    className={"activity-followed--btn"}
                     inverted={true}
                     size={"small"}
-                    mr={1}
+                    mr={btnMarginRight}
                     mt={btnMarginTop}
-                    paddingless={padding}
+                    // paddingless={padding}
                     rounded={true}
                 >
                     <Icon>

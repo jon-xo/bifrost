@@ -274,6 +274,22 @@ dropdown-container-parent--div
   border-radius: 5px;
 }
 
+.activity-follow--btn {
+  display: flex;
+  justify-items: center;
+  width: 5.6rem;
+}
+
+.activity-followed--btn {
+  display: flex;
+  justify-items: center;
+  width: 5.6rem;
+}
+
+.activity-followed--btn span {
+  padding-left: .2rem;
+}
+
 /*  ----- Follow view ----- */
 
 .follow-container--div {

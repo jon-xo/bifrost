@@ -36,6 +36,7 @@ export const UserAccountProvider = (props) => {
     const [ usersFollowers, setUserFollowers ] = useState([]);
     const [ disableFollowButtons, setDisableFollowButtons ] = useState(false);
     const [ followDetailReady, setFollowDetailReady ] = useState(false);
+    const [ refreshState, setRefreshState ] = useState(false);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     useEffect(() => {
@@ -113,6 +114,10 @@ export const UserAccountProvider = (props) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             }
+        })
+        .then(() => {
+            debugger
+            setRefreshState(true);
         }));  
     };
 
@@ -124,10 +129,14 @@ export const UserAccountProvider = (props) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             } 
-        }))
+        })
+        .then(() => {
+            debugger
+            setRefreshState(true);
+        }));  
     };
     
-    const GetFollows = (leadUser, followBack) => {
+    const GetFollows = (leadUser, followBack, onPageLoad) => {
         if(followBack){
             // debugger
             return getToken().then((token) => 
@@ -140,6 +149,13 @@ export const UserAccountProvider = (props) => {
             })
             .then((r) => r.json()))
             .then(setCurrentUserFollows)
+            // .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
+            .then(() => {
+                if(!onPageLoad){
+                    debugger
+                    setRefreshState(true);
+                }
+            }) 
         } else {
             // debugger
             return getToken().then((token) => 
@@ -152,6 +168,13 @@ export const UserAccountProvider = (props) => {
             })
             .then((r) => r.json()))
             .then(setUserFollowers)
+            // .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
+            .then(() => {
+                if(!onPageLoad){
+                    debugger
+                    setRefreshState(true);
+                }
+            }) 
         }
     };
 
@@ -173,7 +196,9 @@ export const UserAccountProvider = (props) => {
                 setDisableFollowButtons,
                 followDetailReady, 
                 setFollowDetailReady,
-                DeleteFollow
+                DeleteFollow,
+                refreshState, 
+                setRefreshState
             }}>
             {isFirebaseReady ?
             props.children

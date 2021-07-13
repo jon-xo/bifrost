@@ -65,6 +65,7 @@ const FollowUserButton = ( { ...props } ) => {
                 <Button                    
                     color={"warning"}
                     // outlined
+                    className={"activity-follow--btn"}
                     inverted={true}
                     size={btnSize}
                     loading={buttonLoading}

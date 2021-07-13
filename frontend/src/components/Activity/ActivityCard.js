@@ -108,13 +108,22 @@ const ActivityCard = ({ activity }) => {
                         <Tile className={"activity-tile--div"} kind={"child"} renderAs={Notification} color={"dark"} colorVariant={"light"}>
                             <Container p={5}>
                                 <Columns breakpoint={"fluid"}>
-                                    <Columns.Column mr={6} size={1}>
+                                    <Columns.Column mr={6} size={2}>
+                                        <Container
+                                            // pull={"left"}
+                                            paddingless={true}
+                                            display={"flex"}
+                                            // justifyContent={"center"}
+                                            justifyItems={"center"}
+                                        >
+
                                         <Image
                                             src={getAvatarImage(activity.userAccount.imageLocation)}                                        
                                             size={64}
                                             mt={1}
-                                            mr={4}
-                                        />                                    
+                                            // ml={1}
+                                            />                                    
+                                        </Container>
                                     </Columns.Column>
                                     <Columns.Column>
                                         <Heading
@@ -181,22 +190,25 @@ const ActivityCard = ({ activity }) => {
                     <Columns breakpoint={"fluid"}>
                         <Columns.Column mr={6} size={2}>
                             <Container 
-                                pull={"left"}
+                                // pull={"left"}
                                 paddingless={true}
+                                display={"flex"}
+                                // justifyContent={"center"}
+                                justifyItems={"center"}
                                 >
                                 <div>
                                     <Image
                                         src={getAvatarImage(activity.userAccount.imageLocation)}
                                         // fallback={ReleaseComicImage("fallback")}
-                                        size={"96"}
+                                        size={64}
                                         className={"follower-avatar--img"}
                                         paddingless={true}
                                         mt={1}
-                                        ml={1}
+                                        ml={2}
                                     />
                                     <FollowUserButton
                                         uId={activityUID}
-                                        mr={3}
+                                        // mr={3}
                                         mt={2}
                                         size={"small"}
                                         fStatus={activeFollow}

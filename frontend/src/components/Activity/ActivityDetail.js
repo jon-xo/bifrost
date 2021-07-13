@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { Button, Icon, Image } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 import { blueDark, amberA, amberDark, Slate, slate } from '@radix-ui/colors';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { styled, keyframes } from '@stitches/react';
-import { getAvatarImage } from "../UtilityMethods";
+import { getAvatarImage, getUserDetail } from "../UtilityMethods";
 
 
 const scaleIn = keyframes({
@@ -51,15 +52,24 @@ export const HoverCardTrigger = HoverCardPrimitive.Trigger;
 export const HoverCardContent = StyledContent;
 
 const ActivityDetail = ({ ...props }) => {
-    // const displayCard = props.display
 
-    // const btnMarginRight = props?.mr;
     const btnMarginTop = props?.props.mt;
-    // const btnSize = props?.size;
     const padding = props?.props.paddingless;
     const currentUser = props?.props.userObject;
-    
-    debugger
+
+    const { DeleteFollow } = useContext(UserAccountContext);
+    const [ buttonLoading, setButtonLoading ] = useState(false);
+        
+    const handleDeleteFollow = (e, targetUserId) => {
+        e.preventDefault();
+        setButtonLoading(true);
+        const activeUser = getUserDetail();
+
+        DeleteFollow(activeUser, targetUserId)
+        .then(() => {
+            setButtonLoading(false);
+        })
+    };
     
     return (
         <HoverCard 
@@ -115,7 +125,11 @@ const ActivityDetail = ({ ...props }) => {
                         <Button
                             color={"danger"}
                             rounded={"true"}
+                            loading={buttonLoading}
                             size={"small"}
+                            onClick={(e) => {
+                                handleDeleteFollow(e, currentUser.id)
+                            }}
                             >
                             Unfollow
                         </Button>

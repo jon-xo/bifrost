@@ -211,7 +211,7 @@ namespace bifrost.Repository
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"DELETE FROM Follows 
-                                        WHERE @UserId AND @FollowId";
+                                        WHERE UserId = @UserId AND FollowId = @FollowId";
 
                     DbUtils.AddParameter(cmd, "@UserId", leader);
                     DbUtils.AddParameter(cmd, "@FollowId", follower);

@@ -38,7 +38,10 @@ const FollowUserButton = ( { ...props } ) => {
     if(fStatus){
         return (
             <>
-                <ActivityDetail display={displayHoverCard} props={props} />
+                <ActivityDetail 
+                    // display={displayHoverCard} 
+                    props={props} 
+                />
                 {/* <Button                    
                     color={"warning"}
                     // outlined

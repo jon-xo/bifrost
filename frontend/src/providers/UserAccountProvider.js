@@ -115,6 +115,17 @@ export const UserAccountProvider = (props) => {
             }
         }));  
     };
+
+    const DeleteFollow = (leadUser, followUser) => {
+        return getToken().then((token) =>
+        fetch(`${apiUrl}/fw?uId=${leadUser}&fId=${followUser}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            } 
+        }))
+    };
     
     const GetFollows = (leadUser, followBack) => {
         if(followBack){
@@ -161,7 +172,8 @@ export const UserAccountProvider = (props) => {
                 disableFollowButtons,
                 setDisableFollowButtons,
                 followDetailReady, 
-                setFollowDetailReady
+                setFollowDetailReady,
+                DeleteFollow
             }}>
             {isFirebaseReady ?
             props.children

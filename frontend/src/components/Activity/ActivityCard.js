@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Notification, Heading, Tile, Columns, Image } from "react-bulma-components";
-import { TimelineDate, ReleaseComicImage } from "../UtilityMethods";
+import { TimelineDate, ReleaseComicImage, getAvatarImage } from "../UtilityMethods";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import FollowUserButton from "../Follows/FollowUserButton";
 import clsx from 'clsx';
@@ -11,6 +11,7 @@ const ActivityCard = ({ activity }) => {
     const activityUID = activity.userId;
     const location = useLocation();
     const route = location.pathname;
+    const activityUser = activity?.userAccount;
 
     const checkFollower = (currentId) => {
         if(usersFollowers?.find(u => u.id === currentId)){
@@ -21,6 +22,8 @@ const ActivityCard = ({ activity }) => {
     };
 
     const activeFollow = checkFollower(activityUID)
+
+    // debugger
     
     if(activity.activeUser) {
         // debugger
@@ -38,7 +41,7 @@ const ActivityCard = ({ activity }) => {
                                 <Columns breakpoint={"fluid"}>
                                     <Columns.Column mr={6} size={1}>
                                         <Image
-                                            src={activity.userAccount.imageLocation}                                        
+                                            src={getAvatarImage(activity.userAccount.imageLocation)}                                        
                                             size={64}
                                             mt={1}
                                             mr={4}
@@ -107,7 +110,7 @@ const ActivityCard = ({ activity }) => {
                                 <Columns breakpoint={"fluid"}>
                                     <Columns.Column mr={6} size={1}>
                                         <Image
-                                            src={activity.userAccount.imageLocation}                                        
+                                            src={getAvatarImage(activity.userAccount.imageLocation)}                                        
                                             size={64}
                                             mt={1}
                                             mr={4}
@@ -168,8 +171,7 @@ const ActivityCard = ({ activity }) => {
                 </>
             )
 
-        }
-        
+        }        
     } else {
         // debugger
     return (
@@ -182,22 +184,26 @@ const ActivityCard = ({ activity }) => {
                                 pull={"left"}
                                 paddingless={true}
                                 >
-                                <Image
-                                    src={activity.userAccount.imageLocation}
-                                    // fallback={ReleaseComicImage("fallback")}
-                                    size={"96"}
-                                    className={"follower-avatar--img"}
-                                    paddingless={true}
-                                    mt={1}
-                                />
-                                <FollowUserButton 
-                                    uId={activityUID}
-                                    mr={3} 
-                                    mt={2} 
-                                    size={"small"} 
-                                    fStatus={activeFollow}
-                                    paddingless={false}
-                                />
+                                <div>
+                                    <Image
+                                        src={getAvatarImage(activity.userAccount.imageLocation)}
+                                        // fallback={ReleaseComicImage("fallback")}
+                                        size={"96"}
+                                        className={"follower-avatar--img"}
+                                        paddingless={true}
+                                        mt={1}
+                                        ml={1}
+                                    />
+                                    <FollowUserButton
+                                        uId={activityUID}
+                                        mr={3}
+                                        mt={2}
+                                        size={"small"}
+                                        fStatus={activeFollow}
+                                        paddingless={false}
+                                        userObject={activityUser}
+                                    />
+                                </div>
                             </Container>             
                         </Columns.Column>
                         <Columns.Column>

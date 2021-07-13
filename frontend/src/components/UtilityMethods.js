@@ -16,6 +16,14 @@ import Loader from "react-loader-spinner";
 export const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
 export const userId = parseInt(userAccount?.id);
 
+export const getAvatarImage = (src) => {
+    if(src.includes("./")){
+        return `${process.env.PUBLIC_URL}/pub_assets/avatars/${src}`
+    } else {
+        return src
+    }
+};
+
 export const getUserDetail = (string) => {
     const localAccount = JSON.parse(sessionStorage.getItem("userAccount"));
     if(localAccount !== undefined || localAccount !== null)

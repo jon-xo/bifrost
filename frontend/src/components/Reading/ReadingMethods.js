@@ -1,9 +1,7 @@
-import React from "react";
 import { currentDate, getUserDetail, ReleaseComicImage, ReadingComicDate } from "../UtilityMethods";
 
 export const addReadingContent = ( comicObject, loginState, addMethod, loadStateFunction ) => {
     
-    // const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
     let userId = getUserDetail();
     
     const savedContent = {

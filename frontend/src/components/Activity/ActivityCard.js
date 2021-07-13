@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Notification, Heading, Tile, Columns, Image } from "react-bulma-components";
 import { TimelineDate, ReleaseComicImage, getAvatarImage, currentDate } from "../UtilityMethods";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import FollowUserButton from "../Follows/FollowUserButton";
-import clsx from 'clsx';
 
 const ActivityCard = ({ activity }) => {
     const { usersFollowers } = useContext(UserAccountContext);
@@ -21,7 +20,7 @@ const ActivityCard = ({ activity }) => {
         }
     };
 
-    const activeFollow = checkFollower(activityUID)
+    const activeFollow = checkFollower(activityUID);
 
     // debugger
     

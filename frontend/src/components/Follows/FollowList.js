@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { ReadingContext } from "../../providers/ReadingProvider";
 import ActivityList from "../Activity/ActivityList";
-import { Columns, Section, Notification, Heading, Tile, Container, Table } from "react-bulma-components";
-import FollowRow from "./FollowRow";
+import { Columns, Section, Notification, Heading, Container, Table } from "react-bulma-components";
 import { getUserDetail } from "../UtilityMethods";
+import FollowRow from "./FollowRow";
 
 const FollowList = () => {
-    const { AddUserFollow, GetFollows, usersFollowers, currentUserFollows } = useContext(UserAccountContext);
+    const { GetFollows, usersFollowers } = useContext(UserAccountContext);
     const { selectedUsersContent  } = useContext(ReadingContext);
 
     let userId = getUserDetail();
@@ -15,10 +15,12 @@ const FollowList = () => {
     useEffect(() => {
         // debugger
         GetFollows(userId, false, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     useEffect(() => {
         GetFollows(userId, false, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedUsersContent])
 
     const displayUserName = (userArray) => {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { ReadingContext } from "../../providers/ReadingProvider";
@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { addReadingContent } from "./ReadingMethods";
 import { SearchComicContext } from "../../providers/SearchComicProvider"
-import { userId } from "../UtilityMethods";;
+// import { userId } from "../UtilityMethods";
 
 
 const HandleBuildContent = ( {...props} ) => {
@@ -43,7 +43,9 @@ const HandleBuildContent = ( {...props} ) => {
         setButtonLoading(true);
         let selectedComic = null;
         if(route.includes("-comics") || route === "/" ){
-            if (route === "/" || route.includes("current-comics") && currentComics !== undefined){
+            if (route === "/"){
+                selectedComic = currentComics?.comics.find(c => c.diamond_id === comicId);
+            } else if (route.includes("current-comics") && currentComics !== undefined){
                 selectedComic = currentComics?.comics.find(c => c.diamond_id === comicId);
             } else if(route.includes("upcoming-comics") && newComics !== undefined){
                 selectedComic = newComics?.comics.find(c => c.diamond_id === comicId);

@@ -31,12 +31,14 @@ const { getUsersReadingList, allReading, refreshState, setRefreshState } = useCo
     
     useEffect(() => {
         getNewComics();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if(userId){
             getUsersReadingList(userId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -46,6 +48,7 @@ const { getUsersReadingList, allReading, refreshState, setRefreshState } = useCo
                 setRefreshState(false);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
     return (

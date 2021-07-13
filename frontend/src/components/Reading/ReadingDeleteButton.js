@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ReadingContext } from "../../providers/ReadingProvider";
-import { Button, Icon, Modal } from "react-bulma-components";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import ReadingCard from "./ReadingCard";
+import { Button, Modal } from "react-bulma-components";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+// import ReadingCard from "./ReadingCard";
 import { userAccount } from "../UtilityMethods";
 
 

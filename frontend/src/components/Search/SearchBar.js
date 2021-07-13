@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { SearchComicContext } from "../../providers/SearchComicProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Dropdown, Icon, Form, Button } from "react-bulma-components";
-import { faSearch, faAngleDown, faBox, faBoxes } from '@fortawesome/free-solid-svg-icons'
+import { Icon, Form, Button } from "react-bulma-components";
+import { faSearch, faBox, faBoxes } from '@fortawesome/free-solid-svg-icons'
 
 const SearchBar = () => {
     // 

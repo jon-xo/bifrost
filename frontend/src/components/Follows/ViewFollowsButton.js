@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserAccountContext } from "../../providers/UserAccountProvider";
+import React, { useContext, useState } from "react";
 import { ReadingContext } from "../../providers/ReadingProvider";
 import { Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullseye } from '@fortawesome/free-solid-svg-icons'
 
 const ViewFollowsButton = ( {...props }) => {
-    const { followDetailReady, setFollowDetailReady } = useContext(UserAccountContext);
+    // const { followDetailReady, setFollowDetailReady } = useContext(UserAccountContext);
     const { getUsersReadingList } = useContext(ReadingContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
 
@@ -15,13 +14,6 @@ const ViewFollowsButton = ( {...props }) => {
     const btnMarginTop = props?.mt;
     const btnSize = props?.size;
     const padding = props?.paddingless;
-
-
-    // useEffect(() => {
-    //     if(userObject){
-    //         getUsersReadingList(userObject, true);
-    //     }
-    // }, [])
 
     const handleViewActivity = (e, targetUserId ) => {
         e.preventDefault();
@@ -49,7 +41,6 @@ const ViewFollowsButton = ( {...props }) => {
                 // isStatic={fStatus}
                 // status={"hover"}
                 rounded={true}
-                // disabled={disableFollowButtons}
                 onClick={(e) => {
                     handleViewActivity(e, selectedUser)
                 }}

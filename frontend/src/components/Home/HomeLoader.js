@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"
-import { ComicContext } from "../../providers/ComicProvider";
-import { Container, Content, Heading, Notification } from "react-bulma-components";
-import { ReleaseDate, WeekStart, BfLoader } from "../UtilityMethods";
+import React from "react";
+import { Container, Heading, Notification } from "react-bulma-components";
+import { BfLoader } from "../UtilityMethods";
 import clsx from 'clsx';
 
 const HomeLoader = () => {

@@ -52,13 +52,15 @@ const Home = (params) => {
     const newComicDay = ReleaseDate(currentComics);
         
     useEffect(() => {
-        getCurrentComics()
+        getCurrentComics();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if(userId){
             getUsersReadingList(userId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -68,6 +70,7 @@ const Home = (params) => {
                 setRefreshState(false);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
     useEffect(() => {
@@ -79,6 +82,7 @@ const Home = (params) => {
             const finalComicArray = featuredIndexArray(currentComics.comics, newIndex, newComic)
             setFocusedComics(finalComicArray)           
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentComics])
 
     return (

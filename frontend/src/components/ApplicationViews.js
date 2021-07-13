@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Columns, Container } from "react-bulma-components";
-import { ComicContext } from "../providers/ComicProvider.js";
+import { Columns } from "react-bulma-components";
+// import { ComicContext } from "../providers/ComicProvider.js";
 import CurrentComicsList from "./Releases/CurrentComicsList";
 import UpcomingComicsList from "./Releases/UpcomingComicsList";
 import PastComicsList from "./Releases/PastComicList";
@@ -16,7 +16,6 @@ import FollowList from "./Follows/FollowList.js";
 
 export default function ApplicationViews() {
 
-    const { isLoading } = useContext(ComicContext);
     const { isLoggedIn } = useContext(UserAccountContext);
     
     return (

@@ -21,6 +21,7 @@ const FoundVolumesList = () => {
         if(userId){
             getUsersReadingList(userId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -30,6 +31,7 @@ const FoundVolumesList = () => {
                 setRefreshState(false);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
     

@@ -1,9 +1,6 @@
-import React, { useContext, useEffect } from "react";
-// import { useHistory } from "react-router-dom"
-// import { ComicContext } from "../providers/ComicProvider";
+import React from "react";
 import { Box, Block, Image } from "react-bulma-components";
 import { StringArray } from "../UtilityMethods";
-// import clsx from 'clsx';
 
 const RandomIssue = ({comic}) => {
 

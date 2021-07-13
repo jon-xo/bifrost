@@ -23,8 +23,8 @@ const Home = (params) => {
     //   once the array is modified, that array is mapped and 
     //   the ComicRow is returned inside JSX table
     
-    const { currentComics, getCurrentComics, isLoading, setIsLoading } = useContext(ComicContext);
-    const { getUsersReadingList, allReading } = useContext(ReadingContext);
+    const { currentComics, getCurrentComics, isLoading } = useContext(ComicContext);
+    const { getUsersReadingList, allReading, refreshState, setRefreshState } = useContext(ReadingContext);
     const [ focusComic, setFocusComic ] = useState(undefined);
     const [ focusedComics, setFocusedComics ] = useState([]);
     
@@ -56,8 +56,19 @@ const Home = (params) => {
     }, [])
 
     useEffect(() => {
-        getUsersReadingList(userId);
-    }, [allReading])
+        if(userId){
+            getUsersReadingList(userId);
+        }
+    }, [])
+
+    useEffect(() => {
+        if(refreshState){
+            getUsersReadingList(userId)
+            .then(() => {
+                setRefreshState(false);
+            })
+        }
+    }, [refreshState])
 
     useEffect(() => {
         if(currentComics.comics?.length > 0)
@@ -166,9 +177,9 @@ const Home = (params) => {
                                     </thead>
                                     <tbody>
                                             {focusedComics?.map((comic, index) => {
-                                                    // debugger
-                                                    comic.listIndex = index + 1;
-                                                    comic.featured = undefined;
+                                                comic.listIndex = index + 1;
+                                                comic.featured = undefined;
+                                                if(userId && allReading?.length > 0){
                                                     if(comic?.diamond_id === focusComic?.diamond_id)
                                                     {
                                                         comic.featured = true;
@@ -184,6 +195,15 @@ const Home = (params) => {
                                                             return <ComicRow key={comic.diamond_id} comic={comic} inReading={false} inverted={false}/>
                                                         }
                                                     }
+
+                                                } else {
+                                                    if(comic?.diamond_id === focusComic?.diamond_id)
+                                                    {
+                                                        comic.featured = true;
+                                                        return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                    }
+                                                    return <ComicRow key={comic.diamond_id} comic={comic} />
+                                                }
                                                 })
                                             }
                                     </tbody>

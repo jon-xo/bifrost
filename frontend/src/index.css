@@ -131,14 +131,14 @@ code {
 }
 
 .featured-comic--container {
-  max-height: 65vh;
+  max-height: fit-content;
 }
 
 .featured-comic--container div img {
-  width: 50% !important;
-  height: 55vh !important;
+  width: 20vw !important;
   margin-left: 25% !important;
-  min-width: 25rem !important;
+  min-width: 45% !important;
+  max-width: 55% !important;
 }
 
 .newsstand-container {
@@ -195,7 +195,7 @@ code {
 }
 
 
-dropdown-container-parent--div
+/* dropdown-container-parent--div */
 
 .reading-card--div {
   flex-wrap: wrap;
@@ -272,6 +272,22 @@ dropdown-container-parent--div
 
 .activty-cover--img img {
   border-radius: 5px;
+}
+
+.activity-follow--btn {
+  display: flex;
+  justify-items: center;
+  width: 5.6rem;
+}
+
+.activity-followed--btn {
+  display: flex;
+  justify-items: center;
+  width: 5.6rem;
+}
+
+.activity-followed--btn span {
+  padding-left: .2rem;
 }
 
 /*  ----- Follow view ----- */

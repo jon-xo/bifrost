@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Notification, Heading, Tile, Columns, Image } from "react-bulma-components";
-import { TimelineDate, ReleaseComicImage } from "../UtilityMethods";
+import { TimelineDate, ReleaseComicImage, getAvatarImage } from "../UtilityMethods";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import FollowUserButton from "../Follows/FollowUserButton";
 import clsx from 'clsx';
@@ -11,6 +11,7 @@ const ActivityCard = ({ activity }) => {
     const activityUID = activity.userId;
     const location = useLocation();
     const route = location.pathname;
+    const activityUser = activity?.userAccount;
 
     const checkFollower = (currentId) => {
         if(usersFollowers?.find(u => u.id === currentId)){
@@ -21,6 +22,8 @@ const ActivityCard = ({ activity }) => {
     };
 
     const activeFollow = checkFollower(activityUID)
+
+    // debugger
     
     if(activity.activeUser) {
         // debugger
@@ -38,7 +41,7 @@ const ActivityCard = ({ activity }) => {
                                 <Columns breakpoint={"fluid"}>
                                     <Columns.Column mr={6} size={1}>
                                         <Image
-                                            src={activity.userAccount.imageLocation}                                        
+                                            src={getAvatarImage(activity.userAccount.imageLocation)}                                        
                                             size={64}
                                             mt={1}
                                             mr={4}
@@ -57,8 +60,11 @@ const ActivityCard = ({ activity }) => {
                                             weight="semibold"
                                             subtitle
                                         >
-                                            
-                                            New Issue <b>Added</b>
+                                            {activity.comicType === "issue" ? 
+                                                <>New Issue <b>Added</b></>
+                                            :
+                                                <>New Volume <b>Added</b></>
+                                            }
                                             </Heading>
                                         :
                                             <Heading
@@ -66,8 +72,11 @@ const ActivityCard = ({ activity }) => {
                                                 weight="semibold"
                                                 subtitle
                                             >
-                                                
-                                            New Issue <b><i>Read</i></b>
+                                                {activity.comicType === "issue" ?
+                                                    <>New Issue <b><i>Read</i></b></>
+                                                :
+                                                    <>New Volume <b><i>Read</i></b></>
+                                                }
                                             </Heading>
                                         }
                                         <Heading
@@ -78,9 +87,15 @@ const ActivityCard = ({ activity }) => {
                                             {activity.title}
                                         </Heading>
                                         {!activity.read ?
-                                        <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                                         :
-                                        <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                                         }
                                     </Columns.Column>
                                     <Columns.Column size={"2"}>
@@ -105,13 +120,22 @@ const ActivityCard = ({ activity }) => {
                         <Tile className={"activity-tile--div"} kind={"child"} renderAs={Notification} color={"dark"} colorVariant={"light"}>
                             <Container p={5}>
                                 <Columns breakpoint={"fluid"}>
-                                    <Columns.Column mr={6} size={1}>
+                                    <Columns.Column mr={6} size={2}>
+                                        {/* <Container
+                                            // pull={"left"}
+                                            paddingless={true}
+                                            display={"flex"}
+                                            // justifyContent={"center"}
+                                            justifyItems={"center"}
+                                        > */}
+
                                         <Image
-                                            src={activity.userAccount.imageLocation}                                        
-                                            size={64}
+                                            src={getAvatarImage(activity.userAccount.imageLocation)}                                        
+                                            size={96}
                                             mt={1}
-                                            mr={4}
-                                        />                                    
+                                            mr={3}
+                                            />                                    
+                                        {/* </Container> */}
                                     </Columns.Column>
                                     <Columns.Column>
                                         <Heading
@@ -121,24 +145,32 @@ const ActivityCard = ({ activity }) => {
                                             <p><b>@{activity.userAccount.displayName}</b></p>
                                         </Heading>
                                         {!activity.read ?
-                                            <Heading
-                                            size={5}
-                                            weight="semibold"
-                                            subtitle
-                                        >
-                                            
-                                            New Issue <b>Added</b>
-                                            </Heading>
-                                        :
-                                            <Heading
-                                                size={5}
-                                                weight="semibold"
-                                                subtitle
-                                            >
-                                                
-                                            New Issue <b><i>Read</i></b>
-                                            </Heading>
-                                        }
+                            <Heading
+                                size={5}
+                                weight="semibold"
+                                subtitle
+                            >
+                                
+                                {activity.comicType === "issue" ? 
+                                    <>New Issue <b>Added</b></>
+                                    :
+                                    <>New Volume <b>Added</b></>
+                                }
+                            </Heading>
+                            :
+                            <Heading
+                                size={5}
+                                weight="semibold"
+                                subtitle
+                            >
+                                    
+                                {activity.comicType === "issue" ? 
+                                <>New Issue <b><i>Read</i></b></>
+                                :
+                                <>New Volume <b><i>Read</i></b></>
+                                }
+                            </Heading>
+                            }
                                         <Heading
                                             subtitle
                                             size={5}
@@ -147,9 +179,16 @@ const ActivityCard = ({ activity }) => {
                                             {activity.title}
                                         </Heading>
                                         {!activity.read ?
-                                        <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            
                                         :
-                                        <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                                         }
                                     </Columns.Column>
                                     <Columns.Column size={"2"}>
@@ -168,8 +207,7 @@ const ActivityCard = ({ activity }) => {
                 </>
             )
 
-        }
-        
+        }        
     } else {
         // debugger
     return (
@@ -179,25 +217,32 @@ const ActivityCard = ({ activity }) => {
                     <Columns breakpoint={"fluid"}>
                         <Columns.Column mr={6} size={2}>
                             <Container 
-                                pull={"left"}
+                                // pull={"left"}
                                 paddingless={true}
+                                display={"flex"}
+                                // justifyContent={"center"}
+                                justifyItems={"center"}
                                 >
-                                <Image
-                                    src={activity.userAccount.imageLocation}
-                                    // fallback={ReleaseComicImage("fallback")}
-                                    size={"96"}
-                                    className={"follower-avatar--img"}
-                                    paddingless={true}
-                                    mt={1}
-                                />
-                                <FollowUserButton 
-                                    uId={activityUID}
-                                    mr={3} 
-                                    mt={2} 
-                                    size={"small"} 
-                                    fStatus={activeFollow}
-                                    paddingless={false}
-                                />
+                                <div>
+                                    <Image
+                                        src={getAvatarImage(activity.userAccount.imageLocation)}
+                                        // fallback={ReleaseComicImage("fallback")}
+                                        size={64}
+                                        className={"follower-avatar--img"}
+                                        paddingless={true}
+                                        mt={1}
+                                        ml={2}
+                                    />
+                                    <FollowUserButton
+                                        uId={activityUID}
+                                        // mr={3}
+                                        mt={2}
+                                        size={"small"}
+                                        fStatus={activeFollow}
+                                        paddingless={false}
+                                        userObject={activityUser}
+                                    />
+                                </div>
                             </Container>             
                         </Columns.Column>
                         <Columns.Column>
@@ -214,7 +259,11 @@ const ActivityCard = ({ activity }) => {
                                 subtitle
                             >
                                 
-                                New Issue <b>Added</b>
+                                {activity.comicType === "issue" ? 
+                                    <>New Issue <b>Added</b></>
+                                    :
+                                    <>New Volume <b>Added</b></>
+                                }
                             </Heading>
                             :
                             <Heading
@@ -223,7 +272,11 @@ const ActivityCard = ({ activity }) => {
                                 subtitle
                             >
                                     
-                                New Issue <b><i>Read</i></b>
+                                {activity.comicType === "issue" ? 
+                                <>New Issue <b><i>Read</i></b></>
+                                :
+                                <>New Volume <b><i>Read</i></b></>
+                                }
                             </Heading>
                             }
                             <Heading
@@ -234,9 +287,15 @@ const ActivityCard = ({ activity }) => {
                                 {activity.title}
                             </Heading>
                             {!activity.read ?
-                            <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                activity.comicType === "issue" ? 
+                                <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                :
+                                <p>Volume added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                             :
-                            <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                activity.comicType === "issue" ?
+                                <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                :
+                                <p>Volume marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                             }                           
                         </Columns.Column>
                         <Columns.Column size={"2"}>

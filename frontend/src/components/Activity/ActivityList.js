@@ -8,9 +8,8 @@ import { UserAccountContext } from "../../providers/UserAccountProvider";
 
 
 const ActivityList = () => {
-    const { getAllPublicContent, allPublicContent, selectedUsersContent  } = useContext(ReadingContext);
-    // const { currentUserFollows } = useContext(UserAccountContext);
-    const { GetFollows } = useContext(UserAccountContext);
+    const { getAllPublicContent, allPublicContent, selectedUsersContent } = useContext(ReadingContext);
+    const { GetFollows, refreshState, setRefreshState } = useContext(UserAccountContext);
     const location = useLocation();
     const route = location.pathname;
     
@@ -22,22 +21,26 @@ const ActivityList = () => {
     }, [])
 
     useEffect(() => {
-        GetFollows(userId, false);
+        GetFollows(userId, false, true);
     }, [])
 
-    // useEffect(() => {
-//     if(userObject){
-//         getUsersReadingList(userObject, true);
-    //     }
-    // }, [])
+    useEffect(() => {
+        if(refreshState){
+            debugger
+            userId = getUserDetail();
+            GetFollows(userId, false, false)
+            .then(() => {
+                setRefreshState(false);
+            })
+        }
+    }, [refreshState])
+
 
     if(route.includes("follows")){
         // debugger
         return (
             <>
                 <Container 
-                    // display={"flex"} 
-                    // justifyContent={"center"} 
                     breakpoint={"fluid"}
                 >
                     <Box backgroundColor={"grey-light"} className={"follow-activity--div"}>
@@ -45,11 +48,6 @@ const ActivityList = () => {
                             color={"grey"}
                             colorVariant={"dark"}
                             className={"follow-activity-container--div"}
-                            // kind={"parent"}
-                            // vertical
-                            // display={"flex"} 
-                            // justifyContent={"center"}
-                            // alignItems={"center"}
                         >
                             {selectedUsersContent.length > 0 ?
                             selectedUsersContent?.map((activity) => {

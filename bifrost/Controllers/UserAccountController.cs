@@ -70,5 +70,12 @@ namespace bifrost.Controllers
             return Ok(_userAccountRepository.GetFollows(uId, fb));             
         }
 
+
+        [HttpDelete("fw")]
+        public IActionResult DeleteFollow(int uId, int fId)
+        {
+            _userAccountRepository.DeleteFollow(uId, fId);
+            return NoContent();
+        }
     }
 }

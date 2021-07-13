@@ -122,7 +122,7 @@ namespace bifrost.Repository
         public void AddFollow(int leader, int follower)
         {
             using (SqlConnection conn = Connection)
-            {                
+            {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
@@ -137,7 +137,7 @@ namespace bifrost.Repository
                     DbUtils.AddParameter(cmd, "@FollowId", follower);
 
                     cmd.ExecuteNonQuery();
-                }            
+                }
             }
         }
 
@@ -163,7 +163,7 @@ namespace bifrost.Repository
                                 u.[Private] AS isPrivate
                         FROM Follows fw";
 
-                    if(followBack)
+                    if (followBack)
                     {
                         sqlQuery += @" LEFT JOIN UserAccount u on fw.UserId = u.Id
                                     WHERE fw.UserId = @leader AND u.[Private] = 0
@@ -185,7 +185,7 @@ namespace bifrost.Repository
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<UserAccount> followers = new List<UserAccount>();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         followers.Add(new UserAccount()
                         {
@@ -199,6 +199,24 @@ namespace bifrost.Repository
                     }
                     reader.Close();
                     return followers;
+                }
+            }
+        }
+
+        public void DeleteFollow(int leader, int follower)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Follows 
+                                        WHERE UserId = @UserId AND FollowId = @FollowId";
+
+                    DbUtils.AddParameter(cmd, "@UserId", leader);
+                    DbUtils.AddParameter(cmd, "@FollowId", follower);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

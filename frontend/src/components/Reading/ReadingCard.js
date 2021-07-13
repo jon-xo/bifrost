@@ -33,6 +33,25 @@ const ReadingCard = ({ savedComic }) => {
                             <Columns.Column size={9}>
                                 <Heading textAlign={"center"} size={4}>{savedComic.title}</Heading>
                                 <Heading textAlign={"center"} subtitle size={6}>Release Date: {ComicCardDate(savedComic.publishDate)}</Heading>
+                                <Tag.Group
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                    
+                                    hasAddons
+                                    >
+                                    <Tag 
+                                        backgroundColor={"grey-light"}
+                                        size={"normal"}
+                                    >
+                                        Type
+                                    </Tag>
+                                    <Tag 
+                                        color={"link"}                                        
+                                        size={"normal"}
+                                    >
+                                        Issue
+                                    </Tag>
+                                </Tag.Group>
                                 <Content pull={"right"}>
                                     <Tag className={'reader-tag--div'} size="medium" justifyContent={"center"} alignContent={"center"}> {PublisherImage(savedComic.publisher)}</Tag>
                                 </Content>
@@ -71,6 +90,25 @@ const ReadingCard = ({ savedComic }) => {
                                 <Columns.Column size={9}>
                                     <Heading textAlign={"center"} size={4}>{savedComic.title}</Heading>
                                     <Heading textAlign={"center"} subtitle size={6}>Release Date: {ComicCardDate(savedComic.publishDate)}</Heading>
+                                    <Tag.Group
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                    
+                                    hasAddons
+                                    >
+                                    <Tag 
+                                        backgroundColor={"grey-light"}
+                                        size={"normal"}
+                                    >
+                                        Type
+                                    </Tag>
+                                    <Tag 
+                                        color={"link"}
+                                        size={"normal"}
+                                    >
+                                        Issue
+                                    </Tag>
+                                </Tag.Group>
                                     <Content pull={"right"}>
                                         {/* <Tag className={'tag--container'} size="medium" justifyContent={"center"} alignContent={"center"}> {PublisherImage(savedComic.publisher)}</Tag> */}
                                     </Content>
@@ -108,7 +146,26 @@ const ReadingCard = ({ savedComic }) => {
                             <Columns.Column size={9}>
                                 <Heading textAlign={"center"} size={4}>{savedComic.title}</Heading>
                                 <Heading textAlign={"center"} subtitle size={6}>Release Date: {ComicCardDate(savedComic.publishDate)}</Heading>
-                                <Heading textAlign={"center"} subtitle size={6}>Volume</Heading>
+                                <Tag.Group
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                    
+                                    hasAddons
+                                    >
+                                    <Tag 
+                                        backgroundColor={"grey-light"}
+                                        size={"normal"}
+                                    >
+                                        Type
+                                    </Tag>
+                                    <Tag 
+                                        color={"primary"}
+                                        colorVariant={"dark"}
+                                        size={"normal"}
+                                    >
+                                        Volume
+                                    </Tag>
+                                </Tag.Group>
                                 <Heading textAlign={"center"} subtitle size={6}>Issue Count: {parseInt(savedComic.altDescription)}</Heading>
                                 <Content pull={"right"}>
                                     <Tag className={'tag--container'} size="medium" justifyContent={"center"} alignContent={"center"}> {PublisherImage(savedComic.publisher)}</Tag>

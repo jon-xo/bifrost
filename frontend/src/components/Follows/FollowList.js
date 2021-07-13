@@ -4,14 +4,20 @@ import { ReadingContext } from "../../providers/ReadingProvider";
 import ActivityList from "../Activity/ActivityList";
 import { Columns, Section, Notification, Heading, Tile, Container, Table } from "react-bulma-components";
 import FollowRow from "./FollowRow";
-import { userId } from "../UtilityMethods";
+import { getUserDetail } from "../UtilityMethods";
 
 const FollowList = () => {
     const { AddUserFollow, GetFollows, usersFollowers, currentUserFollows } = useContext(UserAccountContext);
     const { selectedUsersContent  } = useContext(ReadingContext);
 
+    let userId = getUserDetail();
+
     useEffect(() => {
-        GetFollows(userId, false);
+        GetFollows(userId, false, true);
+    }, [])
+    
+    useEffect(() => {
+        GetFollows(userId, false, true);
     }, [selectedUsersContent])
 
     const displayUserName = (userArray) => {

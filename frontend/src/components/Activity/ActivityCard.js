@@ -60,8 +60,11 @@ const ActivityCard = ({ activity }) => {
                                             weight="semibold"
                                             subtitle
                                         >
-                                            
-                                            New Issue <b>Added</b>
+                                            {activity.comicType === "issue" ? 
+                                                <>New Issue <b>Added</b></>
+                                            :
+                                                <>New Volume <b>Added</b></>
+                                            }
                                             </Heading>
                                         :
                                             <Heading
@@ -69,8 +72,11 @@ const ActivityCard = ({ activity }) => {
                                                 weight="semibold"
                                                 subtitle
                                             >
-                                                
-                                            New Issue <b><i>Read</i></b>
+                                                {activity.comicType === "issue" ?
+                                                    <>New Issue <b><i>Read</i></b></>
+                                                :
+                                                    <>New Volume <b><i>Read</i></b></>
+                                                }
                                             </Heading>
                                         }
                                         <Heading
@@ -81,9 +87,15 @@ const ActivityCard = ({ activity }) => {
                                             {activity.title}
                                         </Heading>
                                         {!activity.read ?
-                                        <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                                         :
-                                        <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                                         }
                                     </Columns.Column>
                                     <Columns.Column size={"2"}>
@@ -109,21 +121,21 @@ const ActivityCard = ({ activity }) => {
                             <Container p={5}>
                                 <Columns breakpoint={"fluid"}>
                                     <Columns.Column mr={6} size={2}>
-                                        <Container
+                                        {/* <Container
                                             // pull={"left"}
                                             paddingless={true}
                                             display={"flex"}
                                             // justifyContent={"center"}
                                             justifyItems={"center"}
-                                        >
+                                        > */}
 
                                         <Image
                                             src={getAvatarImage(activity.userAccount.imageLocation)}                                        
-                                            size={64}
+                                            size={96}
                                             mt={1}
-                                            // ml={1}
+                                            mr={3}
                                             />                                    
-                                        </Container>
+                                        {/* </Container> */}
                                     </Columns.Column>
                                     <Columns.Column>
                                         <Heading
@@ -133,24 +145,32 @@ const ActivityCard = ({ activity }) => {
                                             <p><b>@{activity.userAccount.displayName}</b></p>
                                         </Heading>
                                         {!activity.read ?
-                                            <Heading
-                                            size={5}
-                                            weight="semibold"
-                                            subtitle
-                                        >
-                                            
-                                            New Issue <b>Added</b>
-                                            </Heading>
-                                        :
-                                            <Heading
-                                                size={5}
-                                                weight="semibold"
-                                                subtitle
-                                            >
-                                                
-                                            New Issue <b><i>Read</i></b>
-                                            </Heading>
-                                        }
+                            <Heading
+                                size={5}
+                                weight="semibold"
+                                subtitle
+                            >
+                                
+                                {activity.comicType === "issue" ? 
+                                    <>New Issue <b>Added</b></>
+                                    :
+                                    <>New Volume <b>Added</b></>
+                                }
+                            </Heading>
+                            :
+                            <Heading
+                                size={5}
+                                weight="semibold"
+                                subtitle
+                            >
+                                    
+                                {activity.comicType === "issue" ? 
+                                <>New Issue <b><i>Read</i></b></>
+                                :
+                                <>New Volume <b><i>Read</i></b></>
+                                }
+                            </Heading>
+                            }
                                         <Heading
                                             subtitle
                                             size={5}
@@ -159,9 +179,16 @@ const ActivityCard = ({ activity }) => {
                                             {activity.title}
                                         </Heading>
                                         {!activity.read ?
-                                        <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            
                                         :
-                                        <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            activity.comicType === "issue" ?
+                                            <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                            :
+                                            <p>Volume marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                                         }
                                     </Columns.Column>
                                     <Columns.Column size={"2"}>
@@ -232,7 +259,11 @@ const ActivityCard = ({ activity }) => {
                                 subtitle
                             >
                                 
-                                New Issue <b>Added</b>
+                                {activity.comicType === "issue" ? 
+                                    <>New Issue <b>Added</b></>
+                                    :
+                                    <>New Volume <b>Added</b></>
+                                }
                             </Heading>
                             :
                             <Heading
@@ -241,7 +272,11 @@ const ActivityCard = ({ activity }) => {
                                 subtitle
                             >
                                     
-                                New Issue <b><i>Read</i></b>
+                                {activity.comicType === "issue" ? 
+                                <>New Issue <b><i>Read</i></b></>
+                                :
+                                <>New Volume <b><i>Read</i></b></>
+                                }
                             </Heading>
                             }
                             <Heading
@@ -252,9 +287,15 @@ const ActivityCard = ({ activity }) => {
                                 {activity.title}
                             </Heading>
                             {!activity.read ?
-                            <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                activity.comicType === "issue" ? 
+                                <p>Issue added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                :
+                                <p>Volume added to reading list on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                             :
-                            <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                activity.comicType === "issue" ?
+                                <p>Issue marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
+                                :
+                                <p>Volume marked as read on <b>{TimelineDate(activity.lastUpdated)}</b></p>
                             }                           
                         </Columns.Column>
                         <Columns.Column size={"2"}>

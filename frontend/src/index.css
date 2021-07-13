@@ -131,7 +131,7 @@ code {
 }
 
 .featured-comic--container {
-  max-height: 65vh;
+  max-height: fit-content;
 }
 
 .featured-comic--container div img {
@@ -195,7 +195,7 @@ code {
 }
 
 
-dropdown-container-parent--div
+/* dropdown-container-parent--div */
 
 .reading-card--div {
   flex-wrap: wrap;

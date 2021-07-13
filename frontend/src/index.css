@@ -135,10 +135,10 @@ code {
 }
 
 .featured-comic--container div img {
-  width: 50% !important;
-  height: 55vh !important;
+  width: 20vw !important;
   margin-left: 25% !important;
-  min-width: 25rem !important;
+  min-width: 45% !important;
+  max-width: 55% !important;
 }
 
 .newsstand-container {

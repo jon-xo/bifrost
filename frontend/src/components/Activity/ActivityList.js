@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { ReadingContext } from "../../providers/ReadingProvider";
-import { Box, Section, Notification, Heading, Tile, Container } from "react-bulma-components";
+import { Box, Section, Notification, Tile, Container } from "react-bulma-components";
 import ActivityCard from "./ActivityCard";
 import { getUserDetail } from "../UtilityMethods";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
@@ -16,23 +16,25 @@ const ActivityList = () => {
     let userId = getUserDetail();
     
     useEffect(() => {
-        userId = getUserDetail();
         getAllPublicContent();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        GetFollows(userId, false, true);
+        const updatedUserId = getUserDetail();
+        GetFollows(updatedUserId, false, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if(refreshState){
-            debugger
-            userId = getUserDetail();
-            GetFollows(userId, false, false)
+            const updatedUserId = getUserDetail();
+            GetFollows(updatedUserId, false, false)
             .then(() => {
                 setRefreshState(false);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
 
@@ -55,22 +57,7 @@ const ActivityList = () => {
                                 return <ActivityCard key={activity.id} activity={activity} />
                             })
                             :
-                            <div className={"follow-activity-parent--div"}>
-                                <Notification className={"follow-activity-tile--div"}
-                                color={"link"} 
-                                colorVariant={"dark"}
-                                >
-                                <Heading
-                                    size={3}
-                                    weight={"semibold"}
-                                    textAlign={"center"}
-                                >
-                                    No user selected
-                                </Heading>
-
-                                </Notification>
-                            </div>
-                            
+                                <ActivityCard activity={null} />                             
                             }                                        
                         </Notification>                                    
                     </Box>

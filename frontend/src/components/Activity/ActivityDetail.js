@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import { Button, Icon, Image } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
-import { blueDark, amberA, amberDark, Slate, slate } from '@radix-ui/colors';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons'
+import { blueDark, amberA, amberDark, slate } from '@radix-ui/colors';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { styled, keyframes } from '@stitches/react';
 import { getAvatarImage, getUserDetail } from "../UtilityMethods";
@@ -54,7 +54,6 @@ export const HoverCardContent = StyledContent;
 const ActivityDetail = ({ ...props }) => {
 
     const btnMarginTop = props?.props.mt;
-    const padding = props?.props.paddingless;
     const currentUser = props?.props.userObject;
     let btnMarginRight
     if(props?.props.mr){

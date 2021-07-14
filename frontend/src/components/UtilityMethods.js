@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
 import { Image, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,10 +16,12 @@ export const userAccount = JSON.parse(sessionStorage.getItem("userAccount"));
 export const userId = parseInt(userAccount?.id);
 
 export const getAvatarImage = (src) => {
-    if(src.includes("./")){
-        return `${process.env.PUBLIC_URL}/pub_assets/avatars/${src}`
-    } else {
-        return src
+    if(src){
+        if(src.includes("./")){
+            return `${process.env.PUBLIC_URL}/pub_assets/avatars/${src}`
+        } else {
+            return src
+        }
     }
 };
 

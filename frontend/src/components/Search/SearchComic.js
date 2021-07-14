@@ -4,7 +4,7 @@ import { Card,
          Content,
          Tag
 } from "react-bulma-components";
-import { StringArray, PublisherImage } from "../UtilityMethods";
+import { PublisherImage } from "../UtilityMethods";
 import { ComicCardDate } from "../UtilityMethods";
 import HandleBuildContent from "../Reading/ReadingContent";
 

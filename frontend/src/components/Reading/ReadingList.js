@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-// import { UserAccountContext } from "../../providers/UserAccountProvider";
+import React, { useContext, useEffect } from "react";
 import { ReadingContext } from "../../providers/ReadingProvider";
 import { Section, Notification, Heading, Tile, Container } from "react-bulma-components";
 import { getUserDetail } from "../UtilityMethods";
@@ -9,20 +8,22 @@ import ReadingCard from "./ReadingCard";
 const ReadingList = () => {
     
     const { allReading, getUsersReadingList, getUsersReadStatusContent, allUnread, allRead } = useContext(ReadingContext);
-    const [ unreadList, setUnreadList ] = useState([]);
-    const [ readList, setReadList ] = useState([]);
+    // const [ unreadList, setUnreadList ] = useState([]);
+    // const [ readList, setReadList ] = useState([]);
 
     let userId = getUserDetail();
 
     useEffect(() => {
         getUsersReadingList(userId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         getUsersReadStatusContent(userId, true)
         .then(() => {
             getUsersReadStatusContent(userId, false);
-    })
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allReading])
 
     

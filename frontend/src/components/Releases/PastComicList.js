@@ -29,12 +29,14 @@ const PastComicsList = () => {
 
     useEffect(() => {
         getPreviousComics();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if(userId){
             getUsersReadingList(userId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -44,6 +46,7 @@ const PastComicsList = () => {
                 setRefreshState(false);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
     const newComicDay = ReleaseDate(previousComics);

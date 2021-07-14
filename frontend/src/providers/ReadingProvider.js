@@ -1,7 +1,5 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserAccountContext } from "./UserAccountProvider";
-// import * as firebase from "firebase/app";
-// import "firebase/auth";
 
 export const ReadingContext = createContext();
 
@@ -110,7 +108,7 @@ export const ReadingProvider = (props) => {
                         setRefreshState(true);
                     }) 
                 }
-                throw new Error(r.status === 401 ? "401: Unauthorized" : r.status + " " + r. statusText);
+                throw new Error(r.status === 401 ? "401: Unauthorized" : r.status + " " + r.statusText);
             })
         );
     };

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Container, Content, Notification, Heading, Tile, Columns, Image, Tag, Button } from "react-bulma-components";
 import { ComicCardDate, ReleaseComicImage, PublisherImage } from "../UtilityMethods";
 import ReadingReadButton from "./ReadingReadButton";
 import ReadingDeleteButton from "./ReadingDeleteButton";
-import clsx from 'clsx';
 
 const ReadingCard = ({ savedComic }) => {
 

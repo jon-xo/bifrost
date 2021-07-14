@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Section, Container } from "react-bulma-components";
 import { SearchComicContext } from "../../providers/SearchComicProvider";
 import { ReadingContext } from "../../providers/ReadingProvider";
-import { FindPublisher, getUserDetail } from "../UtilityMethods";
+import { getUserDetail } from "../UtilityMethods";
 import SearchComic from "./SearchComic";
 
 const FoundIssuesList = () => {
@@ -16,6 +16,7 @@ const FoundIssuesList = () => {
         if(userId){
             getUsersReadingList(userId);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -25,6 +26,7 @@ const FoundIssuesList = () => {
                 setRefreshState(false);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
     
     // Experimental UseEffect, Method, and Fetch call to retreive 

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { UserAccountContext } from "../providers/UserAccountProvider";
-import { SearchComicContext } from "../providers/SearchComicProvider";
-import { Navbar, Icon, Form, Button, Container } from "react-bulma-components";
+// import { SearchComicContext } from "../providers/SearchComicProvider";
+import { Navbar, Icon,  Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen, faCog, faArrowCircleRight, faSnowflake } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faArrowCircleRight, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 import LoginDropdown from "./Auth/LoginDropdown";
 import RegisterDropdown from "./Auth/RegisterDropdown";
 import SearchBar from "./Search/SearchBar";
@@ -26,7 +26,7 @@ const Header = () => {
     const { isLoggedIn, logout } = useContext(UserAccountContext);
     const [ showBurger, setShowBurger ] = useState(false);
 
-    const history = useHistory();
+    // const history = useHistory();
 
     // -- GitHub Issue Ticket # 2 ---
     // [Navbar [Ticket #2]](https://github.com/jon-xo/bifrost/issues/3)
@@ -53,7 +53,7 @@ const Header = () => {
             <Navbar.Brand>
                 <Navbar.Item>
                     <Icon className='logo-icon'>
-                        <FontAwesomeIcon className='.logo-icon' icon={faSnowflake} />
+                        <FontAwesomeIcon icon={faSnowflake} />
                     </Icon>
                     <p className='logo-text-sansSerif'>bifröst</p>
                 </Navbar.Item>

@@ -7,24 +7,47 @@ import ReadingCard from "./ReadingCard";
 
 const ReadingList = () => {
     
-    const { allReading, getUsersReadingList, getUsersReadStatusContent, allUnread, allRead } = useContext(ReadingContext);
+    const { allReading, getUsersReadingList, getUsersReadStatusContent, allUnread, allRead, refreshState, setRefreshState, toggleState, setToggleState } = useContext(ReadingContext);
     // const [ unreadList, setUnreadList ] = useState([]);
     // const [ readList, setReadList ] = useState([]);
 
-    let userId = getUserDetail();
+    // let userId = getUserDetail();
 
     useEffect(() => {
-        getUsersReadingList(userId);
+        const activeUser = getUserDetail();
+        getUsersReadingList(activeUser, false)
+        .then(() => {
+            getUsersReadStatusContent(activeUser, true, true);
+            getUsersReadStatusContent(activeUser, false, true);
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        getUsersReadStatusContent(userId, true)
-        .then(() => {
-            getUsersReadStatusContent(userId, false);
-    });
+        const activeUser = getUserDetail();
+        if(refreshState){
+            debugger
+            getUsersReadStatusContent(activeUser, true, false)
+            .then(() => {
+                getUsersReadStatusContent(activeUser, false, false);
+                setRefreshState(false);
+            })
+        }
+        setRefreshState(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [allReading])
+    }, [refreshState])
+
+    useEffect(() => {
+        const activeUser = getUserDetail();
+        if(toggleState){
+            getUsersReadStatusContent(activeUser, true, true);
+            getUsersReadStatusContent(activeUser, false, true)
+            .then(() => {
+                setToggleState(false);
+            })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [toggleState])
 
     
     return (

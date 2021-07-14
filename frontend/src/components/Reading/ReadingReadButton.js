@@ -3,13 +3,15 @@ import { ReadingContext } from "../../providers/ReadingProvider";
 import { Button} from "react-bulma-components";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { userId, currentDate } from "../UtilityMethods";
+import { getUserDetail, currentDate } from "../UtilityMethods";
 // import ReadingCard from "./ReadingCard";
 
 
 const ReadingReadButton = ({ comicObject }) => {
     const { disableReadingButtons, setDisableReadingButton, toggleReadStatus, getUsersReadingList } = useContext(ReadingContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
+
+    let userId = getUserDetail();
     
     const handleMarkRead = (event, comicId) => {
         event.preventDefault();

@@ -12,6 +12,7 @@ export const ReadingProvider = (props) => {
     const [ allRead, setAllRead ] = useState([]);
     const [ refreshState, setRefreshState ] = useState(false);
     const [ disableReadingButtons, setDisableReadingButton ] = useState(false);
+    const [ toggleState, setToggleState ] = useState(false);
     const { getToken } = useContext(UserAccountContext);
     
     const apiUrl = 'https://localhost:5001/api/savedcontent'
@@ -32,6 +33,7 @@ export const ReadingProvider = (props) => {
     const getUsersReadingList = (userId, fBool) => {
         // setRefreshState(false);
         if(fBool){
+            debugger
             return getToken().then((token) =>
                 fetch(`${apiUrl}/${userId}`, {
                     method: "GET",
@@ -45,6 +47,7 @@ export const ReadingProvider = (props) => {
                 //     setRefreshState(true);                    
                 // })
         } else {
+            debugger
             return getToken().then((token) =>
                 fetch(`${apiUrl}/${userId}`, {
                     method: "GET",
@@ -61,29 +64,43 @@ export const ReadingProvider = (props) => {
         }
     };
 
-    const getUsersReadStatusContent = (userId, readBool) => {
+    const getUsersReadStatusContent = (userId, readBool, pageLoad) => {
         if(readBool){
-            return getToken().then((token) => 
-                fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                .then((r) => r.json()))
-                .then(setAllRead)
-                .then(getAllPublicContent)
+            debugger
+                return getToken().then((token) => 
+                    fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then((r) => r.json()))
+                    .then(setAllRead)
+                    .then(getAllPublicContent)
+                    .then(() => {
+                        if(!pageLoad){
+                            debugger
+                            setRefreshState(true);
+                        }
+                    })
             } else {
-            return getToken().then((token) => 
-                fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                .then((r) => r.json()))
-                .then(setAllUnread)
-                .then(getAllPublicContent)
+                debugger
+                return getToken().then((token) => 
+                    fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then((r) => r.json()))
+                    .then(setAllUnread)
+                    .then(getAllPublicContent)
+                    .then(() => {
+                        if(!pageLoad){
+                            debugger
+                            setRefreshState(true);
+                        }
+                    })
         }
     }
 
@@ -114,7 +131,7 @@ export const ReadingProvider = (props) => {
     };
 
     const toggleReadStatus = (id, contentObject) => {
-        debugger
+        // debugger
         return getToken().then((token) =>
             fetch(`${apiUrl}/update/rs?id=${id}`, {
                 method: "PUT",
@@ -123,6 +140,9 @@ export const ReadingProvider = (props) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(contentObject)
+            })
+            .then(() => {
+                setToggleState(true);
             }))
     };
 
@@ -178,7 +198,9 @@ export const ReadingProvider = (props) => {
             setAllPublicContent,
             selectedUsersContent,
             refreshState,
-            setRefreshState
+            setRefreshState,
+            toggleState,
+            setToggleState
         }}>
             {props.children}
         </ReadingContext.Provider>

@@ -200,12 +200,18 @@ code {
 .reading-card--div {
   flex-wrap: wrap;
   min-height: 20rem !important;
-  max-height: 30rem !important;
+  height: 25rem !important;
+  /* max-height: 40rem !important; */
+}
+
+.reading-card--btn-grp div {
+  margin-top: -.5rem;
 }
 
 .reading-card-end--div {
   flex-wrap: wrap;
   min-height: 20rem !important;
+  height: fit-content !important;
 }
 
 .reading-header--div {

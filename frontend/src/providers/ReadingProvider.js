@@ -47,7 +47,7 @@ export const ReadingProvider = (props) => {
                 //     setRefreshState(true);                    
                 // })
         } else {
-            debugger
+            // debugger
             return getToken().then((token) =>
                 fetch(`${apiUrl}/${userId}`, {
                     method: "GET",
@@ -66,7 +66,7 @@ export const ReadingProvider = (props) => {
 
     const getUsersReadStatusContent = (userId, readBool, pageLoad) => {
         if(readBool){
-            debugger
+            // debugger
                 return getToken().then((token) => 
                     fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
                         method: "GET",
@@ -84,7 +84,7 @@ export const ReadingProvider = (props) => {
                         }
                     })
             } else {
-                debugger
+                // debugger
                 return getToken().then((token) => 
                     fetch(`${apiUrl}/r?uId=${userId}&read=${readBool}`, {
                         method: "GET",

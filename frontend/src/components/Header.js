@@ -5,8 +5,10 @@ import { UserAccountContext } from "../providers/UserAccountProvider";
 import { Navbar, Icon,  Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faArrowCircleRight, faSnowflake } from '@fortawesome/free-solid-svg-icons'
-import LoginDropdown from "./Auth/LoginDropdown";
-import RegisterDropdown from "./Auth/RegisterDropdown";
+// import LoginDropdown from "./Auth/LoginDropdown";
+// import RegisterDropdown from "./Auth/RegisterDropdown";
+import LoginModal from "./Auth/LoginModal";
+import RegisterModal from "./Auth/RegisterModal";
 import SearchBar from "./Search/SearchBar";
 import clsx from 'clsx';
 import "../index.css"
@@ -283,6 +285,8 @@ const Header = () => {
                             <>
                                 <Container 
                                     className={clsx('container-base', 'nav-controls')}
+                                    display={"flex"}
+                                    justifyContent={"center"}
                                     >
                                     <Button color='info' colorVariant='light'>
                                         <Icon className='logo-icon'>
@@ -300,9 +304,13 @@ const Header = () => {
                             </>
                             :
                             <>
-                                <Container className='container-base'>
-                                    <LoginDropdown />
-                                    <RegisterDropdown />
+                                <Container 
+                                    className='container-base'
+                                    display={"flex"}
+                                    justifyContent={"center"}
+                                >
+                                    <LoginModal />
+                                    <RegisterModal />
                                 </Container>
                             </>
                             }

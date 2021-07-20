@@ -11,15 +11,13 @@ const RegisterModal = () => {
     const history = useHistory();
     const location = useLocation();
 
-    const { register, warningProps, setWarningProps } = useContext(UserAccountContext);
+    const { openRegisterModal, setOpenRegisterModal, authModalToggle, authButtonLoad, setAuthButtonLoad, register, warningProps, setWarningProps } = useContext(UserAccountContext);
 
     const [ name, setName] = useState();
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
     const [ confirmPassword, setConfirmPassword ] = useState();
     const [ displayName, setDisplayName ] = useState();
-
-    const [ openModal, setModalOpen ] = useState(false);
     
     const handleRegister = (e) => {
         e.preventDefault();
@@ -30,7 +28,8 @@ const RegisterModal = () => {
                 hidden: false,  
                 message: `${name}: ${"\n"} ${"\n"}your passwords do not match, try again.`
             });
-        } else {            
+        } else {
+            setAuthButtonLoad(true);
             const userAccount = { name, email, displayName}
             register(userAccount, password)
             .then(() => history.push(location.pathname))
@@ -57,7 +56,7 @@ const RegisterModal = () => {
             // disabled={inReading}
             // loading={buttonLoading}
             onClick={() => {
-                setModalOpen(true);
+                setOpenRegisterModal(true);
             }}
         >
             <Icon align="left">
@@ -67,10 +66,10 @@ const RegisterModal = () => {
         </Button>
 
         <Modal
-            show={openModal}
+            show={openRegisterModal}
             showClose={false}
-            openClose={() => {
-                setModalOpen(!openModal);
+            onClose={() => {
+                setOpenRegisterModal(!openRegisterModal);
             }}            
         >
             <Modal.Card
@@ -195,6 +194,9 @@ const RegisterModal = () => {
                     <Button
                         fullwidth={true}
                         color={"info"}
+                        onClick={() => {
+                            authModalToggle();
+                        }}
                     >
                         Login
                     </Button>
@@ -216,14 +218,17 @@ const RegisterModal = () => {
                 >
                     <Button 
                         color={"grey"}
+                        disabled={authButtonLoad}
                         onClick={() => {
-                            setModalOpen(!openModal);
+                            setOpenRegisterModal(!openRegisterModal);
                         }}
                     >
                         Cancel
                     </Button>
                     <Button
                         color={"primary"}
+                        disabled={authButtonLoad}
+                        loading={authButtonLoad}
                         onClick={(e) => {
                             handleRegister(e)
                         }}

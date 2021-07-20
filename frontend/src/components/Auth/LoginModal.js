@@ -11,15 +11,14 @@ const LoginModal = () => {
     const history = useHistory();
     const location = useLocation();
 
-    const { login, warningProps, setWarningProps } = useContext(UserAccountContext);
+    const { openLoginModal, setOpenLoginModal, authModalToggle, authButtonLoad, setAuthButtonLoad, login, warningProps, setWarningProps } = useContext(UserAccountContext);
 
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
-
-    const [ openModal, setModalOpen ] = useState(false);
     
     const handleLogin = (e) => {
         e.preventDefault();
+        setAuthButtonLoad(true);
         login(email, password)
         .then(() => history.push(location.pathname))
         .catch(() => {
@@ -42,7 +41,7 @@ const LoginModal = () => {
             // disabled={inReading}
             // loading={buttonLoading}
             onClick={() => {
-                setModalOpen(true);
+                setOpenLoginModal(true);
             }}
         >
             <Icon align="left">
@@ -52,10 +51,10 @@ const LoginModal = () => {
         </Button>
 
         <Modal
-            show={openModal}
+            show={openLoginModal}
             showClose={false}
-            openClose={() => {
-                setModalOpen(!openModal);
+            onClose={() => {
+                setOpenLoginModal(!openLoginModal);
             }}            
         >
             <Modal.Card
@@ -139,6 +138,9 @@ const LoginModal = () => {
                     <Button
                         fullwidth={true}
                         color={"primary"}
+                        onClick={() => {
+                            authModalToggle();
+                        }}
                     >
                         Register
                     </Button>
@@ -160,14 +162,17 @@ const LoginModal = () => {
                 >
                     <Button 
                         color={"grey"}
+                        disabled={authButtonLoad}
                         onClick={() => {
-                            setModalOpen(!openModal);
+                            setOpenLoginModal(!openLoginModal);
                         }}
                     >
                         Cancel
                     </Button>
                     <Button
                         color={"info"}
+                        disabled={authButtonLoad}
+                        loading={authButtonLoad}
                         onClick={(e) => {
                             handleLogin(e)
                         }}

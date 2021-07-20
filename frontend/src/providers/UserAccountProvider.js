@@ -37,8 +37,22 @@ export const UserAccountProvider = (props) => {
     const [ disableFollowButtons, setDisableFollowButtons ] = useState(false);
     const [ followDetailReady, setFollowDetailReady ] = useState(false);
     const [ refreshState, setRefreshState ] = useState(false);
+    const [ openLoginModal, setOpenLoginModal ] = useState(false);
+    const [ openRegisterModal, setOpenRegisterModal ] = useState(false);
+    const [ authButtonLoad, setAuthButtonLoad ] = useState(false);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+
+    const authModalToggle = () => {
+        if(openLoginModal){
+            setOpenLoginModal(false);
+            setOpenRegisterModal(true);
+        } else {
+            setOpenLoginModal(true);
+            setOpenRegisterModal(false);
+        }
+    };
+
     useEffect(() => {
       firebase.auth().onAuthStateChanged((u) => {
         setIsFirebaseReady(true);
@@ -54,6 +68,9 @@ export const UserAccountProvider = (props) => {
             sessionStorage.setItem("userAccount", JSON.stringify(userAccount))
             setWarningProps({hidden: true});
             setIsLoggedIn(true);
+            setOpenLoginModal(false);
+            setOpenRegisterModal(false);
+            setAuthButtonLoad(false);
         });
     };
 
@@ -63,21 +80,19 @@ export const UserAccountProvider = (props) => {
             sessionStorage.clear();
             setIsLoggedIn(false);
             setWarningProps({hidden: true});
+            setOpenLoginModal(false);
+            setOpenRegisterModal(false);
         })
     };
 
     const register = (userAccount, password) => {
         return firebase.auth().createUserWithEmailAndPassword(userAccount.email, password)
-        // .then((r) => {
-        //     r.user.updateProfile({
-        //         DisplayName: userAccount.displayName
-        //     })
-        // })
         .then((createResponse) => saveUser({...userAccount, firebaseUserId: createResponse.user.uid}))
         .then((savedUserAccount) => {
             sessionStorage.setItem("userAccount", JSON.stringify(savedUserAccount))
             setIsLoggedIn(true);
             setWarningProps({hidden: true});
+            setAuthButtonLoad(false);
         })
     };
 
@@ -180,7 +195,8 @@ export const UserAccountProvider = (props) => {
 
     return (
         <UserAccountContext.Provider 
-            value={{ 
+            value={{
+                authModalToggle, 
                 login, 
                 logout, 
                 isLoggedIn, 
@@ -198,7 +214,13 @@ export const UserAccountProvider = (props) => {
                 setFollowDetailReady,
                 DeleteFollow,
                 refreshState, 
-                setRefreshState
+                setRefreshState,
+                openLoginModal, 
+                setOpenLoginModal,
+                openRegisterModal, 
+                setOpenRegisterModal,
+                authButtonLoad, 
+                setAuthButtonLoad
             }}>
             {isFirebaseReady ?
             props.children

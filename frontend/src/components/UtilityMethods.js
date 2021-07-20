@@ -9,6 +9,8 @@ import imageLogo from "../assets/images/logos/Image-Comics_Logo.png";
 import boomLogo from "../assets/images/logos/Boom-Studios_Logo.png";
 import darkHorseLogo from "../assets/images/logos/Dark-Horse-Comics_Logo.png";
 import dcComicsLogo from "../assets/images/logos/DC-Comics_Logo.png";
+import dynamiteComicsLogo from "../assets/images/logos/Dynamite-Comics_alt_Logo.png";
+import skyboundComicsLogo from "../assets/images/logos/Skybound-Comics_Logo.png";
 import Loader from "react-loader-spinner";
 
 
@@ -183,6 +185,12 @@ export const PublisherImage = (publisher) => {
                         size={64}
                         alt={publisher}
                     />)
+        case 'MARVEL COMICS (BUY - SELL)':                
+            return (<Image 
+                        src={marvelLogo}
+                        size={64}
+                        alt={publisher}
+                    />)
         case 'Marvel':                
             return (<Image 
                         src={marvelLogo}
@@ -240,6 +248,18 @@ export const PublisherImage = (publisher) => {
         case 'DC Comics':
             return (<Image 
                         src={dcComicsLogo}
+                        size={48}
+                        alt={publisher}
+                    />)
+        case 'DYNAMITE':
+            return (<Image 
+                        src={dynamiteComicsLogo}
+                        size={48}
+                        alt={publisher}
+                    />)
+        case 'Skybound':
+            return (<Image 
+                        src={skyboundComicsLogo}
                         size={48}
                         alt={publisher}
                     />)

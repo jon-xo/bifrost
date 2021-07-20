@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { ReadingContext } from "../../providers/ReadingProvider";
 import { Button} from "react-bulma-components";
+import { getUserDetail, currentDate } from "../UtilityMethods";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { getUserDetail, currentDate } from "../UtilityMethods";
 // import ReadingCard from "./ReadingCard";
 
 

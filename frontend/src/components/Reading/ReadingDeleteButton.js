@@ -4,14 +4,14 @@ import { Button, Modal } from "react-bulma-components";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 // import ReadingCard from "./ReadingCard";
-import { userAccount } from "../UtilityMethods";
+import { getUserDetail } from "../UtilityMethods";
 
 
 const ReadingDeleteButton = ({ comicObject }) => {
     const { disableReadingButtons, setDisableReadingButton, deleteComicReadingList, getUsersReadingList } = useContext(ReadingContext);
     const [ buttonLoading, setButtonLoading ] = useState(false);
     const [ openModal, setModalOpen ] = useState(false);
-    const userId = parseInt(userAccount?.id);
+    let userId = getUserDetail();
     
     const handleDelete = (event, comicId) => {
         event.preventDefault();

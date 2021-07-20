@@ -135,6 +135,14 @@ const LoginModal = () => {
                             </Icon>
                         </Form.Control>
                     </Form.Field>
+                    <div class="divider">or</div>
+                    <Button
+                        fullwidth={true}
+                        color={"primary"}
+                    >
+                        Register
+                    </Button>
+
                     {/* <Form.Field kind="group">
                         <Form.Control>
                             <Button color="link" onClick={(e) => {handleLogin(e)}}>Login</Button>

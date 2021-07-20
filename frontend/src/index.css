@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&family=Raleway&display=swap');
+@import "~@creativebulma/bulma-divider";
 
 body {
   margin: 0;

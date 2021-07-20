@@ -191,6 +191,14 @@ const RegisterModal = () => {
                             </Icon>
                         </Form.Control>                            
                     </Form.Field>
+                    <div class="divider">or</div>
+                    <Button
+                        fullwidth={true}
+                        color={"info"}
+                    >
+                        Login
+                    </Button>
+
                     {/* <Form.Field kind="group">
                         <Form.Control>
                             <Button color="link" onClick={(e) => {handleLogin(e)}}>Login</Button>

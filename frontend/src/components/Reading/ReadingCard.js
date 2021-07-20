@@ -58,7 +58,10 @@ const ReadingCard = ({ savedComic }) => {
                         </Columns>
                         <Columns>
                             <Columns.Column size={12}>
-                                <Container fluid={"true"} mt={5}>
+                                <Container 
+                                    fluid={"true"} 
+                                    className={"reading-card--btn-grp"}
+                                >
                                     <Button.Group align="right">
                                         <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
                                         <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />
@@ -115,7 +118,10 @@ const ReadingCard = ({ savedComic }) => {
                             </Columns>
                             <Columns>
                                 <Columns.Column size={12}>
-                                    <Container fluid={"true"} mt={5}>
+                                    <Container 
+                                        fluid={"true"}
+                                        className={"reading-card--btn-grp"}
+                                    >
                                         <Button.Group align="right">
                                             <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
                                             <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />
@@ -173,7 +179,7 @@ const ReadingCard = ({ savedComic }) => {
                         </Columns>
                         <Columns>
                             <Columns.Column size={12}>
-                                <Container fluid={"true"} mt={5}>
+                                <Container fluid={"true"} mb={6}>
                                     <Button.Group align="right">
                                         <ReadingReadButton key={`read-btn--${savedComic.id}`} comicObject={savedComic} />
                                         <ReadingDeleteButton key={`delete-btn--${savedComic.id}`} comicObject={savedComic} />

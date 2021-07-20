@@ -34,6 +34,13 @@ code {
   font-size: 2.5rem;
 }
 
+.logo-header-2-sansSerif
+{
+  font-family: 'Raleway', sans-serif;
+  margin-top: .1rem;
+  font-size: 2.0rem;
+}
+
 .logo-text-sansSerif
 {
   font-family: 'Raleway', sans-serif;
@@ -57,10 +64,6 @@ code {
   width: 7rem;
 }
 
-/* .nav-controls {
-  margin-top: 5%;
-} */
-
 .nav-controls div, form, button {
   display: flex;
   justify-content: center !important;
@@ -73,6 +76,17 @@ code {
 
 .nav-links:hover {
   color: #5E81AC !important;
+}
+
+
+/*  ----- Register/Login Modal ----- */
+
+.auth-form--container {
+  max-width: 35rem;
+}
+
+.auth-form--icon {
+  margin-top: 6.2%;
 }
 
 /*  ----- Activity view ----- */

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import WarnUser from "../WarnUser";
-import "../../index.css"
 
 const RegisterDropdown = () => {
     // -- GitHub Issue Ticket # 1 ---

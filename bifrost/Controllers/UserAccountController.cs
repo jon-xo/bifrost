@@ -57,6 +57,13 @@ namespace bifrost.Controllers
                 userAccount);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Put(UserAccount userAccount)
+        {
+            _userAccountRepository.UpdateUser(userAccount);
+            return Ok(userAccount);
+        }
+
         [HttpPost("fw")]
         public IActionResult FollowUser(int uId, int fId)
         {

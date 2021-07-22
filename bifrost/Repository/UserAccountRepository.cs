@@ -119,6 +119,39 @@ namespace bifrost.Repository
             }
         }
 
+        public UserAccount UpdateUser(UserAccount userAccount)
+        {
+
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        Update UserAccount
+                        SET
+                            [Name] = @name, 
+                            DisplayName = @displayName, 
+                            UserSummary = @userSummary, 
+                            ImageLocation = @imageLocation, 
+                            [Private] = @private
+                        WHERE Id = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@name", userAccount.Name);
+                    cmd.Parameters.AddWithValue("@displayName", userAccount.DisplayName);
+                    cmd.Parameters.AddWithValue("@imageLocation", userAccount.ImageLocation);
+                    cmd.Parameters.AddWithValue("@prviate", userAccount.Private);
+                    cmd.Parameters.AddWithValue("@id", userAccount.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            return userAccount;
+        }
+
         public void AddFollow(int leader, int follower)
         {
             using (SqlConnection conn = Connection)

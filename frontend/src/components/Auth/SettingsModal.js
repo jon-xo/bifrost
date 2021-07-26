@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+// import { useHistory, useLocation } from "react-router-dom";
 import { Button, Notification, Icon, Form, Modal, Container } from "react-bulma-components";
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,8 +8,8 @@ import { UserAccountContext } from "../../providers/UserAccountProvider";
 // import WarnUser from "../WarnUser";
 
 const SettingsModal = () => {
-    const history = useHistory();
-    const location = useLocation();
+    // const history = useHistory();
+    // const location = useLocation();
     let currentUser = getUserDetail();
 
     const [ userObject, setUserObject ] = useState({});
@@ -20,6 +20,7 @@ const SettingsModal = () => {
     useEffect(() => {
         getUserById(currentUser, false)
         .then(setUserObject)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleUserInputChange = (event) => {

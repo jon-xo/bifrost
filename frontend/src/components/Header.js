@@ -12,6 +12,7 @@ import RegisterModal from "./Auth/RegisterModal";
 import SearchBar from "./Search/SearchBar";
 import clsx from 'clsx';
 import "../index.css"
+import SettingsModal from "./Auth/SettingsModal";
 
 const Header = () => {
     // 
@@ -288,12 +289,13 @@ const Header = () => {
                                     display={"flex"}
                                     justifyContent={"center"}
                                     >
-                                    <Button color='info' colorVariant='light'>
+                                    <SettingsModal />
+                                    {/* <Button color='info' colorVariant='light'>
                                         <Icon className='logo-icon'>
                                             <FontAwesomeIcon icon={faCog} />
                                         </Icon>
                                         Settings
-                                    </Button>
+                                    </Button> */}
                                     <Button color='danger' colorVariant='light' onClick={logout}>
                                         <Icon className='logo-icon'>
                                             <FontAwesomeIcon icon={faArrowCircleRight} />

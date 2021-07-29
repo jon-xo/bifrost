@@ -14,6 +14,7 @@ const SettingsModal = () => {
 
     const [ userObject, setUserObject ] = useState({});
     const [ displayModal, setDisplayModal ] = useState(false);
+    const [ modalLoading, setModalLoading ] = useState(false);
 
     const { getUserById, updateUser } = useContext(UserAccountContext);
 
@@ -31,10 +32,12 @@ const SettingsModal = () => {
 
     const handleSaveCategory = (event) => {
         event.preventDefault();
+        setModalLoading(true);
         updateUser(userObject)
         .then(getUserById(currentUser, true))
         .then(() => {
             setDisplayModal(false)
+            setModalLoading(false);
         })
     };
     
@@ -96,6 +99,7 @@ const SettingsModal = () => {
                                                     id="displayName"
                                                     name="displayName"                                        
                                                     onChange={handleUserInputChange}
+                                                    disabled={modalLoading}
                                                     />                                                        
                                             </Form.Control>
                                         </Form.Field>
@@ -112,6 +116,7 @@ const SettingsModal = () => {
                                                     id="userSummary"
                                                     name="userSummary"                                        
                                                     onChange={handleUserInputChange}
+                                                    disabled={modalLoading}
                                                     />                                                        
                                             </Form.Control>
                                         </Form.Field>
@@ -175,7 +180,7 @@ const SettingsModal = () => {
                     >
                         <Button 
                             color={"grey"}
-                            // disabled={authButtonLoad}
+                            disabled={modalLoading}
                             onClick={() => {
                                 setDisplayModal(!displayModal);
                             }}
@@ -184,8 +189,8 @@ const SettingsModal = () => {
                         </Button>
                         <Button
                             color={"success"}
-                            // disabled={authButtonLoad}
-                            // loading={authButtonLoad}
+                            disabled={modalLoading}
+                            loading={modalLoading}
                             onClick={(e) => {
                                 handleSaveCategory(e)
                             }}

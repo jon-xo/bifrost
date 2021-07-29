@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 // import { useHistory, useLocation } from "react-router-dom";
-import { Button, Notification, Icon, Form, Modal, Container } from "react-bulma-components";
+import { Button, Notification, Icon, Form, Modal, Container, Columns, Block } from "react-bulma-components";
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getUserDetail } from "../UtilityMethods";
@@ -66,7 +66,8 @@ const SettingsModal = () => {
                     <Modal.Card.Body>
                         <Container>
                             <Notification
-                                color={"text"}
+                                color={"info"}
+                                colorVariant={"light"}
                                 display={"flex"}
                                 justifyContent={"center"}
                                 alignItems={"center"}
@@ -77,58 +78,96 @@ const SettingsModal = () => {
                                 <p className='logo-header-2-sansSerif'>Settings</p>
                             </Notification>
                         </Container>
-                        <form>
-                            <Form.Field>
-                                <Form.Control>
-                                    <Form.Label>
-                                        Display Name
-                                    </Form.Label>
-                                    <Form.Input
-                                        color="info"
-                                        defaultValue={userObject?.displayName}
-                                        required
-                                        id="displayName"
-                                        name="displayName"                                        
-                                        onChange={handleUserInputChange}
-                                    />                                                        
-                                </Form.Control>
-                                <Form.Control>
-                                    <Form.Label>
-                                        User summary
-                                    </Form.Label>
-                                    <Form.Textarea
-                                        color="info"
-                                        defaultValue={userObject?.userSummary}
-                                        id="userSummary"
-                                        name="userSummary"                                        
-                                        onChange={handleUserInputChange}
-                                    />                                                        
-                                </Form.Control>
-                                <Form.Control>
-                                    <Form.Label>
-                                        User Avatar
-                                    </Form.Label>
-                                    <Form.InputFile
-                                        color="white-ter"
-                                        // defaultValue={userObject?.userSummary}
-                                        filename=""
-                                        name="imageLocation"                                        
-                                        // onChange={handleUserInputChange}
-                                    />                                                        
-                                </Form.Control>
-                                <Form.Control>
-                                    <Form.Checkbox
-                                        // color="info"
-                                        defaultValue={userObject?.private}
-                                        id="private"
-                                        name="private"
-                                        onChange={handleUserInputChange}
-                                    >
-                                        Private Account
-                                    </Form.Checkbox>
-                                </Form.Control>
-                            </Form.Field>
-                        </form>
+                        <Container
+                            mt={2}
+                        >
+                            <form>
+                                <Columns>
+                                    <Columns.Column size={12}>
+                                        <Form.Field>
+                                            <Form.Control>
+                                                <Form.Label>
+                                                    Display Name
+                                                </Form.Label>
+                                                <Form.Input
+                                                    color="info"
+                                                    defaultValue={userObject?.displayName}
+                                                    required
+                                                    id="displayName"
+                                                    name="displayName"                                        
+                                                    onChange={handleUserInputChange}
+                                                    />                                                        
+                                            </Form.Control>
+                                        </Form.Field>
+                                    </Columns.Column>
+                                    <Columns.Column size={12}>
+                                        <Form.Field>
+                                            <Form.Control>
+                                                <Form.Label>
+                                                    User summary
+                                                </Form.Label>
+                                                <Form.Textarea
+                                                    color="info"
+                                                    defaultValue={userObject?.userSummary}
+                                                    id="userSummary"
+                                                    name="userSummary"                                        
+                                                    onChange={handleUserInputChange}
+                                                    />                                                        
+                                            </Form.Control>
+                                        </Form.Field>
+                                    </Columns.Column>
+                                    <Columns.Column size={6}>
+                                        <Notification
+                                            color={"text"}
+                                            colorVariant={"light"}
+                                            className={"settings-notification--div"}
+                                        >
+                                            <Block renderAs={"fieldset"} disabled>
+                                                <Form.Field>
+                                                    <Form.Label textColor={"grey"}>
+                                                        User Avatar (beta)
+                                                    </Form.Label>
+                                                    <Form.Control>
+                                                        <Form.InputFile
+                                                            color="text"
+                                                            label="Select image..."
+                                                            // defaultValue={userObject?.userSummary}
+                                                            // filename=""
+                                                            name="imageLocation"                            
+                                                            // onChange={handleUserInputChange}
+                                                            disabled
+                                                        />                                                        
+                                                    </Form.Control>
+                                                </Form.Field>
+                                            </Block>
+                                        </Notification>
+                                    </Columns.Column>
+                                    <Columns.Column size={6}>
+                                        <Notification
+                                            color={"warning"}
+                                            colorVariant={"light"}
+                                            className={"settings-notification--div"}
+                                        >
+                                            <Form.Field>
+                                                <Form.Control>
+                                                    <Form.Label>
+                                                        Account status
+                                                    </Form.Label>
+                                                    <Form.Checkbox
+                                                        defaultValue={userObject?.private}
+                                                        id="private"
+                                                        name="private"
+                                                        onChange={handleUserInputChange}
+                                                    >
+                                                        Private Account
+                                                    </Form.Checkbox>
+                                                </Form.Control>
+                                            </Form.Field>
+                                        </Notification>
+                                    </Columns.Column>
+                                </Columns>
+                            </form>
+                        </Container>
                     </Modal.Card.Body>
                     <Modal.Card.Footer 
                         renderAs={Button.Group} 

@@ -26,17 +26,24 @@ const SettingsModal = () => {
 
     const handleUserInputChange = (event) => {
         const userUpdate = { ...userObject };
-        userUpdate[event.target.name] = event.target.value;
+        if(event.target.value === "false"){
+            userUpdate[event.target.name] = true;
+        } else if(event.target.value === "true"){
+            userUpdate[event.target.name] = false;
+        } else {
+            userUpdate[event.target.name] = event.target.value;
+        }
         setUserObject(userUpdate);
     };
 
     const handleSaveCategory = (event) => {
         event.preventDefault();
         setModalLoading(true);
+        debugger
         updateUser(userObject)
         .then(getUserById(currentUser, true))
         .then(() => {
-            setDisplayModal(false)
+            setDisplayModal(false);
             setModalLoading(false);
         })
     };
@@ -100,7 +107,7 @@ const SettingsModal = () => {
                                                     name="displayName"                                        
                                                     onChange={handleUserInputChange}
                                                     disabled={modalLoading}
-                                                    />                                                        
+                                                />                                                        
                                             </Form.Control>
                                         </Form.Field>
                                     </Columns.Column>
@@ -117,7 +124,7 @@ const SettingsModal = () => {
                                                     name="userSummary"                                        
                                                     onChange={handleUserInputChange}
                                                     disabled={modalLoading}
-                                                    />                                                        
+                                                />                                                        
                                             </Form.Control>
                                         </Form.Field>
                                     </Columns.Column>
@@ -127,7 +134,11 @@ const SettingsModal = () => {
                                             colorVariant={"light"}
                                             className={"settings-notification--div"}
                                         >
-                                            <Block renderAs={"fieldset"} disabled>
+                                            <Block 
+                                                renderAs={"fieldset"} 
+                                                disabled
+                                                // unselectable={true}
+                                            >
                                                 <Form.Field>
                                                     <Form.Label textColor={"grey"}>
                                                         User Avatar (beta)
@@ -140,7 +151,7 @@ const SettingsModal = () => {
                                                             // filename=""
                                                             name="imageLocation"                            
                                                             // onChange={handleUserInputChange}
-                                                            disabled
+                                                            disabled                                                            
                                                         />                                                        
                                                     </Form.Control>
                                                 </Form.Field>
@@ -159,7 +170,7 @@ const SettingsModal = () => {
                                                         Account status
                                                     </Form.Label>
                                                     <Form.Checkbox
-                                                        defaultValue={userObject?.private}
+                                                        defaultChecked={userObject?.private}
                                                         id="private"
                                                         name="private"
                                                         onChange={handleUserInputChange}

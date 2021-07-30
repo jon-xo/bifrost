@@ -30,7 +30,12 @@ const RegisterModal = () => {
             });
         } else {
             setAuthButtonLoad(true);
-            const userAccount = { name, email, displayName}
+            const userAccount = { 
+                name: name, 
+                email: email,
+                displayName: displayName,
+                imageLocation: "./avatar_default1.png"
+            }
             register(userAccount, password)
             .then(() => history.push(location.pathname))
             .catch((c) => {

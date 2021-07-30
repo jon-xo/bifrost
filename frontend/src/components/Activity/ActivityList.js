@@ -37,6 +37,12 @@ const ActivityList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
+    useEffect(() => {
+        if(refreshState){
+            getAllPublicContent();
+        }
+    }, [refreshState])
+
 
     if(route.includes("follows")){
         // debugger

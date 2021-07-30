@@ -11,12 +11,13 @@ const SettingsModal = () => {
     // const history = useHistory();
     // const location = useLocation();
     let currentUser = getUserDetail();
+    const { getUserById, updateUser, setRefreshState } = useContext(UserAccountContext);
 
     const [ userObject, setUserObject ] = useState({});
     const [ displayModal, setDisplayModal ] = useState(false);
     const [ modalLoading, setModalLoading ] = useState(false);
+    const [ userSettingsPrivate, setUserSettingsPrivate ] = useState(userObject?.private);
 
-    const { getUserById, updateUser } = useContext(UserAccountContext);
 
     useEffect(() => {
         getUserById(currentUser, false)
@@ -26,25 +27,23 @@ const SettingsModal = () => {
 
     const handleUserInputChange = (event) => {
         const userUpdate = { ...userObject };
-        if(event.target.value === "false"){
-            userUpdate[event.target.name] = true;
-        } else if(event.target.value === "true"){
-            userUpdate[event.target.name] = false;
-        } else {
-            userUpdate[event.target.name] = event.target.value;
-        }
+              
+        userUpdate[event.target.name] = event.target.value;
+
         setUserObject(userUpdate);
     };
 
     const handleSaveCategory = (event) => {
         event.preventDefault();
         setModalLoading(true);
+        userObject.private = userSettingsPrivate;
         debugger
         updateUser(userObject)
         .then(getUserById(currentUser, true))
         .then(() => {
             setDisplayModal(false);
             setModalLoading(false);
+            setRefreshState(true);
         })
     };
     
@@ -173,7 +172,10 @@ const SettingsModal = () => {
                                                         defaultChecked={userObject?.private}
                                                         id="private"
                                                         name="private"
-                                                        onChange={handleUserInputChange}
+                                                        onClick={() => {
+                                                            // debugger
+                                                            setUserSettingsPrivate(!userSettingsPrivate);
+                                                        }}
                                                     >
                                                         Private Account
                                                     </Form.Checkbox>

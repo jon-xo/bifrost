@@ -36,11 +36,12 @@ const ActivityList = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
-
+    
     useEffect(() => {
         if(refreshState){
             getAllPublicContent();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
 
 

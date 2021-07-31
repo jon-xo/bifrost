@@ -108,6 +108,29 @@ export const UserAccountProvider = (props) => {
         }).then(r => r.json()));
     };
 
+    const getUserById = (userId, fullSync) => {
+        if(fullSync){
+            return getToken().then((token) =>
+            fetch(`https://localhost:5001/api/useraccount/u?uId=${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(r => r.json())
+            .then(r => updateUserObject(r)))
+        } else {
+            return getToken().then((token) =>
+            fetch(`https://localhost:5001/api/useraccount/u?uId=${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(r => r.json()))
+        }
+    };
+
     const saveUser = (userAccount) => {
         return getToken().then((token) => 
         fetch(apiUrl, {
@@ -118,6 +141,24 @@ export const UserAccountProvider = (props) => {
             },
             body: JSON.stringify(userAccount)
         }).then(resp => resp.json()));  
+    };
+
+    const updateUser = (userAccount) => {
+        return getToken().then((token) => 
+        fetch(`${apiUrl}/${userAccount.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(userAccount)
+        }).then(r => r.json()));
+    }
+
+    const updateUserObject = (userObject) => {
+        // debugger
+        sessionStorage.clear();
+        sessionStorage.setItem("userAccount", JSON.stringify(userObject))
     };
     
     const AddUserFollow = (leadUser, followUser) => {
@@ -131,7 +172,7 @@ export const UserAccountProvider = (props) => {
             }
         })
         .then(() => {
-            debugger
+            // debugger
             setRefreshState(true);
         }));  
     };
@@ -146,7 +187,7 @@ export const UserAccountProvider = (props) => {
             } 
         })
         .then(() => {
-            debugger
+            // debugger
             setRefreshState(true);
         }));  
     };
@@ -167,7 +208,7 @@ export const UserAccountProvider = (props) => {
             // .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
             .then(() => {
                 if(!onPageLoad){
-                    debugger
+                    // debugger
                     setRefreshState(true);
                 }
             }) 
@@ -186,7 +227,7 @@ export const UserAccountProvider = (props) => {
             // .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
             .then(() => {
                 if(!onPageLoad){
-                    debugger
+                    // debugger
                     setRefreshState(true);
                 }
             }) 
@@ -200,12 +241,14 @@ export const UserAccountProvider = (props) => {
                 login, 
                 logout, 
                 isLoggedIn, 
-                register, 
+                register,
+                getUserById,
                 getToken, 
                 warningProps, 
                 setWarningProps,
                 AddUserFollow,
                 GetFollows,
+                updateUser,
                 usersFollowers,
                 currentUserFollows,
                 disableFollowButtons,

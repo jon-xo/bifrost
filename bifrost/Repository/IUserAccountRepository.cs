@@ -10,5 +10,6 @@ namespace bifrost.Repository
         void DeleteFollow(int leader, int follower);
         UserAccount GetByFirebaseUserId(string firebaseUserId);
         List<UserAccount> GetFollows(int leader, bool followBack);
+        UserAccount UpdateUser(UserAccount userAccount);
     }
 }

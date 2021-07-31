@@ -31,7 +31,11 @@ export const getUserDetail = (string) => {
     const localAccount = JSON.parse(sessionStorage.getItem("userAccount"));
     if(localAccount !== undefined || localAccount !== null)
     {
-        return parseInt(localAccount?.id)
+        if(string === "full"){
+            return localAccount
+        } else {
+            return parseInt(localAccount?.id)
+        }
     } else {
         return undefined;
     }

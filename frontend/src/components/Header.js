@@ -4,7 +4,7 @@ import { UserAccountContext } from "../providers/UserAccountProvider";
 // import { SearchComicContext } from "../providers/SearchComicProvider";
 import { Navbar, Icon,  Button, Container } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faArrowCircleRight, faSnowflake } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleRight, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 // import LoginDropdown from "./Auth/LoginDropdown";
 // import RegisterDropdown from "./Auth/RegisterDropdown";
 import LoginModal from "./Auth/LoginModal";
@@ -12,6 +12,7 @@ import RegisterModal from "./Auth/RegisterModal";
 import SearchBar from "./Search/SearchBar";
 import clsx from 'clsx';
 import "../index.css"
+import SettingsModal from "./Auth/SettingsModal";
 
 const Header = () => {
     // 
@@ -288,12 +289,13 @@ const Header = () => {
                                     display={"flex"}
                                     justifyContent={"center"}
                                     >
-                                    <Button color='info' colorVariant='light'>
+                                    <SettingsModal />
+                                    {/* <Button color='info' colorVariant='light'>
                                         <Icon className='logo-icon'>
                                             <FontAwesomeIcon icon={faCog} />
                                         </Icon>
                                         Settings
-                                    </Button>
+                                    </Button> */}
                                     <Button color='danger' colorVariant='light' onClick={logout}>
                                         <Icon className='logo-icon'>
                                             <FontAwesomeIcon icon={faArrowCircleRight} />

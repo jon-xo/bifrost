@@ -6,6 +6,18 @@ import { faKey, faUser, faLock, faSnowflake } from '@fortawesome/free-solid-svg-
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import WarnUser from "../WarnUser";
 
+// -- LoginModal --
+// A refactor of LoginDropdown, component uses multiple methods 
+// from UserAccountProvider to render custom Bulma Notification,
+// using warningProps object in state.
+// Component state is used to store email and password, when user 
+// clicks login button, handleLogin function takes the following action:
+// - prevents eventListner default
+// - toggles authButtonLoad state to true, providing UI feedback to user
+// - utilizes useHistory and useLocation to ensure user's current app page
+// is continually displayed
+// - catch method redirects Firebase error to build warningProps object 
+// rendering WarnUser component.
 
 const LoginModal = () => {
     const history = useHistory();
@@ -36,10 +48,6 @@ const LoginModal = () => {
         <Button
             color="info"
             colorVariant={"dark"}
-            // outlined
-            // isStatic={inReading}
-            // disabled={inReading}
-            // loading={buttonLoading}
             onClick={() => {
                 setOpenLoginModal(true);
             }}
@@ -73,21 +81,6 @@ const LoginModal = () => {
                                 <FontAwesomeIcon icon={faSnowflake} size="lg" />
                             </Icon>
                             <p className='logo-header-2-sansSerif'>bifröst</p>
-                            {/* <Notification
-                                color={"dark"}
-                                display={"flex"}
-                                justifyContent={"center"}
-                                alignItems={"flex-end"}
-                            >
-                                <Heading 
-                                    size={5}
-                                    subtitle
-                                    textAlign={"center"} 
-                                >
-                                    Login
-                                </Heading>
-
-                            </Notification> */}
                         </Notification>
                     </Container>
                     <Form.Field>
@@ -99,7 +92,6 @@ const LoginModal = () => {
                                 color="info"
                                 placeholder="user@example.com"
                                 size="medium"
-                                // status="hover"
                                 type="text"
                                 id="email"
                                 onChange={(e) => {setEmail(e.target.value)}}
@@ -120,7 +112,6 @@ const LoginModal = () => {
                                 color="info"
                                 placeholder="password"
                                 size="medium"
-                                // status="hover"
                                 type="password"
                                 id="password"
                                 onChange={(e) => {setPassword(e.target.value)}}
@@ -144,17 +135,6 @@ const LoginModal = () => {
                     >
                         Register
                     </Button>
-
-                    {/* <Form.Field kind="group">
-                        <Form.Control>
-                            <Button color="link" onClick={(e) => {handleLogin(e)}}>Login</Button>
-                        </Form.Control>
-                        <Form.Control>
-                            <Button color="link" colorVariant="light">
-                                Cancel
-                            </Button>
-                        </Form.Control>
-                    </Form.Field> */}
                 </Modal.Card.Body>
                 <Modal.Card.Footer 
                     renderAs={Button.Group} 

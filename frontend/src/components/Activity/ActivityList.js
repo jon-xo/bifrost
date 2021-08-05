@@ -7,6 +7,12 @@ import { getUserDetail } from "../UtilityMethods";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 
 
+// ---- ActivityList ----
+// ActivityList is a component used to render comic activity 
+// using the ActivtyCard component. Render includes a conditional
+// with useLocation react-router-dom hook to render a seperate list
+// varient if the list is rendered in the Follows or the Activity view.
+
 const ActivityList = () => {
     const { getAllPublicContent, allPublicContent, selectedUsersContent } = useContext(ReadingContext);
     const { GetFollows, refreshState, setRefreshState } = useContext(UserAccountContext);
@@ -14,17 +20,34 @@ const ActivityList = () => {
     const route = location.pathname;
     
     let userId = getUserDetail();
+
+    // useEffect(#1) calls all content created by public users
     
     useEffect(() => {
         getAllPublicContent();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // useEffect(#2) envokes GetFollows with the listed parameters:
+    // - userId
+    // - followBack parameter false writes returned results to usersFollowers
+    // - onPageLoad parameter receives true to ensure that refreshState 
+    // is not modified as hook is envoked on page load.
+    
+    
     useEffect(() => {
         const updatedUserId = getUserDetail();
         GetFollows(updatedUserId, false, true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    
+    // useEffect(#4) envokes GetFollows, if refreshState evaluates to true
+    //  with the listed parameters:
+    // - active userId
+    // - followBack parameter receives false boolean, 
+    // writing returned results to usersFollowers state
+    // - onPageLoad parameter receives false which causes method
+    // to write refreshState value as true, this change triggers related useEffect states.
 
     useEffect(() => {
         if(refreshState){
@@ -36,6 +59,9 @@ const ActivityList = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refreshState])
+
+    // useEffect(#5) watches refreshState value and if refreshState evaluates to true,
+    // executes getAllPublicContent method.
     
     useEffect(() => {
         if(refreshState){

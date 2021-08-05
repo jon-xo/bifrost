@@ -5,12 +5,21 @@ import { TimelineDate, ReleaseComicImage, getAvatarImage, currentDate } from "..
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import FollowUserButton from "../Follows/FollowUserButton";
 
+// ---- ActivityCard ----
+// ActivityCard is a decendent of ActivityList which
+// uses the Bulma Components Notification method to create
+// cards used for the follows & activity views
+
 const ActivityCard = ({ activity }) => {
     const { usersFollowers } = useContext(UserAccountContext);
     const activityUID = activity?.userId;
     const location = useLocation();
     const route = location.pathname;
     const activityUser = activity?.userAccount;
+
+    // checkFollower function accepts the active user's ID and
+    // returns true if the usersFollowers array provided by
+    // useContext includes the ID.
 
     const checkFollower = (currentId) => {
         if(usersFollowers?.find(u => u.id === currentId)){
@@ -22,7 +31,15 @@ const ActivityCard = ({ activity }) => {
 
     const activeFollow = checkFollower(activityUID);
 
-    // debugger
+    // JSX is returned conditionally,
+    // - If route includes "follows":
+    //  + If the activity prop is null, render a default notification, rendered as a dark styled card
+    //  + Else if the activity prop includes the activeUser value, render dark styled card with activity data
+    // - If rendered on any other route:
+    //  + Return a dark card (for the current user) with activity data when the activeUser value exsits in the activty prop
+    //  + Else return a dark blue card (for all other user)  with activity data
+    //  + Dark blue cards will display the follow status by conditionally rendering using the activeFollow boolean.
+    // 
     
     if(route.includes("follows")){
             if(activity === null){
@@ -30,7 +47,6 @@ const ActivityCard = ({ activity }) => {
                         <div className={"follow-activity-parent--div"}>
                             <Notification className={"follow-activity-tile--div"} 
                                 kind={"child"} 
-                                // renderAs={Notification}
                                 color={"link"} 
                                 colorVariant={"dark"}
                             >
@@ -76,13 +92,12 @@ const ActivityCard = ({ activity }) => {
                         </div>
                 );
             } else if(activity?.activeUser) {
-            debugger
+            // debugger
             return (
                 <>
                     <div className={"follow-activity-parent--div"}>
                         <Notification className={"follow-activity-tile--div"} 
                             kind={"child"} 
-                            // renderAs={Notification}
                             color={"link"} 
                             colorVariant={"dark"}
                         >
@@ -243,21 +258,12 @@ const ActivityCard = ({ activity }) => {
                             <Container p={5}>
                                 <Columns breakpoint={"fluid"}>
                                     <Columns.Column mr={6} size={2}>
-                                        {/* <Container
-                                            // pull={"left"}
-                                            paddingless={true}
-                                            display={"flex"}
-                                            // justifyContent={"center"}
-                                            justifyItems={"center"}
-                                        > */}
-
                                         <Image
                                             src={getAvatarImage(activity?.userAccount.imageLocation)}                                        
                                             size={96}
                                             mt={1}
                                             mr={3}
                                             />                                    
-                                        {/* </Container> */}
                                     </Columns.Column>
                                     <Columns.Column>
                                         <Heading
@@ -330,7 +336,6 @@ const ActivityCard = ({ activity }) => {
             )
 
         } else {
-        // debugger
         return (
             <>
                 <Tile className={"activty-tile-follower--div"} kind={"child"} renderAs={Notification} color={"info"} colorVariant={"dark"}>
@@ -347,7 +352,6 @@ const ActivityCard = ({ activity }) => {
                                     <div>
                                         <Image
                                             src={getAvatarImage(activity?.userAccount.imageLocation)}
-                                            // fallback={ReleaseComicImage("fallback")}
                                             size={64}
                                             className={"follower-avatar--img"}
                                             paddingless={true}
@@ -356,7 +360,6 @@ const ActivityCard = ({ activity }) => {
                                         />
                                         <FollowUserButton
                                             uId={activityUID}
-                                            // mr={3}
                                             mt={2}
                                             size={"small"}
                                             fStatus={activeFollow}

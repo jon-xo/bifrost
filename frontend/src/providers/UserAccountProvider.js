@@ -14,7 +14,7 @@ export const UserAccountProvider = (props) => {
     //    - login accepts email and password paramaters and envokes
     //    the signInWithEmailAndPassword firebase method which returns
     //    the related user's UUID in the async call and passed as a parameter
-    //    to the getUserAccount method. The returned user account is stored
+    //    to the getUserAccount methoGetFollowsd. The returned user account is stored
     //    in sessionStorage. Once sessionStorage is updated, IsLoggedIn is toggled
     //    and WarningProps receives hidden/true key/value pair
     //    - logout access the firebase signOut method and clears the user from 

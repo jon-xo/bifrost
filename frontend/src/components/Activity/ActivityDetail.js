@@ -9,6 +9,14 @@ import { styled, keyframes } from '@stitches/react';
 import { getAvatarImage, getUserDetail } from "../UtilityMethods";
 
 
+// ---- ActivityDetail ----
+// ActivityCard is a decendent of the FollowUserButton which
+// is rendered in the ActivityCard. ActivityDetail uses 
+// the Radix Primitives hover card method to an event based
+// overlay card to provide follower context regarding the active user
+
+// HoverCard styles
+
 const scaleIn = keyframes({
     '0%': { opacity: 0, transform: 'scale(0)' },
     '100%': { opacity: 1, transform: 'scale(1)' },
@@ -50,6 +58,11 @@ const Text = styled('div', {
 export const HoverCard = HoverCardPrimitive.Root;
 export const HoverCardTrigger = HoverCardPrimitive.Trigger;
 export const HoverCardContent = StyledContent;
+
+// ActivityDetail is built using radix-ui HoverCard abstractions
+// compnent receives multiple props to allow for dynamic styling,
+// once rendered ActivityDetail will display user data passed in props
+// along with an unfollow button.
 
 const ActivityDetail = ({ ...props }) => {
 

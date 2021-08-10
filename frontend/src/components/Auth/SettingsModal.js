@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-// import { useHistory, useLocation } from "react-router-dom";
 import { Button, Notification, Icon, Form, Modal, Container, Columns, Block } from "react-bulma-components";
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,9 +6,35 @@ import { getUserDetail } from "../UtilityMethods";
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 // import WarnUser from "../WarnUser";
 
+//  --- SettingsModal ---
+//  Constructed from the Register/LoginModal.js template, SettingsModal 
+//  uses getUserById, updateUser, & setRefreshState methods from UserAccountProvider 
+//  to allow edit/update of multiple user settings rendered in a custom Bulma Notification.
+//  Users can update the follow values*:
+// 
+//  - displayName 
+//  - userSummary
+//  - Private [boolean]
+// 
+//  The handleUserInputChange function spreads the userObject in component state
+//  into a variable locally scoped to the function and updates the related form element
+//  with the related value. Function is envoked via an onChange event.
+//  
+//  On save the handleSaveCategory function is envoked and performs the following steps:
+// 
+//  - Prevents eventListner default
+//  - Sets the modalLoading state to true, providing UI feedback during the async call
+//  - Creates API call to update user details
+//  - Once the async call is complete, function then takes multiple steps:
+//      + updates the userObject in state with the current selected user private boolean
+//      + Sets loading state to false to disable UI feedback
+//      + Sets showModal to false to hide LoginModal
+//      + Updates the setRefreshState boolean provided via Context which triggers
+//        useEffect to update the ActivityList to hide/show the user based on private status.
+// 
+// * While the userAvatar field is displayed, it is marked as beta and disabled to the user.
+
 const SettingsModal = () => {
-    // const history = useHistory();
-    // const location = useLocation();
     let currentUser = getUserDetail();
     const { getUserById, updateUser, setRefreshState } = useContext(UserAccountContext);
 
@@ -37,7 +62,7 @@ const SettingsModal = () => {
         event.preventDefault();
         setModalLoading(true);
         userObject.private = userSettingsPrivate;
-        debugger
+        // debugger
         updateUser(userObject)
         .then(getUserById(currentUser, true))
         .then(() => {

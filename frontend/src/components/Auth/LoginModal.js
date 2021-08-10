@@ -6,7 +6,7 @@ import { faKey, faUser, faLock, faSnowflake } from '@fortawesome/free-solid-svg-
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import WarnUser from "../WarnUser";
 
-// -- LoginModal --
+// --- LoginModal ---
 // A refactor of LoginDropdown, component uses multiple methods 
 // from UserAccountProvider to render custom Bulma Notification,
 // using warningProps object in state.

@@ -6,6 +6,27 @@ import { faHatWizard, faUser, faLock, faSnowflake } from '@fortawesome/free-soli
 import { UserAccountContext } from "../../providers/UserAccountProvider";
 import WarnUser from "../WarnUser";
 
+//  --- RegisterModal ---
+//  A refactor of RegisterModal, it uses multiple methods 
+//  from UserAccountProvider to render custom Bulma Notification, 
+//  like it's counterpart LoginModal.
+//  The component's local state is used to store the following:
+//  - name
+//  - email
+//  - displayName
+//  - password
+//  - passwordConfirmation
+//  
+//   Once the form fields are completed and the user clicks the register button, 
+//  the handleRegister function takes the following action:
+//  - prevents eventListner default
+//  - Checks to confirm the password and the password confirmation feels are the same
+//  - toggles authButtonLoad state to true, providing UI feedback to user
+//  - utilizes useHistory and useLocation to ensure user's current app page
+//  is continually displayed
+//  - catch method redirects Firebase error to build warningProps object 
+//  rendering WarnUser component.
+
 
 const RegisterModal = () => {
     const history = useHistory();

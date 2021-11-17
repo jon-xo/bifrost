@@ -64,11 +64,13 @@ const RegisterModal = () => {
                     setWarningProps({ 
                         textSize: 5,
                         color: 'warning', 
-                        hidden: 'false',  
+                        hidden: false,  
                         message: `The email ${email} is already in use.`
                     })
                 }
-            });
+                setAuthButtonLoad(false)
+            }
+            );
         }
     };
 

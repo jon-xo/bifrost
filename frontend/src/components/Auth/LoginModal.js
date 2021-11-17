@@ -40,6 +40,7 @@ const LoginModal = () => {
                 hidden: false,  
                 message: 'Invalid email or password'
             });
+            setAuthButtonLoad(false);
         });
     }
 

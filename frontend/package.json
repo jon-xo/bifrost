@@ -1,6 +1,6 @@
 {
   "name": "bifrost",
-  "proxy": "https://localhost:5001",
+  "proxy": "https://frostapi.jonxo.dev",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

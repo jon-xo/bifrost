@@ -27,7 +27,7 @@ export const UserAccountProvider = (props) => {
     // 
 
     
-    const apiUrl = "https://localhost:5001/api/useraccount";
+    const apiUrl = "https://frostapi.jonxo.dev";
 
     const userAccount = sessionStorage.getItem("userAccount");
     const [ isLoggedIn, setIsLoggedIn ] = useState(userAccount != null);
@@ -100,7 +100,7 @@ export const UserAccountProvider = (props) => {
 
     const getUserAccount = (firebaseUserId) => {
         return getToken().then((token) =>         
-        fetch(`https://localhost:5001/api/useraccount/${firebaseUserId}`, {
+        fetch(`${apiUrl}/api/useraccount/${firebaseUserId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -111,7 +111,7 @@ export const UserAccountProvider = (props) => {
     const getUserById = (userId, fullSync) => {
         if(fullSync){
             return getToken().then((token) =>
-            fetch(`https://localhost:5001/api/useraccount/u?uId=${userId}`, {
+            fetch(`${apiUrl}/api/useraccount/u?uId=${userId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -121,7 +121,7 @@ export const UserAccountProvider = (props) => {
             .then(r => updateUserObject(r)))
         } else {
             return getToken().then((token) =>
-            fetch(`https://localhost:5001/api/useraccount/u?uId=${userId}`, {
+            fetch(`${apiUrl}/api/useraccount/u?uId=${userId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`

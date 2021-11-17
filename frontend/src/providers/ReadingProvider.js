@@ -15,7 +15,7 @@ export const ReadingProvider = (props) => {
     const [ toggleState, setToggleState ] = useState(false);
     const { getToken } = useContext(UserAccountContext);
     
-    const apiUrl = 'https://localhost:5001/api/savedcontent'
+    const apiUrl = 'https://frostapi.jonxo.dev/api/savedcontent'
 
     const getAllPublicContent = () => {
         return getToken().then((token) =>
@@ -33,7 +33,7 @@ export const ReadingProvider = (props) => {
     const getUsersReadingList = (userId, fBool) => {
         // setRefreshState(false);
         if(fBool){
-            debugger
+            // debugger
             return getToken().then((token) =>
                 fetch(`${apiUrl}/${userId}`, {
                     method: "GET",

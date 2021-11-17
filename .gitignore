@@ -397,6 +397,7 @@ FodyWeavers.xsd
 ## testing
 /coverage
 appsettings.Local.json
+appsettings.json
 
 ## production
 /build
@@ -412,3 +413,5 @@ appsettings.Local.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/bifrost/appsettings.json

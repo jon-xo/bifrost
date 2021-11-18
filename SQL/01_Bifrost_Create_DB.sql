@@ -27,7 +27,7 @@ CREATE TABLE [UserAccount] (
 
 
 CREATE TABLE [SavedContent] (
-  [Id] int PRIMARY KEY IDENTITY(1, 1),
+  [Id] int PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   [UserId] int,
   [CVApiKey] int,
   [PBApiKey] nvarchar(15),

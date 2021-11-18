@@ -415,3 +415,4 @@ yarn-debug.log*
 yarn-error.log*
 
 /bifrost/appsettings.json
+.vscode/

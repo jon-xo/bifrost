@@ -84,6 +84,7 @@ Or select **Register** from the top-right corner of the application menu to crea
 ## Usage
 
 Bifröst utilizes a static navigation menu bar to navigate application components: 
+
 _Components with a __*__ are only visible to an authenticated user._
 
 ### Home
@@ -94,22 +95,22 @@ The site landing page; displays a scrollable list of current comic releases. The
 
 The releases tab contains three identical views: Previous, Current, and Upcoming Comics. Each view shows a list of comics available for the corresponding release date in the upper-left corner of the page.
 
-### Reading List
+### Reading List *
 
 The Reading List tab holds all comic issues and volumes added by an authenticated user. The view includes two columns to organize unread and read content cards and provide a related total. Each content card provides an option to toggle read/unread status; a user can delete content cards with a confirmation modal.
 
-### Activity
+### Activity *
 
 The Activity view provides an authenticated user of reading list activity from all public users. Public user activity is colored blue, with the current authenticated user's activity colored gray. Below the public activity cards, the authenticated user can toggle a follow status to track specific users.
 
-### Follows
+### Follows *
 
 If an authenticated user has clicked the **Follow** option on a user activity card, the Follows view provides a friends list of all selected accounts. Clicking the **Show Activity** button for the listed user shows a user-specific timeline of reading activity cards.
 
-### Search
+### Search 
 
 Search provides user access to search for back issues or a comic volume (series of comic issues). Search results are limited to the first ten matching results.
 
-### Settings
+### Settings *
 
 The settings view allows authenticated users to update their account display name, user summary, and private status. When a user enables the **Private Account** option, the database updates to hide related user activity from the **Activity** and **Follows** views.

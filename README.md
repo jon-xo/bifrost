@@ -1,4 +1,18 @@
 # ❄ bifröst - Community Comic Book Manager
+
+## Table of Content
+  - [About](#about)
+  - [Getting Started](#getting-started)
+    - [Online Demo](#online-demo)
+    - [Local Installation](#local-installation)
+  - [Usage](#usage)
+    - [Home](#home)
+    - [Releases](#releases)
+    - [Reading List](#reading-list)
+    - [Activity](#activity)
+    - [Follows](#follows)
+    - [Search](#search)
+    - [Settings](#settings)
 ## About
 
 Bifröst is a single-page comic book management application that combines new comic book discovery with an integrated social, user-sharing platform. Inspired by the community-based reading application Goodreads, bifröst allows users to curate a personal reading or pull-list of comics and share these selections in a continuous public timeline.
@@ -59,7 +73,7 @@ Or select **Register** from the top-right corner of the application menu to crea
    4. **Right-click** the SQL Server node, select 
    5. In the dialog that appears, expand the **Local** node and select the SQL Server instance called **SQLEXPRESS**
    6. Click **connect**
-10. In the Visual Studio Code SQL Server Object Explorer, right click the **SQLEXPRESS** server and select **New Query...** from the context menu.
+10. In the Visual Studio Code SQL Server Object Explorer, right-click the **SQLEXPRESS** server and select **New Query...** from the context menu.
 11. Copy the contents of the `01_Bifrost_Create_DB.sql` script in `SQL` directory and paste into the new query tab and click the Execute button (*Control+Shift+E*).
 12. Repeat the process for the second SQL script `02_Bifrost_BuildData.sql`.
 13. Start the application:
@@ -69,18 +83,33 @@ Or select **Register** from the top-right corner of the application menu to crea
 
 ## Usage
 
-**List of site sections**
+Bifröst utilizes a static navigation menu bar to navigate application components: 
+_Components with a __*__ are only visible to an authenticated user._
 
-- Home
-- Releases
-    - Previous Comics
-    - Current Comics
-    - Upcoming Comics
-- Reading List
-- Activity
-- Follows
-- Settings
+### Home
 
+The site landing page; displays a scrollable list of current comic releases. The home view randomizes a new featured comic cover on application load and highlights the comic in the Newsstand list.
 
+### Releases
 
-... **[WIP]** ...
+The releases tab contains three identical views: Previous, Current, and Upcoming Comics. Each view shows a list of comics available for the corresponding release date in the upper-left corner of the page.
+
+### Reading List
+
+The Reading List tab holds all comic issues and volumes added by an authenticated user. The view includes two columns to organize unread and read content cards and provide a related total. Each content card provides an option to toggle read/unread status; a user can delete content cards with a confirmation modal.
+
+### Activity
+
+The Activity view provides an authenticated user of reading list activity from all public users. Public user activity is colored blue, with the current authenticated user's activity colored gray. Below the public activity cards, the authenticated user can toggle a follow status to track specific users.
+
+### Follows
+
+If an authenticated user has clicked the **Follow** option on a user activity card, the Follows view provides a friends list of all selected accounts. Clicking the **Show Activity** button for the listed user shows a user-specific timeline of reading activity cards.
+
+### Search
+
+Search provides user access to search for back issues or a comic volume (series of comic issues). Search results are limited to the first ten matching results.
+
+### Settings
+
+The settings view allows authenticated users to update their account display name, user summary, and private status. When a user enables the **Private Account** option, the database updates to hide related user activity from the **Activity** and **Follows** views.

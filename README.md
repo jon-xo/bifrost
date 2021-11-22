@@ -9,7 +9,7 @@ Bifröst is composed of a React frontend—styled with [React Bulma Components](
 
 ### Online Demo
 
-Bifröst is available online at https://bifrost.jonxo.dev. A Virtual Private Server running Ubuntu 20.04 and Docker 20.10 hosts the live application. Each main app component (frontend, API, and database) is available in a Docker container, served via a [NGINX reverse proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/), and secured using a [Let's Encrypt SSL certificate](https://certbot.eff.org/).
+Bifröst is available online at https://bifrost.jonxo.dev. A Virtual Private Server running Ubuntu 20.04 and Docker 20.10 hosts the live application. Each main app component (frontend<sup id="a1">*(#f1)</sup>, API, and database) is available in a Docker container, served via a [NGINX reverse proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/), and secured using a [Let's Encrypt SSL certificate](https://certbot.eff.org/).
 
 To view sample user data, login following credentials:
 ```md
@@ -18,6 +18,7 @@ To view sample user data, login following credentials:
 ```
 Or select **Register** from the top-right corner of the application menu to create a new account.
 
+<b id="f1">__*__</b> The application frontend relies on an express server middleware to make multiple API requests, additional information is available in a related [Github repo](https://github.com/jon-xo/bifrost-proxy).
 
 ### Local Installation
 
